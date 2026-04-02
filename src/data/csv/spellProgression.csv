@@ -1,0 +1,204 @@
+class,class_id,subclass,subclass_id,level,max_spell_level,slot_1,slot_2,slot_3,slot_4,slot_5,slot_6,slot_7,slot_8,slot_9,pact_slot_level,pact_slots
+Bard,bard,"","",1,1,2,0,0,0,0,0,0,0,0,0,0
+Bard,bard,"","",2,1,3,0,0,0,0,0,0,0,0,0,0
+Bard,bard,"","",3,2,4,2,0,0,0,0,0,0,0,0,0
+Bard,bard,"","",4,2,4,3,0,0,0,0,0,0,0,0,0
+Bard,bard,"","",5,3,4,3,2,0,0,0,0,0,0,0,0
+Bard,bard,"","",6,3,4,3,3,0,0,0,0,0,0,0,0
+Bard,bard,"","",7,4,4,3,3,1,0,0,0,0,0,0,0
+Bard,bard,"","",8,4,4,3,3,2,0,0,0,0,0,0,0
+Bard,bard,"","",9,5,4,3,3,3,1,0,0,0,0,0,0
+Bard,bard,"","",10,5,4,3,3,3,2,0,0,0,0,0,0
+Bard,bard,"","",11,6,4,3,3,3,2,1,0,0,0,0,0
+Bard,bard,"","",12,6,4,3,3,3,2,1,0,0,0,0,0
+Bard,bard,"","",13,7,4,3,3,3,2,1,1,0,0,0,0
+Bard,bard,"","",14,7,4,3,3,3,2,1,1,0,0,0,0
+Bard,bard,"","",15,8,4,3,3,3,2,1,1,1,0,0,0
+Bard,bard,"","",16,8,4,3,3,3,2,1,1,1,0,0,0
+Bard,bard,"","",17,9,4,3,3,3,2,1,1,1,1,0,0
+Bard,bard,"","",18,9,4,3,3,3,3,1,1,1,1,0,0
+Bard,bard,"","",19,9,4,3,3,3,3,2,1,1,1,0,0
+Bard,bard,"","",20,9,4,3,3,3,3,2,2,1,1,0,0
+
+Cleric,cleric,"","",1,1,2,0,0,0,0,0,0,0,0,0,0
+Cleric,cleric,"","",2,1,3,0,0,0,0,0,0,0,0,0,0
+Cleric,cleric,"","",3,2,4,2,0,0,0,0,0,0,0,0,0
+Cleric,cleric,"","",4,2,4,3,0,0,0,0,0,0,0,0,0
+Cleric,cleric,"","",5,3,4,3,2,0,0,0,0,0,0,0,0
+Cleric,cleric,"","",6,3,4,3,3,0,0,0,0,0,0,0,0
+Cleric,cleric,"","",7,4,4,3,3,1,0,0,0,0,0,0,0
+Cleric,cleric,"","",8,4,4,3,3,2,0,0,0,0,0,0,0
+Cleric,cleric,"","",9,5,4,3,3,3,1,0,0,0,0,0,0
+Cleric,cleric,"","",10,5,4,3,3,3,2,0,0,0,0,0,0
+Cleric,cleric,"","",11,6,4,3,3,3,2,1,0,0,0,0,0
+Cleric,cleric,"","",12,6,4,3,3,3,2,1,0,0,0,0,0
+Cleric,cleric,"","",13,7,4,3,3,3,2,1,1,0,0,0,0
+Cleric,cleric,"","",14,7,4,3,3,3,2,1,1,0,0,0,0
+Cleric,cleric,"","",15,8,4,3,3,3,2,1,1,1,0,0,0
+Cleric,cleric,"","",16,8,4,3,3,3,2,1,1,1,0,0,0
+Cleric,cleric,"","",17,9,4,3,3,3,2,1,1,1,1,0,0
+Cleric,cleric,"","",18,9,4,3,3,3,3,1,1,1,1,0,0
+Cleric,cleric,"","",19,9,4,3,3,3,3,2,1,1,1,0,0
+Cleric,cleric,"","",20,9,4,3,3,3,3,2,2,1,1,0,0
+
+Druid,druid,"","",1,1,2,0,0,0,0,0,0,0,0,0,0
+Druid,druid,"","",2,1,3,0,0,0,0,0,0,0,0,0,0
+Druid,druid,"","",3,2,4,2,0,0,0,0,0,0,0,0,0
+Druid,druid,"","",4,2,4,3,0,0,0,0,0,0,0,0,0
+Druid,druid,"","",5,3,4,3,2,0,0,0,0,0,0,0,0
+Druid,druid,"","",6,3,4,3,3,0,0,0,0,0,0,0,0
+Druid,druid,"","",7,4,4,3,3,1,0,0,0,0,0,0,0
+Druid,druid,"","",8,4,4,3,3,2,0,0,0,0,0,0,0
+Druid,druid,"","",9,5,4,3,3,3,1,0,0,0,0,0,0
+Druid,druid,"","",10,5,4,3,3,3,2,0,0,0,0,0,0
+Druid,druid,"","",11,6,4,3,3,3,2,1,0,0,0,0,0
+Druid,druid,"","",12,6,4,3,3,3,2,1,0,0,0,0,0
+Druid,druid,"","",13,7,4,3,3,3,2,1,1,0,0,0,0
+Druid,druid,"","",14,7,4,3,3,3,2,1,1,0,0,0,0
+Druid,druid,"","",15,8,4,3,3,3,2,1,1,1,0,0,0
+Druid,druid,"","",16,8,4,3,3,3,2,1,1,1,0,0,0
+Druid,druid,"","",17,9,4,3,3,3,2,1,1,1,1,0,0
+Druid,druid,"","",18,9,4,3,3,3,3,1,1,1,1,0,0
+Druid,druid,"","",19,9,4,3,3,3,3,2,1,1,1,0,0
+Druid,druid,"","",20,9,4,3,3,3,3,2,2,1,1,0,0
+
+Sorcerer,sorcerer,"","",1,1,2,0,0,0,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",2,1,3,0,0,0,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",3,2,4,2,0,0,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",4,2,4,3,0,0,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",5,3,4,3,2,0,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",6,3,4,3,3,0,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",7,4,4,3,3,1,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",8,4,4,3,3,2,0,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",9,5,4,3,3,3,1,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",10,5,4,3,3,3,2,0,0,0,0,0,0
+Sorcerer,sorcerer,"","",11,6,4,3,3,3,2,1,0,0,0,0,0
+Sorcerer,sorcerer,"","",12,6,4,3,3,3,2,1,0,0,0,0,0
+Sorcerer,sorcerer,"","",13,7,4,3,3,3,2,1,1,0,0,0,0
+Sorcerer,sorcerer,"","",14,7,4,3,3,3,2,1,1,0,0,0,0
+Sorcerer,sorcerer,"","",15,8,4,3,3,3,2,1,1,1,0,0,0
+Sorcerer,sorcerer,"","",16,8,4,3,3,3,2,1,1,1,0,0,0
+Sorcerer,sorcerer,"","",17,9,4,3,3,3,2,1,1,1,1,0,0
+Sorcerer,sorcerer,"","",18,9,4,3,3,3,3,1,1,1,1,0,0
+Sorcerer,sorcerer,"","",19,9,4,3,3,3,3,2,1,1,1,0,0
+Sorcerer,sorcerer,"","",20,9,4,3,3,3,3,2,2,1,1,0,0
+
+Wizard,wizard,"","",1,1,2,0,0,0,0,0,0,0,0,0,0
+Wizard,wizard,"","",2,1,3,0,0,0,0,0,0,0,0,0,0
+Wizard,wizard,"","",3,2,4,2,0,0,0,0,0,0,0,0,0
+Wizard,wizard,"","",4,2,4,3,0,0,0,0,0,0,0,0,0
+Wizard,wizard,"","",5,3,4,3,2,0,0,0,0,0,0,0,0
+Wizard,wizard,"","",6,3,4,3,3,0,0,0,0,0,0,0,0
+Wizard,wizard,"","",7,4,4,3,3,1,0,0,0,0,0,0,0
+Wizard,wizard,"","",8,4,4,3,3,2,0,0,0,0,0,0,0
+Wizard,wizard,"","",9,5,4,3,3,3,1,0,0,0,0,0,0
+Wizard,wizard,"","",10,5,4,3,3,3,2,0,0,0,0,0,0
+Wizard,wizard,"","",11,6,4,3,3,3,2,1,0,0,0,0,0
+Wizard,wizard,"","",12,6,4,3,3,3,2,1,0,0,0,0,0
+Wizard,wizard,"","",13,7,4,3,3,3,2,1,1,0,0,0,0
+Wizard,wizard,"","",14,7,4,3,3,3,2,1,1,0,0,0,0
+Wizard,wizard,"","",15,8,4,3,3,3,2,1,1,1,0,0,0
+Wizard,wizard,"","",16,8,4,3,3,3,2,1,1,1,0,0,0
+Wizard,wizard,"","",17,9,4,3,3,3,2,1,1,1,1,0,0
+Wizard,wizard,"","",18,9,4,3,3,3,3,1,1,1,1,0,0
+Wizard,wizard,"","",19,9,4,3,3,3,3,2,1,1,1,0,0
+Wizard,wizard,"","",20,9,4,3,3,3,3,2,2,1,1,0,0
+
+Warlock,warlock,"","",1,1,0,0,0,0,0,0,0,0,0,1,1
+Warlock,warlock,"","",2,1,0,0,0,0,0,0,0,0,0,1,2
+Warlock,warlock,"","",3,2,0,0,0,0,0,0,0,0,0,2,2
+Warlock,warlock,"","",4,2,0,0,0,0,0,0,0,0,0,2,2
+Warlock,warlock,"","",5,3,0,0,0,0,0,0,0,0,0,3,2
+Warlock,warlock,"","",6,3,0,0,0,0,0,0,0,0,0,3,2
+Warlock,warlock,"","",7,4,0,0,0,0,0,0,0,0,0,4,2
+Warlock,warlock,"","",8,4,0,0,0,0,0,0,0,0,0,4,2
+Warlock,warlock,"","",9,5,0,0,0,0,0,0,0,0,0,5,2
+Warlock,warlock,"","",10,5,0,0,0,0,0,0,0,0,0,5,2
+Warlock,warlock,"","",11,5,0,0,0,0,0,0,0,0,0,5,3
+Warlock,warlock,"","",12,5,0,0,0,0,0,0,0,0,0,5,3
+Warlock,warlock,"","",13,5,0,0,0,0,0,0,0,0,0,5,3
+Warlock,warlock,"","",14,5,0,0,0,0,0,0,0,0,0,5,3
+Warlock,warlock,"","",15,5,0,0,0,0,0,0,0,0,0,5,3
+Warlock,warlock,"","",16,5,0,0,0,0,0,0,0,0,0,5,3
+Warlock,warlock,"","",17,5,0,0,0,0,0,0,0,0,0,5,4
+Warlock,warlock,"","",18,5,0,0,0,0,0,0,0,0,0,5,4
+Warlock,warlock,"","",19,5,0,0,0,0,0,0,0,0,0,5,4
+Warlock,warlock,"","",20,5,0,0,0,0,0,0,0,0,0,5,4
+
+Paladin,paladin,"","",2,1,2,0,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",3,1,3,0,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",4,1,3,0,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",5,2,4,2,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",6,2,4,2,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",7,2,4,3,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",8,2,4,3,0,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",9,3,4,3,2,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",10,3,4,3,2,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",11,3,4,3,3,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",12,3,4,3,3,0,0,0,0,0,0,0,0
+Paladin,paladin,"","",13,4,4,3,3,1,0,0,0,0,0,0,0
+Paladin,paladin,"","",14,4,4,3,3,1,0,0,0,0,0,0,0
+Paladin,paladin,"","",15,4,4,3,3,2,0,0,0,0,0,0,0
+Paladin,paladin,"","",16,4,4,3,3,2,0,0,0,0,0,0,0
+Paladin,paladin,"","",17,5,4,3,3,3,1,0,0,0,0,0,0
+Paladin,paladin,"","",18,5,4,3,3,3,1,0,0,0,0,0,0
+Paladin,paladin,"","",19,5,4,3,3,3,2,0,0,0,0,0,0
+Paladin,paladin,"","",20,5,4,3,3,3,2,0,0,0,0,0,0
+
+Ranger,ranger,"","",2,1,2,0,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",3,1,3,0,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",4,1,3,0,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",5,2,4,2,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",6,2,4,2,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",7,2,4,3,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",8,2,4,3,0,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",9,3,4,3,2,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",10,3,4,3,2,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",11,3,4,3,3,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",12,3,4,3,3,0,0,0,0,0,0,0,0
+Ranger,ranger,"","",13,4,4,3,3,1,0,0,0,0,0,0,0
+Ranger,ranger,"","",14,4,4,3,3,1,0,0,0,0,0,0,0
+Ranger,ranger,"","",15,4,4,3,3,2,0,0,0,0,0,0,0
+Ranger,ranger,"","",16,4,4,3,3,2,0,0,0,0,0,0,0
+Ranger,ranger,"","",17,5,4,3,3,3,1,0,0,0,0,0,0
+Ranger,ranger,"","",18,5,4,3,3,3,1,0,0,0,0,0,0
+Ranger,ranger,"","",19,5,4,3,3,3,2,0,0,0,0,0,0
+Ranger,ranger,"","",20,5,4,3,3,3,2,0,0,0,0,0,0
+
+Fighter,fighter,Eldritch Knight,eldritch_knight,3,1,2,0,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,4,1,3,0,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,5,1,3,0,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,6,1,3,0,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,7,2,4,2,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,8,2,4,2,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,9,2,4,2,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,10,2,4,3,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,11,2,4,3,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,12,2,4,3,0,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,13,3,4,3,2,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,14,3,4,3,2,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,15,3,4,3,2,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,16,3,4,3,3,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,17,3,4,3,3,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,18,3,4,3,3,0,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,19,4,4,3,3,1,0,0,0,0,0,0,0
+Fighter,fighter,Eldritch Knight,eldritch_knight,20,4,4,3,3,1,0,0,0,0,0,0,0
+
+Rogue,rogue,Arcane Trickster,arcane_trickster,3,1,2,0,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,4,1,3,0,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,5,1,3,0,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,6,1,3,0,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,7,2,4,2,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,8,2,4,2,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,9,2,4,2,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,10,2,4,3,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,11,2,4,3,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,12,2,4,3,0,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,13,3,4,3,2,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,14,3,4,3,2,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,15,3,4,3,2,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,16,3,4,3,3,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,17,3,4,3,3,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,18,3,4,3,3,0,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,19,4,4,3,3,1,0,0,0,0,0,0,0
+Rogue,rogue,Arcane Trickster,arcane_trickster,20,4,4,3,3,1,0,0,0,0,0,0,0

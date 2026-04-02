@@ -1,0 +1,19 @@
+skill_id,skill_name,ability_id,ability_name
+acrobatics,Acrobatics,dex,Dexterity
+animal_handling,Animal Handling,wis,Wisdom
+arcana,Arcana,int,Intelligence
+athletics,Athletics,str,Strength
+deception,Deception,cha,Charisma
+history,History,int,Intelligence
+insight,Insight,wis,Wisdom
+intimidation,Intimidation,cha,Charisma
+investigation,Investigation,int,Intelligence
+medicine,Medicine,wis,Wisdom
+nature,Nature,int,Intelligence
+perception,Perception,wis,Wisdom
+performance,Performance,cha,Charisma
+persuasion,Persuasion,cha,Charisma
+religion,Religion,int,Intelligence
+sleight_of_hand,Sleight of Hand,dex,Dexterity
+stealth,Stealth,dex,Dexterity
+survival,Survival,wis,Wisdom

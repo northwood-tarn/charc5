@@ -1,0 +1,16 @@
+id,name,feat,asi_options,skill_profs,tool_prof
+acolyte,Acolyte,Magic Initiate,INT|WIS|CHA,Insight|Religion,Calligrapher’s Supplies
+artisan,Artisan,Crafter,STR|DEX|INT,Investigation|Persuasion,Artisan’s Tools
+charlatan,Charlatan,Skilled,DEX|CHA|INT,Deception|Sleight of Hand,Disguise Kit
+criminal,Criminal,Alert,DEX|INT|CHA,Deception|Stealth,Thieves’ Tools
+entertainer,Entertainer,Musician,DEX|CHA|STR,Acrobatics|Performance,Musical Instrument
+farmer,Farmer,Tough,STR|CON|WIS,Animal Handling|Nature,Carpenter’s Tools
+guard,Guard,Alert,STR|CON|WIS,Athletics|Perception,Calligrapher’s Supplies
+guide,Guide,Lucky,DEX|WIS|CON,Survival|Nature,Cartographer’s Tools
+hermit,Hermit,Magic Initiate,CON|WIS|INT,Medicine|Religion,Herbalism Kit
+merchant,Merchant,Skilled,INT|CHA|DEX,Insight|Persuasion,Navigator’s Tools
+noble,Noble,Skilled,CHA|INT|WIS,History|Persuasion,Gaming Set
+sailor,Sailor,Tavern Brawler,STR|DEX|CON,Athletics|Perception,Navigator’s Tools
+scribe,Scribe,Skilled,INT|WIS|CHA,Investigation|Arcana,Calligrapher’s Supplies
+soldier,Soldier,Savage Attacker,STR|CON|DEX,Athletics|Intimidation,Gaming Set
+wayfarer,Wayfarer,Lucky,DEX|WIS|CHA,Survival|Insight,Calligrapher’s Supplies

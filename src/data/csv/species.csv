@@ -1,0 +1,31 @@
+species_id,name,lineage_id,lineage_name,size,speed,senses,resistances,languages
+aasimar,Aasimar,base,Base,Medium,30,Darkvision 60 ft,Radiant|Necrotic,Common|Choice
+dragonborn,Dragonborn,black,Black,Medium,30,,Acid,Common|Choice
+dragonborn,Dragonborn,blue,Blue,Medium,30,,Lightning,Common|Choice
+dragonborn,Dragonborn,brass,Brass,Medium,30,,Fire,Common|Choice
+dragonborn,Dragonborn,bronze,Bronze,Medium,30,,Lightning,Common|Choice
+dragonborn,Dragonborn,copper,Copper,Medium,30,,Acid,Common|Choice
+dragonborn,Dragonborn,gold,Gold,Medium,30,,Fire,Common|Choice
+dragonborn,Dragonborn,green,Green,Medium,30,,Poison,Common|Choice
+dragonborn,Dragonborn,red,Red,Medium,30,,Fire,Common|Choice
+dragonborn,Dragonborn,silver,Silver,Medium,30,,Cold,Common|Choice
+dragonborn,Dragonborn,white,White,Medium,30,,Cold,Common|Choice
+dwarf,Dwarf,base,Base,Medium,30,Darkvision 120 ft,Poison,Common|Choice
+elf,Elf,high,High,Medium,30,Darkvision 60 ft,,Common|Choice
+elf,Elf,wood,Wood,Medium,30,Darkvision 60 ft,,Common|Choice
+elf,Elf,drow,Drow,Medium,30,Darkvision 60 ft,,Common|Choice
+gnome,Gnome,forest,Forest,Small,30,Darkvision 60 ft,,Common|Choice
+gnome,Gnome,rock,Rock,Small,30,Darkvision 60 ft,,Common|Choice
+goliath,Goliath,cloud,Cloud,Medium,35,,,Common|Choice
+goliath,Goliath,fire,Fire,Medium,35,,,Common|Choice
+goliath,Goliath,frost,Frost,Medium,35,,,Common|Choice
+goliath,Goliath,hill,Hill,Medium,35,,,Common|Choice
+goliath,Goliath,stone,Stone,Medium,35,,,Common|Choice
+goliath,Goliath,storm,Storm,Medium,35,,,Common|Choice
+halfling,Halfling,lightfoot,Lightfoot,Small,30,,,Common|Choice
+halfling,Halfling,stout,Stout,Small,30,,,Common|Choice
+human,Human,base,Base,Medium,30,,,Common|Choice
+orc,Orc,base,Base,Medium,30,Darkvision 60 ft,,Common|Orc
+tiefling,Tiefling,abyssal,Abyssal,Medium,30,Darkvision 60 ft,Poison,Common|Choice
+tiefling,Tiefling,chthonic,Chthonic,Medium,30,Darkvision 60 ft,Necrotic,Common|Choice
+tiefling,Tiefling,infernal,Infernal,Medium,30,Darkvision 60 ft,Fire,Common|Choice

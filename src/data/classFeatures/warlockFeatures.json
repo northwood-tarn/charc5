@@ -1,0 +1,965 @@
+{
+  "class_id": "warlock",
+  "features": [
+    {
+      "id": "eldritch_invocations",
+      "name": "Eldritch Invocations",
+      "description": "Passive; you learn Eldritch Invocations—fragments of forbidden knowledge that grant magical abilities. You gain 1 invocation at Warlock 1 and more at higher levels (see class table). When you gain a Warlock level, you can replace 1 invocation with another you qualify for, but not one that is a prerequisite for another invocation you have. You can’t select the same invocation more than once unless it says otherwise.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "invocation",
+        "count_by_level": [
+          { "level": 1, "value": 1 },
+          { "level": 2, "value": 3 },
+          { "level": 3, "value": 3 },
+          { "level": 4, "value": 3 },
+          { "level": 5, "value": 5 },
+          { "level": 6, "value": 5 },
+          { "level": 7, "value": 6 },
+          { "level": 8, "value": 6 },
+          { "level": 9, "value": 7 },
+          { "level": 10, "value": 7 },
+          { "level": 11, "value": 7 },
+          { "level": 12, "value": 8 },
+          { "level": 13, "value": 8 },
+          { "level": 14, "value": 8 },
+          { "level": 15, "value": 9 },
+          { "level": 16, "value": 9 },
+          { "level": 17, "value": 9 },
+          { "level": 18, "value": 10 },
+          { "level": 19, "value": 10 },
+          { "level": 20, "value": 10 }
+        ],
+        "options": [
+          {
+            "id": "agonizing_blast",
+            "label": "Agonizing Blast",
+            "prereq_level": 2,
+            "description": "Choose a Warlock damage cantrip; add your Charisma modifier to its damage rolls. Repeatable with different cantrips."
+          },
+          {
+            "id": "armor_of_shadows",
+            "label": "Armor of Shadows",
+            "prereq_level": 0,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 1, "spells": ["mage_armor"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Mage Armor on yourself without expending a spell slot."
+          },
+          {
+            "id": "ascendant_step",
+            "label": "Ascendant Step",
+            "prereq_level": 5,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 2, "spells": ["levitate"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Levitate on yourself without expending a spell slot."
+          },
+          {
+            "id": "devils_sight",
+            "label": "Devil's Sight",
+            "prereq_level": 2,
+            "description": "You can see normally in Dim Light and Darkness, including magical darkness, within 120 ft."
+          },
+          {
+            "id": "devouring_blade",
+            "label": "Devouring Blade",
+            "prereq_level": 12,
+            "prerequisites": {
+              "invocations": ["thirsting_blade"]
+            },
+            "description": "Requires Thirsting Blade; your Extra Attack from that invocation becomes two extra attacks instead of one."
+          },
+          {
+            "id": "eldritch_mind",
+            "label": "Eldritch Mind",
+            "prereq_level": 0,
+            "description": "You have Advantage on Constitution saving throws to maintain Concentration."
+          },
+          {
+            "id": "eldritch_smite",
+            "label": "Eldritch Smite",
+            "prereq_level": 5,
+            "prerequisites": {
+              "invocations": ["pact_of_the_blade"]
+            },
+            "description": "Requires Pact of the Blade; once per turn on hit, expend a spell slot to deal +1d8 force damage per slot level and knock the target Prone (Huge or smaller)."
+          },
+          {
+            "id": "eldritch_spear",
+            "label": "Eldritch Spear",
+            "prereq_level": 2,
+            "description": "Choose a Warlock damage cantrip (range 10+ ft); its range increases by 30 × your Warlock level. Repeatable with different cantrips."
+          },
+          {
+            "id": "fiendish_vigor",
+            "label": "Fiendish Vigor",
+            "prereq_level": 2,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 1, "spells": ["false_life"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast False Life on yourself without expending a spell slot, gaining the maximum temporary HP."
+          },
+          {
+            "id": "gaze_of_two_minds",
+            "label": "Gaze of Two Minds",
+            "prereq_level": 5,
+            "description": "You can perceive through a willing creature’s senses and cast spells as if from its space (within range limits)."
+          },
+          {
+            "id": "gift_of_the_depths",
+            "label": "Gift of the Depths",
+            "prereq_level": 5,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 3, "spells": ["water_breathing"], "free_cast": 1 }
+              ]
+            },
+            "description": "You gain a Swim Speed and water breathing; you can cast Water Breathing without a slot once per Long Rest."
+          },
+          {
+            "id": "gift_of_the_protectors",
+            "label": "Gift of the Protectors",
+            "prereq_level": 9,
+            "prerequisites": {
+              "invocations": ["pact_of_the_tome"]
+            },
+            "description": "Requires Pact of the Tome; creatures named in your Book drop to 1 HP instead of 0 once per Long Rest."
+          },
+          {
+            "id": "investment_of_the_chain_master",
+            "label": "Investment of the Chain Master",
+            "prereq_level": 5,
+            "prerequisites": {
+              "invocations": ["pact_of_the_chain"]
+            },
+            "description": "Requires Pact of the Chain; your familiar gains improved mobility, uses your save DC, can attack as a Bonus Action, and gains damage resistance."
+          },
+          {
+            "id": "lessons_of_the_first_ones",
+            "label": "Lessons of the First Ones",
+            "prereq_level": 2,
+            "description": "You gain one Origin feat. Repeatable."
+          },
+          {
+            "id": "lifedrinker",
+            "label": "Lifedrinker",
+            "prereq_level": 9,
+            "prerequisites": {
+              "invocations": ["pact_of_the_blade"]
+            },
+            "description": "Requires Pact of the Blade; your pact weapon deals +1d6 (necrotic/psychic/radiant), and you can expend a Hit Die to heal when you hit."
+          },
+          {
+            "id": "mask_of_many_faces",
+            "label": "Mask of Many Faces",
+            "prereq_level": 2,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 1, "spells": ["disguise_self"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Disguise Self without expending a spell slot."
+          },
+          {
+            "id": "master_of_myriad_forms",
+            "label": "Master of Myriad Forms",
+            "prereq_level": 5,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 2, "spells": ["alter_self"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Alter Self without expending a spell slot."
+          },
+          {
+            "id": "misty_visions",
+            "label": "Misty Visions",
+            "prereq_level": 2,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 1, "spells": ["silent_image"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Silent Image without expending a spell slot."
+          },
+          {
+            "id": "one_with_shadows",
+            "label": "One with Shadows",
+            "prereq_level": 5,
+            "description": "While in Dim Light or Darkness, you can become Invisible without expending a spell slot."
+          },
+          {
+            "id": "otherworldly_leap",
+            "label": "Otherworldly Leap",
+            "prereq_level": 2,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 1, "spells": ["jump"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Jump on yourself without expending a spell slot."
+          },
+          {
+            "id": "pact_of_the_blade",
+            "label": "Pact of the Blade",
+            "prereq_level": 1,
+            "description": "You conjure a pact weapon, can use Charisma for attack and damage rolls, and choose its damage type."
+          },
+          {
+            "id": "pact_of_the_chain",
+            "label": "Pact of the Chain",
+            "prereq_level": 1,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 1, "spells": ["find_familiar"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Find Familiar without a slot; the familiar has special forms and can attack."
+          },
+          {
+            "id": "pact_of_the_tome",
+            "label": "Pact of the Tome",
+            "prereq_level": 1,
+            "effects": {
+              "spell_grants": [
+                { "kind": "choice", "count": 3, "level": 0, "class_list": "any", "free_cast": 0, "always_prepared": true },
+                { "kind": "choice", "count": 2, "ritual_only": true, "class_list": "any", "free_cast": 0, "always_prepared": true }
+              ]
+            },
+            "description": "You gain a Book of Shadows with 3 cantrips and 2 ritual spells from any class list, always prepared."
+          },
+          {
+            "id": "repelling_blast",
+            "label": "Repelling Blast",
+            "prereq_level": 2,
+            "description": "When you hit with a Warlock cantrip attack, push the target up to 10 ft away. Repeatable."
+          },
+          {
+            "id": "thirsting_blade",
+            "label": "Thirsting Blade",
+            "prereq_level": 5,
+            "prerequisites": {
+              "invocations": ["pact_of_the_blade"]
+            },
+            "description": "Requires Pact of the Blade; you gain Extra Attack with your pact weapon."
+          },
+          {
+            "id": "visions_of_distant_realms",
+            "label": "Visions of Distant Realms",
+            "prereq_level": 9,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 4, "spells": ["arcane_eye"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Arcane Eye without expending a spell slot."
+          },
+          {
+            "id": "whispers_of_the_grave",
+            "label": "Whispers of the Grave",
+            "prereq_level": 7,
+            "effects": {
+              "spell_grants": [
+                { "kind": "fixed", "level": 3, "spells": ["speak_with_dead"], "free_cast": 1 }
+              ]
+            },
+            "description": "You can cast Speak with Dead without expending a spell slot."
+          },
+          {
+            "id": "witch_sight",
+            "label": "Witch Sight",
+            "prereq_level": 15,
+            "description": "You gain Truesight with a range of 30 ft."
+          }
+        ]
+      }
+    },
+    {
+      "id": "pact_magic",
+      "name": "Pact Magic",
+      "description": "Spellcasting; you know 2 Warlock cantrips (replace 1 when you gain a Warlock level; you learn additional cantrips at Warlock 4 and 10). Pact Slots: you have a small number of spell slots, all of the same level (1st–5th), regained on a Short or Long Rest. Prepared Spells: start with 2 level-1 Warlock spells; your prepared spells increase by level (see class table). When you gain a Warlock level, you can replace 1 prepared spell. Spellcasting ability: Charisma. Focus: Arcane Focus.",
+      "level": 1,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "cantrips",
+            "resource_name": "Cantrips",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "3" },
+              { "level": 5, "value": "3" },
+              { "level": 6, "value": "3" },
+              { "level": 7, "value": "3" },
+              { "level": 8, "value": "3" },
+              { "level": 9, "value": "3" },
+              { "level": 10, "value": "4" },
+              { "level": 11, "value": "4" },
+              { "level": 12, "value": "4" },
+              { "level": 13, "value": "4" },
+              { "level": 14, "value": "4" },
+              { "level": 15, "value": "4" },
+              { "level": 16, "value": "4" },
+              { "level": 17, "value": "4" },
+              { "level": 18, "value": "4" },
+              { "level": 19, "value": "4" },
+              { "level": 20, "value": "4" }
+            ]
+          },
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "4" },
+              { "level": 3, "value": "6" },
+              { "level": 4, "value": "7" },
+              { "level": 5, "value": "9" },
+              { "level": 6, "value": "10" },
+              { "level": 7, "value": "11" },
+              { "level": 8, "value": "12" },
+              { "level": 9, "value": "14" },
+              { "level": 10, "value": "15" },
+              { "level": 11, "value": "16" },
+              { "level": 12, "value": "16" },
+              { "level": 13, "value": "17" },
+              { "level": 14, "value": "17" },
+              { "level": 15, "value": "18" },
+              { "level": 16, "value": "18" },
+              { "level": 17, "value": "19" },
+              { "level": 18, "value": "20" },
+              { "level": 19, "value": "21" },
+              { "level": 20, "value": "22" }
+            ]
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4" },
+              { "level": 4, "value": "5" },
+              { "level": 5, "value": "6" },
+              { "level": 6, "value": "7" },
+              { "level": 7, "value": "8" },
+              { "level": 8, "value": "9" },
+              { "level": 9, "value": "10" },
+              { "level": 10, "value": "10" },
+              { "level": 11, "value": "11" },
+              { "level": 12, "value": "11" },
+              { "level": 13, "value": "12" },
+              { "level": 14, "value": "12" },
+              { "level": 15, "value": "13" },
+              { "level": 16, "value": "13" },
+              { "level": 17, "value": "14" },
+              { "level": 18, "value": "14" },
+              { "level": 19, "value": "15" },
+              { "level": 20, "value": "15" }
+            ]
+          },
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Pact Slot",
+            "scaling": [
+              { "level": 1, "value": "1" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "2" },
+              { "level": 5, "value": "2" },
+              { "level": 6, "value": "2" },
+              { "level": 7, "value": "2" },
+              { "level": 8, "value": "2" },
+              { "level": 9, "value": "2" },
+              { "level": 10, "value": "2" },
+              { "level": 11, "value": "3" },
+              { "level": 12, "value": "3" },
+              { "level": 13, "value": "3" },
+              { "level": 14, "value": "3" },
+              { "level": 15, "value": "3" },
+              { "level": 16, "value": "3" },
+              { "level": 17, "value": "4" },
+              { "level": 18, "value": "4" },
+              { "level": 19, "value": "4" },
+              { "level": 20, "value": "4" }
+            ]
+          },
+          {
+            "resource_id": "pact_slot_level",
+            "resource_name": "Pact Slot Level",
+            "scaling": [
+              { "level": 1, "value": "1" },
+              { "level": 2, "value": "1" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "2" },
+              { "level": 5, "value": "3" },
+              { "level": 6, "value": "3" },
+              { "level": 7, "value": "4" },
+              { "level": 8, "value": "4" },
+              { "level": 9, "value": "5" },
+              { "level": 10, "value": "5" },
+              { "level": 11, "value": "5" },
+              { "level": 12, "value": "5" },
+              { "level": 13, "value": "5" },
+              { "level": 14, "value": "5" },
+              { "level": 15, "value": "5" },
+              { "level": 16, "value": "5" },
+              { "level": 17, "value": "5" },
+              { "level": 18, "value": "5" },
+              { "level": 19, "value": "5" },
+              { "level": 20, "value": "5" }
+            ]
+          }
+        ],
+        "recovery": {
+          "short_rest": "all",
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "magical_cunning",
+      "name": "Magical Cunning",
+      "description": "1-minute rite; at the end, you regain expended Pact Magic spell slots, up to half your maximum number of Pact Magic slots (round up). Once per Long Rest.",
+      "level": 2,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": 1,
+        "recovery": {
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "magical_cunning",
+      "stack_role": "base"
+    },
+    {
+      "id": "warlock_subclass",
+      "name": "Warlock Subclass",
+      "description": "Passive; choose a Warlock Patron (Archfey, Celestial, Fiend, or Great Old One). You gain Patron features at Warlock levels 3, 6, 10, and 14.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "warlock_subclasses"
+      }
+    },
+    {
+      "id": "ability_score_improvement_4",
+      "name": "Ability Score Improvement",
+      "description": "Passive; you gain the Ability Score Improvement feat or another feat you qualify for. (You gain this feature again at Warlock levels 8, 12, and 16.)",
+      "level": 4,
+      "type": "paper"
+    },
+    {
+      "id": "ability_score_improvement_8",
+      "name": "Ability Score Improvement",
+      "description": "Passive; you gain the Ability Score Improvement feat or another feat you qualify for.",
+      "level": 8,
+      "type": "paper"
+    },
+    {
+      "id": "contact_patron",
+      "name": "Contact Patron",
+      "description": "Passive + spell; you always have Contact Other Plane prepared. You can cast it without expending a spell slot to contact your patron and automatically succeed on the saving throw. Once per Long Rest.",
+      "level": 9,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "fixed", "level": 5, "spells": ["contact_other_plane"], "free_cast": 1 }
+        ]
+      },
+      "resource": {
+        "kind": "uses",
+        "value": 1,
+        "recovery": {
+          "long_rest": "all"
+        },
+        "applies_to": "contact_other_plane_free_cast"
+      }
+    },
+    {
+      "id": "mystic_arcanum_6",
+      "name": "Mystic Arcanum (6th)",
+      "description": "Choose one 6th-level Warlock spell as your Mystic Arcanum. You can cast that spell once without expending a spell slot; regain this use on a Long Rest. When you gain a Warlock level, you may replace this arcanum spell with another 6th-level Warlock spell.",
+      "level": 11,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "choice", "count": 1, "level": 6, "class_list": "warlock" }
+        ]
+      },
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "mystic_arcanum_6",
+            "resource_name": "Mystic Arcanum (6th)",
+            "scaling": [
+              { "level": 11, "value": "1" },
+              { "level": 12, "value": "1" },
+              { "level": 13, "value": "1" },
+              { "level": 14, "value": "1" },
+              { "level": 15, "value": "1" },
+              { "level": 16, "value": "1" },
+              { "level": 17, "value": "1" },
+              { "level": 18, "value": "1" },
+              { "level": 19, "value": "1" },
+              { "level": 20, "value": "1" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "ability_score_improvement_12",
+      "name": "Ability Score Improvement",
+      "description": "Passive; you gain the Ability Score Improvement feat or another feat you qualify for.",
+      "level": 12,
+      "type": "paper"
+    },
+    {
+      "id": "mystic_arcanum_7",
+      "name": "Mystic Arcanum (7th)",
+      "description": "Choose one 7th-level Warlock spell as your Mystic Arcanum. You can cast it once without expending a spell slot; regain this use on a Long Rest. When you gain a Warlock level, you may replace this arcanum spell with another 7th-level Warlock spell.",
+      "level": 13,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "choice", "count": 1, "level": 7, "class_list": "warlock" }
+        ]
+      },
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "mystic_arcanum_7",
+            "resource_name": "Mystic Arcanum (7th)",
+            "scaling": [
+              { "level": 13, "value": "1" },
+              { "level": 14, "value": "1" },
+              { "level": 15, "value": "1" },
+              { "level": 16, "value": "1" },
+              { "level": 17, "value": "1" },
+              { "level": 18, "value": "1" },
+              { "level": 19, "value": "1" },
+              { "level": 20, "value": "1" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "mystic_arcanum_8",
+      "name": "Mystic Arcanum (8th)",
+      "description": "Choose one 8th-level Warlock spell as your Mystic Arcanum. You can cast it once without expending a spell slot; regain this use on a Long Rest. When you gain a Warlock level, you may replace this arcanum spell with another 8th-level Warlock spell.",
+      "level": 15,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "choice", "count": 1, "level": 8, "class_list": "warlock" }
+        ]
+      },
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "mystic_arcanum_8",
+            "resource_name": "Mystic Arcanum (8th)",
+            "scaling": [
+              { "level": 15, "value": "1" },
+              { "level": 16, "value": "1" },
+              { "level": 17, "value": "1" },
+              { "level": 18, "value": "1" },
+              { "level": 19, "value": "1" },
+              { "level": 20, "value": "1" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "ability_score_improvement_16",
+      "name": "Ability Score Improvement",
+      "description": "Passive; you gain the Ability Score Improvement feat or another feat you qualify for.",
+      "level": 16,
+      "type": "paper"
+    },
+    {
+      "id": "mystic_arcanum_9",
+      "name": "Mystic Arcanum (9th)",
+      "description": "Choose one 9th-level Warlock spell as your Mystic Arcanum. You can cast it once without expending a spell slot; regain this use on a Long Rest. When you gain a Warlock level, you may replace this arcanum spell with another 9th-level Warlock spell.",
+      "level": 17,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "choice", "count": 1, "level": 9, "class_list": "warlock" }
+        ]
+      },
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "mystic_arcanum_9",
+            "resource_name": "Mystic Arcanum (9th)",
+            "scaling": [
+              { "level": 17, "value": "1" },
+              { "level": 18, "value": "1" },
+              { "level": 19, "value": "1" },
+              { "level": 20, "value": "1" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "Passive; you gain an Epic Boon feat (or another feat you qualify for).",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "eldritch_master",
+      "name": "Eldritch Master",
+      "description": "Passive; when you use Magical Cunning, you regain all your expended Pact Magic spell slots.",
+      "level": 20,
+      "type": "paper",
+      "feature_stack": "magical_cunning",
+      "stack_role": "modifier",
+      "modifies": ["magical_cunning"]
+    }
+  ],
+  "subclasses": {
+    "archfey_patron": {
+      "features": [
+        {
+          "id": "archfey_spells",
+          "name": "Archfey Spells",
+          "description": "Always-prepared spells by Warlock level: 3—Calm Emotions, Faerie Fire, Misty Step, Phantasmal Force, Sleep; 5—Blink, Plant Growth; 7—Dominate Beast, Greater Invisibility; 9—Dominate Person, Seeming.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "level": 1, "spells": ["faerie_fire", "sleep"] },
+              { "kind": "fixed", "level": 2, "spells": ["calm_emotions", "misty_step", "phantasmal_force"] },
+              { "kind": "fixed", "context": "warlock_5", "level": 3, "spells": ["blink", "plant_growth"] },
+              { "kind": "fixed", "context": "warlock_7", "level": 4, "spells": ["dominate_beast", "greater_invisibility"] },
+              { "kind": "fixed", "context": "warlock_9", "level": 5, "spells": ["dominate_person", "seeming"] }
+            ]
+          }
+        },
+        {
+          "id": "steps_of_the_fey",
+          "name": "Steps of the Fey",
+          "description": "You can cast Misty Step without expending a spell slot a number of times equal to your Charisma modifier (minimum 1); regain all uses on a Long Rest. Each time you cast Misty Step, choose one extra effect: Refreshing Step—after you teleport, you or one creature you can see within 10 ft of you gains 1d10 Temporary HP; Taunting Step—creatures within 5 ft of the space you left make a Wisdom save vs your spell save DC or have Disadvantage on attack rolls against creatures other than you until the start of your next turn.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "level": 2, "spells": ["misty_step"], "free_cast": { "formula": "charisma_modifier", "minimum": 1 } }
+            ]
+          }
+        },
+        {
+          "id": "misty_escape",
+          "name": "Misty Escape",
+          "description": "Reaction; when you take damage, you can cast Misty Step as a Reaction. Also, you add these Steps of the Fey options: Disappearing Step—you have the Invisible condition until the start of your next turn or until immediately after you make an attack roll, deal damage, or cast a spell; Dreadful Step—creatures within 5 ft of the space you left or the space you appear in (your choice) make a Wisdom save vs your spell save DC or take 2d10 Psychic damage.",
+          "level": 6,
+          "type": "paper",
+          "feature_stack": "steps_of_the_fey",
+          "stack_role": "modifier",
+          "modifies": ["steps_of_the_fey"]
+        },
+        {
+          "id": "beguiling_defenses",
+          "name": "Beguiling Defenses",
+          "description": "Passive + Reaction; you are immune to the Charmed condition. Also, immediately after a creature you can see hits you with an attack roll, you can use your Reaction to halve the damage you take (round down) and force the attacker to make a Wisdom save vs your spell save DC; on a failed save, the attacker takes Psychic damage equal to the damage you take. Once per Long Rest, unless you expend a Pact Magic spell slot (no action) to restore your use of this Reaction.",
+          "level": 10,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "derived_effects": {
+            "condition_immunities": ["charmed"]
+          }
+        },
+        {
+          "id": "bewitching_magic",
+          "name": "Bewitching Magic",
+          "description": "Immediately after you cast an Enchantment or Illusion spell using an action and a spell slot, you can cast Misty Step as part of the same action without expending a spell slot.",
+          "level": 14,
+          "type": "paper",
+          "feature_stack": "steps_of_the_fey",
+          "stack_role": "modifier",
+          "modifies": ["steps_of_the_fey"]
+        }
+      ]
+    },
+    "celestial_patron": {
+      "features": [
+        {
+          "id": "celestial_spells",
+          "name": "Celestial Spells",
+          "description": "Always-prepared spells/cantrips by Warlock level: 3—Aid, Cure Wounds, Guiding Bolt, Lesser Restoration, Light, Sacred Flame; 5—Daylight, Revivify; 7—Guardian of Faith, Wall of Fire; 9—Greater Restoration, Summon Celestial.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "level": 0, "spells": ["light", "sacred_flame"] },
+              { "kind": "fixed", "level": 1, "spells": ["cure_wounds", "guiding_bolt"] },
+              { "kind": "fixed", "level": 2, "spells": ["aid", "lesser_restoration"] },
+              { "kind": "fixed", "context": "warlock_5", "level": 3, "spells": ["daylight", "revivify"] },
+              { "kind": "fixed", "context": "warlock_7", "level": 4, "spells": ["guardian_of_faith", "wall_of_fire"] },
+              { "kind": "fixed", "context": "warlock_9", "level": 5, "spells": ["greater_restoration", "summon_celestial"] }
+            ]
+          }
+        },
+        {
+          "id": "healing_light",
+          "name": "Healing Light",
+          "description": "Bonus Action; 60 ft; you have a pool of d6s equal to 1 + your Warlock level. You heal yourself or one creature you can see within 60 ft by expending dice from the pool (max dice spent at once = your Charisma modifier, minimum 1). Roll the dice; the target regains HP equal to the total. Regain all expended dice on a Long Rest.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "healing_light_dice",
+                "resource_name": "Healing Light Dice",
+                "scaling": [
+                  { "level": 3, "value": "4d6" },
+                  { "level": 4, "value": "5d6" },
+                  { "level": 5, "value": "6d6" },
+                  { "level": 6, "value": "7d6" },
+                  { "level": 7, "value": "8d6" },
+                  { "level": 8, "value": "9d6" },
+                  { "level": 9, "value": "10d6" },
+                  { "level": 10, "value": "11d6" },
+                  { "level": 11, "value": "12d6" },
+                  { "level": 12, "value": "13d6" },
+                  { "level": 13, "value": "14d6" },
+                  { "level": 14, "value": "15d6" },
+                  { "level": 15, "value": "16d6" },
+                  { "level": 16, "value": "17d6" },
+                  { "level": 17, "value": "18d6" },
+                  { "level": 18, "value": "19d6" },
+                  { "level": 19, "value": "20d6" },
+                  { "level": 20, "value": "21d6" }
+                ]
+              }
+            ],
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "radiant_soul",
+          "name": "Radiant Soul",
+          "description": "Passive; you have Resistance to Radiant damage. Once per turn, when a spell you cast deals Radiant or Fire damage, add your Charisma modifier to that spell’s damage against one target of the spell.",
+          "level": 6,
+          "type": "derived_output",
+          "derived_effects": {
+            "resistances": ["radiant"]
+          }
+        },
+        {
+          "id": "celestial_resilience",
+          "name": "Celestial Resilience",
+          "description": "Whenever you finish a Short or Long Rest, or whenever you use Magical Cunning, you gain Temporary HP equal to your Warlock level + your Charisma modifier. Choose up to five creatures you can see when you gain those Temp HP; each chosen creature gains Temporary HP equal to half your Warlock level + your Charisma modifier.",
+          "level": 10,
+          "type": "paper"
+        },
+        {
+          "id": "searing_vengeance",
+          "name": "Searing Vengeance",
+          "description": "Trigger: when you or an ally within 60 ft is about to make a death saving throw. Effect: the creature regains HP equal to half its HP maximum and can end the Prone condition on itself. Each creature of your choice within 30 ft of that creature takes Radiant damage equal to 2d8 + your Charisma modifier and is Blinded until the end of the current turn. Uses: 1 per Long Rest.",
+          "level": 14,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        }
+      ]
+    },
+    "fiend_patron": {
+      "features": [
+        {
+          "id": "dark_ones_blessing",
+          "name": "Dark One's Blessing",
+          "description": "Passive; when you reduce an enemy to 0 HP, you gain Temporary HP equal to your Charisma modifier + your Warlock level (minimum 1). You also gain this benefit if someone else reduces an enemy within 10 ft of you to 0 HP.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "fiend_spells",
+          "name": "Fiend Spells",
+          "description": "Always-prepared spells by Warlock level: 3—Burning Hands, Command, Scorching Ray, Suggestion; 5—Fireball, Stinking Cloud; 7—Fire Shield, Wall of Fire; 9—Geas, Insect Plague.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "level": 1, "spells": ["burning_hands", "command"] },
+              { "kind": "fixed", "level": 2, "spells": ["scorching_ray", "suggestion"] },
+              { "kind": "fixed", "context": "warlock_5", "level": 3, "spells": ["fireball", "stinking_cloud"] },
+              { "kind": "fixed", "context": "warlock_7", "level": 4, "spells": ["fire_shield", "wall_of_fire"] },
+              { "kind": "fixed", "context": "warlock_9", "level": 5, "spells": ["geas", "insect_plague"] }
+            ]
+          }
+        },
+        {
+          "id": "dark_ones_own_luck",
+          "name": "Dark One's Own Luck",
+          "description": "After you roll an ability check or saving throw but before its effects occur, you can add 1d10 to the roll. Uses: a number of times equal to your Charisma modifier (minimum 1) per Long Rest; no more than once per roll.",
+          "level": 6,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "charisma_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "fiendish_resilience",
+          "name": "Fiendish Resilience",
+          "description": "When you finish a Short or Long Rest, choose one damage type other than Force. You have Resistance to that damage type until you choose a different one with this feature.",
+          "level": 10,
+          "type": "paper"
+        },
+        {
+          "id": "hurl_through_hell",
+          "name": "Hurl Through Hell",
+          "description": "Once per turn when you hit a creature with an attack roll, the target makes a Charisma save vs your spell save DC. On a failed save, the target disappears; if it isn’t a Fiend, it takes 8d10 Psychic damage and has the Incapacitated condition until the end of your next turn. At the end of your next turn, it returns to the space it left (or the nearest unoccupied space). Uses: 1 per Long Rest, unless you expend a Pact Magic spell slot (no action) to restore your use.",
+          "level": 14,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        }
+      ]
+    },
+    "great_old_one_patron": {
+      "features": [
+        {
+          "id": "awakened_mind",
+          "name": "Awakened Mind",
+          "description": "Bonus Action; choose one creature you can see within 30 ft. You and the chosen creature can communicate telepathically while within a number of miles equal to your Charisma modifier (minimum 1 mile), as long as you both mentally use a language the other knows. Duration: a number of minutes equal to your Warlock level (ends early if you bond to a different creature).",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "great_old_one_spells",
+          "name": "Great Old One Spells",
+          "description": "Always-prepared spells by Warlock level: 3—Detect Thoughts, Dissonant Whispers, Phantasmal Force, Tasha’s Hideous Laughter; 5—Clairvoyance, Hunger of Hadar; 7—Confusion, Summon Aberration; 9—Modify Memory, Telekinesis.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "level": 1, "spells": ["dissonant_whispers", "tashas_hideous_laughter"] },
+              { "kind": "fixed", "level": 2, "spells": ["detect_thoughts", "phantasmal_force"] },
+              { "kind": "fixed", "context": "warlock_5", "level": 3, "spells": ["clairvoyance", "hunger_of_hadar"] },
+              { "kind": "fixed", "context": "warlock_7", "level": 4, "spells": ["confusion", "summon_aberration"] },
+              { "kind": "fixed", "context": "warlock_9", "level": 5, "spells": ["modify_memory", "telekinesis"] }
+            ]
+          }
+        },
+        {
+          "id": "psychic_spells",
+          "name": "Psychic Spells",
+          "description": "When you cast a Warlock spell that deals damage, you can change its damage type to Psychic. Also, when you cast a Warlock spell that is an Enchantment or Illusion, you can cast it without Verbal or Somatic components.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "clairvoyant_combatant",
+          "name": "Clairvoyant Combatant",
+          "description": "When you form a telepathic bond with a creature using Awakened Mind, you can force it to make a Wisdom save vs your spell save DC. On a failed save for the duration of the bond: it has Disadvantage on attack rolls against you, and you have Advantage on attack rolls against it. Uses: 1 per Short or Long Rest, unless you expend a Pact Magic spell slot (no action) to restore your use.",
+          "level": 6,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "short_rest": "all",
+              "long_rest": "all"
+            }
+          },
+          "feature_stack": "awakened_mind",
+          "stack_role": "modifier",
+          "modifies": ["awakened_mind"]
+        },
+        {
+          "id": "eldritch_hex",
+          "name": "Eldritch Hex",
+          "description": "You always have Hex prepared. When you cast Hex and choose an ability, the target also has Disadvantage on saving throws of the chosen ability for Hex’s duration.",
+          "level": 10,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "level": 1, "spells": ["hex"] }
+            ]
+          }
+        },
+        {
+          "id": "thought_shield",
+          "name": "Thought Shield",
+          "description": "Passive; your thoughts can’t be read by telepathy or other means unless you allow it. You have Resistance to Psychic damage, and whenever a creature deals Psychic damage to you, that creature takes the same amount of Psychic damage.",
+          "level": 10,
+          "type": "derived_output",
+          "derived_effects": {
+            "resistances": ["psychic"]
+          }
+        },
+        {
+          "id": "create_thrall",
+          "name": "Create Thrall",
+          "description": "When you cast Summon Aberration, you can cast it without requiring Concentration. If you do, the spell’s duration becomes 1 minute for that casting, and the summoned Aberration gains Temporary HP equal to your Warlock level + your Charisma modifier.",
+          "level": 14,
+          "type": "paper"
+        }
+      ]
+    }
+  }
+}

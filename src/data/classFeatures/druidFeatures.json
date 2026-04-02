@@ -1,0 +1,635 @@
+{
+  "class_id": "druid",
+  "features": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "description": "You prepare Druid spells and cast them using spell slots. Spellcasting ability: Wisdom (spell save DC and spell attack bonus). Cantrips: you know 2 Druid cantrips at Druid 1; whenever you gain a Druid level, you may replace one known Druid cantrip with another. Prepared Spells (level 1+): you prepare a fixed number of Druid spells by Druid level (per class table); whenever you gain a Druid level, you can change which Druid spells you have prepared.",
+      "level": 1,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "cantrips",
+            "resource_name": "Cantrips",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "3" },
+              { "level": 5, "value": "3" },
+              { "level": 6, "value": "3" },
+              { "level": 7, "value": "3" },
+              { "level": 8, "value": "3" },
+              { "level": 9, "value": "3" },
+              { "level": 10, "value": "4" },
+              { "level": 11, "value": "4" },
+              { "level": 12, "value": "4" },
+              { "level": 13, "value": "4" },
+              { "level": 14, "value": "4" },
+              { "level": 15, "value": "4" },
+              { "level": 16, "value": "4" },
+              { "level": 17, "value": "4" },
+              { "level": 18, "value": "4" },
+              { "level": 19, "value": "4" },
+              { "level": 20, "value": "4" }
+            ]
+          },
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "scaling": [
+              { "level": 1, "value": "4" },
+              { "level": 2, "value": "5" },
+              { "level": 3, "value": "6" },
+              { "level": 4, "value": "7" },
+              { "level": 5, "value": "9" },
+              { "level": 6, "value": "10" },
+              { "level": 7, "value": "11" },
+              { "level": 8, "value": "12" },
+              { "level": 9, "value": "14" },
+              { "level": 10, "value": "15" },
+              { "level": 11, "value": "16" },
+              { "level": 12, "value": "16" },
+              { "level": 13, "value": "17" },
+              { "level": 14, "value": "17" },
+              { "level": 15, "value": "18" },
+              { "level": 16, "value": "18" },
+              { "level": 17, "value": "19" },
+              { "level": 18, "value": "20" },
+              { "level": 19, "value": "21" },
+              { "level": 20, "value": "22" }
+            ]
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "value": {
+              "formula": "ability_modifier_plus_level",
+              "ability": "wis"
+            }
+          },
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Spell Slots",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4|2" },
+              { "level": 4, "value": "4|3" },
+              { "level": 5, "value": "4|3|2" },
+              { "level": 6, "value": "4|3|3" },
+              { "level": 7, "value": "4|3|3|1" },
+              { "level": 8, "value": "4|3|3|2" },
+              { "level": 9, "value": "4|3|3|3|1" },
+              { "level": 10, "value": "4|3|3|3|2" },
+              { "level": 11, "value": "4|3|3|3|2|1" },
+              { "level": 12, "value": "4|3|3|3|2|1" },
+              { "level": 13, "value": "4|3|3|3|2|1|1" },
+              { "level": 14, "value": "4|3|3|3|2|1|1" },
+              { "level": 15, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 16, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 17, "value": "4|3|3|3|2|1|1|1|1" },
+              { "level": 18, "value": "4|3|3|3|3|1|1|1|1" },
+              { "level": 19, "value": "4|3|3|3|3|2|1|1|1" },
+              { "level": 20, "value": "4|3|3|3|3|2|2|1|1" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ritual_casting",
+      "name": "Ritual Casting",
+      "description": "You can cast any prepared Druid spell as a ritual if it has the Ritual tag (casting time increases by 10 minutes; no spell slot expended).",
+      "level": 1,
+      "type": "paper"
+    },
+    {
+      "id": "spellcasting_focus",
+      "name": "Spellcasting Focus",
+      "description": "You can use a Druidic Focus as a spellcasting focus for your Druid spells (replaces material components with no gold cost and not consumed).",
+      "level": 1,
+      "type": "paper"
+    },
+    {
+      "id": "druidic",
+      "name": "Druidic",
+      "description": "You know Druidic. Also, you always have Speak with Animals prepared (it doesn’t count against your prepared spells).",
+      "level": 1,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "fixed", "spells": ["speak_with_animals"] }
+        ]
+      }
+    },
+    {
+      "id": "primal_order",
+      "name": "Primal Order",
+      "description": "Choose one: (1) Warden—gain proficiency with Martial weapons and training with Medium armor; or (2) Magician—learn 1 extra Druid cantrip, and add your Wisdom modifier (minimum +1) to Intelligence (Arcana) and Intelligence (Nature) checks.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "mode_choice",
+        "count": 1,
+        "options": [
+          {
+            "id": "warden",
+            "label": "Warden",
+            "derived_effects": {
+              "weapon_proficiencies": ["martial"],
+              "armor_training": ["medium"]
+            }
+          },
+          {
+            "id": "magician",
+            "label": "Magician",
+            "derived_effects": {
+              "cantrips_known_bonus": {
+                "class_list": "druid",
+                "count": 1
+              },
+              "skill_check_bonuses": [
+                {
+                  "skills": ["arcana", "nature"],
+                  "type": "ability_modifier",
+                  "ability": "wis",
+                  "minimum": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "wild_shape",
+      "name": "Wild Shape",
+      "description": "Bonus Action; expend 1 use of Wild Shape to assume a Beast form you know (you keep your game statistics; you can’t cast spells). You retain your current HP and gain Temporary HP equal to your Druid level when you transform. You can speak in Beast form. Uses: 2 per Long Rest at Druid 2; 3 per Long Rest at Druid 6; 4 per Long Rest at Druid 17. Regain 1 expended use when you finish a Short Rest; regain all on a Long Rest. Known Forms: you know 4 Beast forms at Druid 2; you learn 2 more at Druid 4 (6 total) and 2 more at Druid 6 (8 total); when you finish a Long Rest you can replace one known form with another eligible Beast form.",
+      "level": 2,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "wild_shape",
+            "resource_name": "Wild Shape",
+            "scaling": [
+              { "level": 1, "value": "0" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "2" },
+              { "level": 5, "value": "2" },
+              { "level": 6, "value": "3" },
+              { "level": 7, "value": "3" },
+              { "level": 8, "value": "3" },
+              { "level": 9, "value": "3" },
+              { "level": 10, "value": "3" },
+              { "level": 11, "value": "3" },
+              { "level": 12, "value": "3" },
+              { "level": 13, "value": "3" },
+              { "level": 14, "value": "3" },
+              { "level": 15, "value": "3" },
+              { "level": 16, "value": "3" },
+              { "level": 17, "value": "4" },
+              { "level": 18, "value": "4" },
+              { "level": 19, "value": "4" },
+              { "level": 20, "value": "4" }
+            ]
+          }
+        ],
+        "recovery": {
+          "short_rest": 1,
+          "long_rest": "all"
+        }
+      },
+      "notes": "Grants temporary HP equal to druid level on transform"
+    },
+    {
+      "id": "wild_companion",
+      "name": "Wild Companion",
+      "description": "Action; expend 1 use of Wild Shape to cast Find Familiar with no material components. The familiar is Fey (not Beast) and disappears after a number of hours equal to half your Druid level (rounded down).",
+      "level": 2,
+      "type": "paper"
+    },
+    {
+      "id": "druid_subclass",
+      "name": "Druid Subclass",
+      "description": "Passive; you choose a Druid Circle. You gain that circle’s features at Druid levels 3, 6, 10, and 14.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "druid_subclasses"
+      }
+    },
+    {
+      "id": "wild_resurgence",
+      "name": "Wild Resurgence",
+      "description": "Resource swap; once per Long Rest, you can expend 1 use of Wild Shape to regain one expended 1st-level spell slot. Also, you can expend a spell slot to regain 1 expended use of Wild Shape (no action required).",
+      "level": 5,
+      "type": "paper"
+    },
+    {
+      "id": "elemental_fury",
+      "name": "Elemental Fury",
+      "description": "Passive; choose one option (you keep it unless you change it when you gain a Druid level): (1) Primal Strike—once on each of your turns when you hit with a weapon attack roll or a Beast-form attack roll, deal +1d8 extra Cold, Fire, Lightning, or Thunder damage (choose when you gain the feature); or (2) Potent Spellcasting—add your Wisdom modifier to the damage you deal with any Druid cantrip.",
+      "level": 7,
+      "type": "choice",
+      "feature_stack": "elemental_fury",
+      "stack_role": "base",
+      "choice": {
+        "kind": "mode_choice",
+        "count": 1,
+        "options": [
+          {
+            "id": "primal_strike",
+            "label": "Primal Strike",
+            "derived_effects": {
+              "on_hit_damage": {
+                "dice": "1d8",
+                "damage_types": ["cold", "fire", "lightning", "thunder"],
+                "once_per_turn": true
+              }
+            }
+          },
+          {
+            "id": "potent_spellcasting",
+            "label": "Potent Spellcasting",
+            "derived_effects": {
+              "cantrip_damage_bonus": {
+                "ability": "wisdom"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "improved_elemental_fury",
+      "name": "Improved Elemental Fury",
+      "description": "Passive; improves your Elemental Fury choice: Primal Strike becomes +2d8 extra elemental damage; Potent Spellcasting—when you deal damage with a Druid cantrip, you can grant Temporary HP equal to 2 × your Wisdom modifier to you or one creature within 60 ft (no action).",
+      "level": 15,
+      "type": "paper",
+      "feature_stack": "elemental_fury",
+      "stack_role": "modifier",
+      "modifies": ["elemental_fury"],
+      "choice_option_upgrades": {
+        "primal_strike": {
+          "derived_effects": {
+            "on_hit_damage": {
+              "dice": "2d8"
+            }
+          }
+        },
+        "potent_spellcasting": {
+          "derived_effects": {
+            "temp_hp_on_damage": {
+              "formula": "2 * wisdom_modifier",
+              "range": 60
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "beast_spells",
+      "name": "Beast Spells",
+      "description": "Passive; while in Wild Shape, you can cast spells, and you can provide material components that have no listed cost and aren’t consumed by the spell.",
+      "level": 18,
+      "type": "paper"
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Dimensional Travel is recommended.",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "archdruid",
+      "name": "Archdruid",
+      "description": "Passive; Evergreen Wild Shape—when you roll Initiative, if you have no Wild Shape uses remaining, you regain 1 use. Nature Magician—when you expend a Wild Shape use, you can instead choose to restore expended spell slots; each Wild Shape use restores spell slots with a combined level of 2 (for example, one 2nd-level slot, or two 1st-level slots), up to the normal limits of your spell slots.",
+      "level": 20,
+      "type": "paper"
+    }
+  ],
+  "subclasses": {
+    "circle_of_the_land": {
+      
+      "features": [
+        {
+          "id": "land_spells",
+          "name": "Circle of the Land Spells",
+          "description": "Each day, you manifest the wild plurality of the Lands you belong to (Arid, Polar, Temperate, and Tropical). You then have the Circle Spells for your land type prepared for your Druid level and lower. (These spells count as Druid spells for you and don’t count against your prepared spells.)",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "context": "arid", "spells": ["blur", "burning_hands", "fire_bolt"] },
+              { "kind": "fixed", "context": "arid", "spells": ["fireball"] },
+              { "kind": "fixed", "context": "arid", "spells": ["blight"] },
+              { "kind": "fixed", "context": "arid", "spells": ["wall_of_stone"] },
+              { "kind": "fixed", "context": "polar", "spells": ["fog_cloud", "hold_person", "ray_of_frost"] },
+              { "kind": "fixed", "context": "polar", "spells": ["sleet_storm"] },
+              { "kind": "fixed", "context": "polar", "spells": ["ice_storm"] },
+              { "kind": "fixed", "context": "polar", "spells": ["cone_of_cold"] },
+              { "kind": "fixed", "context": "temperate", "spells": ["misty_step", "shocking_grasp", "sleep"] },
+              { "kind": "fixed", "context": "temperate", "spells": ["lightning_bolt"] },
+              { "kind": "fixed", "context": "temperate", "spells": ["freedom_of_movement"] },
+              { "kind": "fixed", "context": "temperate", "spells": ["tree_stride"] },
+              { "kind": "fixed", "context": "tropical", "spells": ["acid_splash", "ray_of_sickness", "web"] },
+              { "kind": "fixed", "context": "tropical", "spells": ["stinking_cloud"] },
+              { "kind": "fixed", "context": "tropical", "spells": ["polymorph"] },
+              { "kind": "fixed", "context": "tropical", "spells": ["insect_plague"] }
+            ]
+          }
+        },
+        {
+          "id": "lands_aid",
+          "name": "Land’s Aid",
+          "description": "Magic Action; expend 1 use of Wild Shape; choose a point within 60 ft. In a 10 ft-radius Sphere centered there, each creature of your choice makes a Constitution saving throw against your spell save DC; on a fail it takes 2d6 Necrotic damage, on a success it takes half damage (rounded down). Also, one creature of your choice in the Sphere regains 2d6 HP. Scaling: damage and healing become 3d6 at Druid 10 and 4d6 at Druid 14.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "natural_recovery",
+          "name": "Natural Recovery",
+          "description": "Once per Long Rest, you can cast one prepared Circle of the Land spell (level 1+) from your Circle of the Land Spells feature without expending a spell slot. Also, when you finish a Short Rest, you can recover expended spell slots with a combined level up to half your Druid level (rounded up); none of the recovered slots can be 6th level or higher. Once you recover slots this way, you can’t do so again until you finish a Long Rest.",
+          "level": 6,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "free_circle_spell_cast",
+                "resource_name": "Free Circle Spell Cast",
+                "scaling": [
+                  { "level": 6, "value": "1" },
+                  { "level": 7, "value": "1" },
+                  { "level": 8, "value": "1" },
+                  { "level": 9, "value": "1" },
+                  { "level": 10, "value": "1" },
+                  { "level": 11, "value": "1" },
+                  { "level": 12, "value": "1" },
+                  { "level": 13, "value": "1" },
+                  { "level": 14, "value": "1" },
+                  { "level": 15, "value": "1" },
+                  { "level": 16, "value": "1" },
+                  { "level": 17, "value": "1" },
+                  { "level": 18, "value": "1" },
+                  { "level": 19, "value": "1" },
+                  { "level": 20, "value": "1" }
+                ]
+              },
+              {
+                "resource_id": "natural_recovery_slot_levels",
+                "resource_name": "Natural Recovery Slot Levels",
+                "scaling": [
+                  { "level": 6, "value": "3" },
+                  { "level": 7, "value": "4" },
+                  { "level": 8, "value": "4" },
+                  { "level": 9, "value": "5" },
+                  { "level": 10, "value": "5" },
+                  { "level": 11, "value": "6" },
+                  { "level": 12, "value": "6" },
+                  { "level": 13, "value": "7" },
+                  { "level": 14, "value": "7" },
+                  { "level": 15, "value": "8" },
+                  { "level": 16, "value": "8" },
+                  { "level": 17, "value": "9" },
+                  { "level": 18, "value": "9" },
+                  { "level": 19, "value": "10" },
+                  { "level": 20, "value": "10" }
+                ]
+              }
+            ],
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "natures_ward",
+          "name": "Nature’s Ward",
+          "description": "Passive; you are immune to the Poisoned condition. Also, you gain Resistance based on your current land type: Arid—Fire; Polar—Cold; Temperate—Lightning; Tropical—Poison.",
+          "level": 10,
+          "type": "derived_output",
+          "derived_effects": {
+            "condition_immunities": ["poisoned"],
+            "resistance_variable": true
+          }
+        },
+        {
+          "id": "natures_sanctuary",
+          "name": "Nature’s Sanctuary",
+          "description": "Magic Action; expend 1 use of Wild Shape; create spectral trees and vines in a 15 ft Cube on the ground within 120 ft. Duration: 1 minute; ends early if you become Incapacitated or die. You and your allies have Half Cover while in the Cube, and your allies also gain your current Nature’s Ward Resistance while there. Bonus Action: move the Cube up to 60 ft to other ground within 120 ft.",
+          "level": 14,
+          "type": "paper"
+        }
+      ]
+    },
+    "circle_of_the_moon": {
+      
+      "features": [
+        {
+          "id": "circle_of_the_moon_spells",
+          "name": "Circle of the Moon Spells",
+          "description": "You always have these spells prepared when you reach the listed Druid levels: 3—Cure Wounds, Moonbeam, Starry Wisp; 5—Conjure Animals; 7—Fount of Moonlight; 9—Mass Cure Wounds. You can cast these spells while you are in Wild Shape.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["cure_wounds", "moonbeam", "starry_wisp"] },
+              { "kind": "fixed", "spells": ["conjure_animals"] },
+              { "kind": "fixed", "spells": ["fount_of_moonlight"] },
+              { "kind": "fixed", "spells": ["mass_cure_wounds"] }
+            ]
+          }
+        },
+        {
+          "id": "circle_forms",
+          "name": "Circle Forms",
+          "description": "When you assume a Wild Shape form, you can enhance it with lunar magic: Challenge Rating—maximum CR equals your Druid level ÷ 3 (round down); Armor Class—your AC becomes 13 + your Wisdom modifier if that is higher than the form’s AC; Temporary Hit Points—when you use Wild Shape, your temporary HP from Wild Shape becomes 3 × your Druid level (instead of your Druid level).",
+          "level": 3,
+          "type": "derived_output",
+          "derived_effects": {
+            "wild_shape_ac_override": {
+              "formula": "max(beast_ac, 13 + wisdom_modifier)"
+            },
+            "wild_shape_temp_hp": {
+              "formula": "3 * druid_level"
+            }
+          }
+        },
+        {
+          "id": "improved_circle_forms",
+          "name": "Improved Circle Forms",
+          "description": "While in Wild Shape: Lunar Radiance—each time you hit with a Wild Shape attack, it can deal its normal damage type or Radiant damage (your choice per hit). Increased Toughness—you add your Wisdom modifier to Constitution saving throws.",
+          "level": 6,
+          "type": "derived_output",
+          "derived_effects": {
+            "wild_shape_damage_override": ["radiant"],
+            "saving_throw_bonus": {
+              "stat": "constitution",
+              "source_ability": "wisdom",
+              "mode": "add_modifier"
+            }
+          }
+        },
+        {
+          "id": "moonlight_step",
+          "name": "Moonlight Step",
+          "description": "Bonus Action; teleport up to 30 ft to an unoccupied space you can see; you have Advantage on the next attack roll you make before the end of the turn.",
+          "level": 10,
+          "type": "paper"
+        },
+        {
+          "id": "lunar_form",
+          "name": "Lunar Form",
+          "description": "Passive; once per turn when you hit a creature with a Wild Shape attack, you deal an extra 2d10 Radiant damage. Also, when you use Moonlight Step, you can bring one willing creature within 5 ft of you to an unoccupied space within 5 ft of your destination.",
+          "level": 14,
+          "type": "derived_output",
+          "derived_effects": {
+            "wild_shape_bonus_damage": {
+              "dice": "2d10",
+              "damage_type": "radiant",
+              "once_per_turn": true
+            }
+          }
+        }
+      ]
+    },
+    "circle_of_the_sea": {
+      
+      "features": [
+        {
+          "id": "circle_of_the_sea_spells",
+          "name": "Circle of the Sea Spells",
+          "description": "You always have these spells prepared when you reach the listed Druid levels: 3—Fog Cloud, Gust of Wind, Ray of Frost, Thunderwave; 5—Lightning Bolt, Water Breathing; 7—Control Water, Ice Storm; 9—Conjure Elemental, Hold Monster.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["fog_cloud", "gust_of_wind", "ray_of_frost", "thunderwave"] },
+              { "kind": "fixed", "spells": ["lightning_bolt", "water_breathing"] },
+              { "kind": "fixed", "spells": ["control_water", "ice_storm"] },
+              { "kind": "fixed", "spells": ["conjure_elemental", "hold_monster"] }
+            ]
+          }
+        },
+        {
+          "id": "wrath_of_the_sea",
+          "name": "Wrath of the Sea",
+          "description": "Bonus Action; expend 1 use of Wild Shape; manifest an ocean-spray aura for 10 minutes (ends early if you’re Incapacitated, you dismiss it, or you manifest it again). At the end of each of your turns, choose one creature you can see within 10 ft; it makes a Constitution saving throw against your spell save DC or takes Thunder damage equal to a number of d6s equal to your Wisdom modifier (minimum 1d6) and, if Large or smaller, is pushed up to 15 ft away from you.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "aquatic_affinity",
+          "name": "Aquatic Affinity",
+          "description": "Passive; the reach of Wrath of the Sea becomes 10 ft. Also, you gain a Swim Speed equal to your Speed.",
+          "level": 6,
+          "type": "derived_output",
+          "derived_effects": {
+            "swim_speed": "equal_to_speed"
+          }
+        },
+        {
+          "id": "stormborn",
+          "name": "Stormborn",
+          "description": "Passive while Wrath of the Sea is active: you gain a Fly Speed equal to your Speed, and you have Resistance to Cold, Lightning, and Thunder damage.",
+          "level": 10,
+          "type": "derived_output",
+          "derived_effects": {
+            "fly_speed": "equal_to_speed",
+            "resistances": ["cold", "lightning", "thunder"]
+          }
+        },
+        {
+          "id": "oceanic_gift",
+          "name": "Oceanic Gift",
+          "description": "When you use Wrath of the Sea, you can manifest the aura around one willing creature within 60 ft instead of around yourself; that creature uses your spell save DC and Wisdom modifier for the aura. Also, if you expend 2 Wild Shape uses when manifesting the aura, you can manifest it around both yourself and that willing creature at the same time.",
+          "level": 14,
+          "type": "paper"
+        }
+      ]
+    },
+    "circle_of_the_stars": {
+      "features": [
+        {
+          "id": "star_map",
+          "name": "Star Map",
+          "description": "You create a star chart (Tiny object) that you can use as a spellcasting focus for your Druid spells. While holding it, you have Guidance and Guiding Bolt prepared. You can cast Guiding Bolt without expending a spell slot a number of times equal to your Wisdom modifier (minimum 1), regaining all expended free casts on a Long Rest. If you lose the map, you can recreate it with a 1-hour ceremony during a Short or Long Rest; this destroys the previous map.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["guidance", "guiding_bolt"] }
+            ]
+          },
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            },
+            "applies_to": "guiding_bolt_free_casts"
+          }
+        },
+        {
+          "id": "starry_form",
+          "name": "Starry Form",
+          "description": "Bonus Action; expend 1 use of Wild Shape to assume a luminous starry form for 10 minutes (ends early if you dismiss it, you’re Incapacitated, or you use it again). It sheds bright light 10 ft and dim light 10 ft beyond. Choose a constellation when you assume the form: Archer—when you activate the form and as a Bonus Action on later turns, make a ranged spell attack vs a creature within 60 ft; on hit, deal Radiant damage = 1d8 + your Wisdom modifier. Chalice—when you cast a spell using a spell slot that restores HP to a creature, you or another creature within 30 ft regains HP = 1d8 + your Wisdom modifier. Dragon—when you make an Intelligence or Wisdom check, or a Constitution saving throw to maintain Concentration, treat a d20 roll of 9 or lower as a 10.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "cosmic_omen",
+          "name": "Cosmic Omen",
+          "description": "After each Long Rest, roll a die to determine an omen until your next Long Rest: Weal (even)—Reaction when a creature you can see within 30 ft is about to make a d20 Test; roll 1d6 and add it to the total. Woe (odd)—same trigger, but subtract 1d6 from the total. Uses: a number of times equal to your Wisdom modifier (minimum 1); regain all uses on a Long Rest.",
+          "level": 6,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "twinkling_constellations",
+          "name": "Twinkling Constellations",
+          "description": "Starry Form improves: Archer and Chalice’s 1d8 becomes 2d8. While Dragon is active, you gain a Fly Speed of 20 ft and can hover. Also, at the start of each of your turns while in Starry Form, you can switch which constellation is active.",
+          "level": 10,
+          "type": "derived_output",
+"derived_effects": {
+  "fly_speed": 20,
+  "hover": true,
+  "starry_form_upgrade": true
+}
+        },
+        {
+          "id": "full_of_stars",
+          "name": "Full of Stars",
+          "description": "While in Starry Form, you become partially incorporeal and gain Resistance to Bludgeoning, Piercing, and Slashing damage.",
+          "level": 14,
+          "type": "derived_output",
+          "derived_effects": {
+            "resistances": ["bludgeoning", "piercing", "slashing"]
+          }
+        }
+      ]
+    }
+  }
+}

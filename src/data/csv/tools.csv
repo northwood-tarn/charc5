@@ -1,0 +1,38 @@
+tool_id,tool_name,tool_type
+alchemists_supplies,Alchemist's Supplies,artisans_tools
+brewers_supplies,Brewer's Supplies,artisans_tools
+calligraphers_supplies,Calligrapher's Supplies,artisans_tools
+carpenters_tools,Carpenter's Tools,artisans_tools
+cartographers_tools,Cartographer's Tools,artisans_tools
+cobblers_tools,Cobbler's Tools,artisans_tools
+cooks_utensils,Cook's Utensils,artisans_tools
+glassblowers_tools,Glassblower's Tools,artisans_tools
+jewelers_tools,Jewelers' Tools,artisans_tools
+leatherworkers_tools,Leatherworker's Tools,artisans_tools
+masons_tools,Mason's Tools,artisans_tools
+painters_supplies,Painter's Supplies,artisans_tools
+potters_tools,Potter's Tools,artisans_tools
+smiths_tools,Smith's Tools,artisans_tools
+tinkers_tools,Tinker's Tools,artisans_tools
+weavers_tools,Weaver's Tools,artisans_tools
+woodcarvers_tools,Woodcarver's Tools,artisans_tools
+dice_set,Dice Set,game
+dragonchess_set,Dragonchess Set,game
+playing_card_set,Playing Card Set,game
+three_dragon_ante_set,Three-Dragon Ante Set,game
+bagpipes,Bagpipes,instrument
+drum,Drum,instrument
+dulcimer,Dulcimer,instrument
+flute,Flute,instrument
+horn,Horn,instrument
+lute,Lute,instrument
+lyre,Lyre,instrument
+pan_flute,Pan Flute,instrument
+shawm,Shawm,instrument
+viol,Viol,instrument
+disguise_kit,Disguise Kit,kit
+forgery_kit,Forgery Kit,kit
+herbalism_kit,Herbalism Kit,kit
+navigator_tools,Navigator's Tools,tool
+poisoners_kit,Poisoner's Kit,kit
+thieves_tools,Thieves' Tools,tool

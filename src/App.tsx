@@ -1,0 +1,1698 @@
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import type { CharacterDraft } from "./types/draft";
+import { resolveCharacterSheet } from "./resolver/resolveCharacterSheet";
+import { resolveFeatSlots } from "./resolver/featSlotResolver";
+import { getAvailableFeatsForSlot } from "./resolver/featResolver";
+import { getBackgrounds } from "./data/loaders/backgroundsLoader";
+import { getClasses } from "./data/loaders/classLoader";
+import {
+  getLineageOptionsForSpecies,
+  getSpeciesOptions,
+} from "./data/loaders/speciesLoader";
+import { resolveSpeciesFeatureOutputs } from "./resolver/speciesFeatureResolver";
+import { getSubclasses } from "./data/loaders/subclassLoader";
+import { getDefaultAbilitiesForClass } from "./data/loaders/classAbilityPriorityLoader";
+
+const initialDraft: CharacterDraft = {
+  characterName: "",
+  classId: null,
+  subclassId: null,
+  level: null,
+  speciesId: null,
+  lineageId: null,
+  backgroundId: null,
+  abilities: {
+    strength: null,
+    dexterity: null,
+    constitution: null,
+    intelligence: null,
+    wisdom: null,
+    charisma: null,
+  },
+  featureSelections: {},
+  featSelections: {},
+  skillProficiencies: [],
+  toolProficiencies: [],
+  equipment: [],
+  knownSpells: [],
+  preparedSpells: [],
+};
+
+const fieldRowStyle: CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+};
+
+
+const fieldLabelStyle: CSSProperties = {
+  width: "90px",
+  fontSize: "12px",
+  fontWeight: 600,
+  flexShrink: 0,
+};
+
+const abilitySectionStyle: CSSProperties = {
+  border: "1px solid #cfcfcf",
+  padding: "12px",
+  marginTop: "4px",
+  marginBottom: "4px",
+  background: "#fdfdfd",
+};
+
+const abilityScoreOptions = [15, 14, 13, 12, 10, 8] as const;
+
+
+type AbilityKey = keyof CharacterDraft["abilities"];
+
+
+type RightPaneSectionKey =
+  | "identity"
+  | "features"
+  | "classDcAndAttack"
+  | "spellcasting"
+  | "proficiencies"
+  | "abilities"
+  | "combatBasics"
+  | "durability"
+  | "savingThrows"
+  | "skills";
+
+type FeatOptionEntry = {
+  feat_id: string;
+  name: string;
+  type?: string;
+  notes?: string;
+};
+
+type GroupedFeatDropdownEntry =
+  | { kind: "divider"; label: string }
+  | { kind: "feat"; feat: FeatOptionEntry };
+
+const initialRightPaneSections: Record<RightPaneSectionKey, boolean> = {
+  identity: false,
+  features: false,
+  classDcAndAttack: false,
+  spellcasting: false,
+  proficiencies: false,
+  abilities: false,
+  combatBasics: false,
+  durability: false,
+  savingThrows: false,
+  skills: false,
+};
+
+
+
+export default function App() {
+  const [draft, setDraft] = useState<CharacterDraft>(initialDraft);
+  const [openSections, setOpenSections] = useState<Record<RightPaneSectionKey, boolean>>(initialRightPaneSections);
+  const [openFeatDropdownSlotId, setOpenFeatDropdownSlotId] = useState<string | null>(null);
+  const [hoverDescription, setHoverDescription] = useState<string>("");
+  const featDropdownRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const classes = getClasses();
+  const subclasses = getSubclasses();
+  const backgrounds = getBackgrounds();
+  const speciesOptions = getSpeciesOptions();
+  const safeDraft: CharacterDraft = {
+    ...initialDraft,
+    ...draft,
+    abilities: {
+      ...initialDraft.abilities,
+      ...(draft.abilities ?? {}),
+    },
+    featureSelections: draft.featureSelections ?? {},
+    featSelections: (draft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {},
+    skillProficiencies: draft.skillProficiencies ?? [],
+    toolProficiencies: draft.toolProficiencies ?? [],
+    equipment: draft.equipment ?? [],
+    knownSpells: draft.knownSpells ?? [],
+    preparedSpells: draft.preparedSpells ?? [],
+  };
+  const sheet = resolveCharacterSheet(safeDraft);
+  const speciesResolvedFeatures = resolveSpeciesFeatureOutputs(safeDraft);
+  const allResolvedFeatures = Array.from(
+    new Map(
+      [...sheet.features, ...speciesResolvedFeatures].map((feature) => [feature.featureId, feature])
+    ).values()
+  );
+  const sheetWithOptionalDisplayFields = sheet as typeof sheet & {
+    identity: typeof sheet.identity & {
+      height?: string | number | null;
+      heightText?: string | null;
+    };
+    combatBasics: typeof sheet.combatBasics & {
+      speed?: {
+        value?: number | string | null;
+      };
+    };
+  };
+
+  const displayHeight =
+    sheetWithOptionalDisplayFields.identity.heightText ??
+    sheetWithOptionalDisplayFields.identity.height ??
+    null;
+
+  const displaySpeed =
+    sheetWithOptionalDisplayFields.combatBasics.speed?.value ??
+    null;
+
+  const displayPerceptionModifier =
+    sheet.skills.perception?.totalModifier ?? null;
+  const availableSubclasses = subclasses.filter((subclass) => subclass.classId === safeDraft.classId);
+  const availableLineages = getLineageOptionsForSpecies(safeDraft.speciesId);
+  const choiceFeatures = allResolvedFeatures.filter((feature) => {
+    const hasChoices = (feature.choiceOptions?.length ?? 0) > 0 && (feature.choiceCount ?? 0) > 0;
+    const isSubclassChoice =
+      feature.choiceKind === "subclass" ||
+      feature.featureId === "subclass" ||
+      feature.featureName.toLowerCase() === "subclass";
+
+    return hasChoices && !isSubclassChoice;
+  });
+  const featSlots = resolveFeatSlots(safeDraft);
+  const nonFeatChoiceFeatures = choiceFeatures.filter((feature) => feature.sourceType !== "feat");
+  const featChoiceFeatures = choiceFeatures.filter((feature) => feature.sourceType === "feat");
+
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      if (!openFeatDropdownSlotId) {
+        return;
+      }
+
+      const currentDropdown = featDropdownRefs.current[openFeatDropdownSlotId];
+      if (currentDropdown && event.target instanceof Node && currentDropdown.contains(event.target)) {
+        return;
+      }
+
+      setOpenFeatDropdownSlotId(null);
+      setHoverDescription("");
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [openFeatDropdownSlotId]);
+
+  const cantripSlots = sheet.spellcasting.selectionState.knownSpellSlots.filter(
+    (slot) =>
+      slot.allowedSpellLevels.length === 1 && slot.allowedSpellLevels[0] === 0
+  );
+  const repertoireSlots = sheet.spellcasting.selectionState.knownSpellSlots.filter(
+    (slot) =>
+      !(slot.allowedSpellLevels.length === 1 && slot.allowedSpellLevels[0] === 0)
+  );
+
+
+  function formatAllowedSpellLevels(levels: number[]): string {
+    if (levels.length === 0) {
+      return "All available levels";
+    }
+
+    if (levels.length === 1 && levels[0] === 0) {
+      return "Cantrip";
+    }
+
+    const sorted = [...levels].sort((a, b) => a - b);
+    const isContiguous = sorted.every((level, index) =>
+      index === 0 ? true : level === sorted[index - 1] + 1
+    );
+
+    if (sorted[0] >= 1 && isContiguous) {
+      return `Any spell of level ${sorted[sorted.length - 1]} or lower`;
+    }
+
+    return `Spell levels: ${sorted.join(", ")}`;
+  }
+
+
+  function formatSpellOptionLabel(option: {
+    spellName: string;
+    spellLevel: number;
+    school: string;
+    className?: string;
+    classNames?: string[];
+  }): string {
+    const classLabel = Array.isArray(option.classNames) && option.classNames.length > 0
+      ? option.classNames.join("/")
+      : option.className ?? "Unknown Class";
+
+    return `${option.spellName} (${classLabel} | ${option.school})`;
+  }
+
+  function normalizeBackgroundAbilityOption(value: string | null | undefined): AbilityKey | null {
+    const normalized = (value ?? "").trim().toUpperCase();
+
+    switch (normalized) {
+      case "STR":
+      case "STRENGTH":
+        return "strength";
+      case "DEX":
+      case "DEXTERITY":
+        return "dexterity";
+      case "CON":
+      case "CONSTITUTION":
+        return "constitution";
+      case "INT":
+      case "INTELLIGENCE":
+        return "intelligence";
+      case "WIS":
+      case "WISDOM":
+        return "wisdom";
+      case "CHA":
+      case "CHARISMA":
+        return "charisma";
+      default:
+        return null;
+    }
+  }
+
+
+  function setAbilityScore(abilityKey: AbilityKey, nextValue: number | null) {
+    const currentAbilities = safeDraft.abilities;
+    const previousValue = currentAbilities[abilityKey];
+
+    const conflictingEntry = (Object.entries(currentAbilities) as [AbilityKey, number | null][]).find(
+      ([key, value]) => key !== abilityKey && value === nextValue
+    );
+
+    const nextAbilities = {
+      ...currentAbilities,
+      [abilityKey]: nextValue,
+    };
+
+    if (conflictingEntry) {
+      const [conflictingKey] = conflictingEntry;
+      nextAbilities[conflictingKey] = previousValue;
+    }
+
+    setDraft({
+      ...draft,
+      abilities: nextAbilities,
+    });
+  }
+
+  function setClassId(nextClassId: string | null) {
+    setDraft({
+      ...draft,
+      classId: nextClassId,
+      subclassId: null,
+      abilities: getDefaultAbilitiesForClass(nextClassId),
+    });
+  }
+
+  function setBackgroundId(nextBackgroundId: string | null) {
+    const background = backgrounds.find((entry) => entry.id === nextBackgroundId) ?? null;
+
+    const options = background?.asiOptions ?? [];
+    const plusTwo = normalizeBackgroundAbilityOption(options[0] ?? null);
+    const plusOne = normalizeBackgroundAbilityOption(options[1] ?? null);
+
+    const bonuses: Partial<Record<AbilityKey, number>> = {};
+
+    if (plusTwo) {
+      bonuses[plusTwo] = 2;
+    }
+
+    if (plusOne) {
+      bonuses[plusOne] = (bonuses[plusOne] ?? 0) + 1;
+    }
+
+    setDraft({
+      ...draft,
+      backgroundId: nextBackgroundId,
+      skillProficiencies: background ? [...background.skillProficiencies] : [],
+      toolProficiencies: background && background.toolProficiency ? [background.toolProficiency] : [],
+      backgroundAbilityBonuses: bonuses,
+    } as CharacterDraft);
+  }
+
+  function setFeatSelection(slotId: string, featId: string | null) {
+    const currentFeatSelections =
+      (safeDraft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {};
+
+    setDraft({
+      ...draft,
+      featSelections: {
+        ...currentFeatSelections,
+        [slotId]: featId,
+      },
+    } as CharacterDraft);
+  }
+
+  function getSelectedFeatLabel(slotId: string, featOptions: FeatOptionEntry[]): string {
+    const featSelections =
+      (safeDraft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {};
+    const selectedFeatId = featSelections[slotId] ?? null;
+
+    if (!selectedFeatId) {
+      return "--";
+    }
+
+    return featOptions.find((feat) => feat.id === selectedFeatId)?.name ?? "--";
+  }
+
+  function formatSkillLabel(skillId: string): string {
+    return skillId
+      .split(/[_\s-]+/)
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+  }
+
+  function renderGroupedFeatDropdown(
+    slotId: string,
+    groupedFeatOptions: GroupedFeatDropdownEntry[],
+    featOptions: FeatOptionEntry[]
+  ) {
+    const featSelections =
+      (safeDraft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {};
+    const selectedFeatId = featSelections[slotId] ?? "";
+    const isOpen = openFeatDropdownSlotId === slotId;
+
+    return (
+      <div
+        ref={(node) => {
+          featDropdownRefs.current[slotId] = node;
+        }}
+        style={{ position: "relative", width: "30%", minWidth: "220px" }}
+      >
+        <button
+          type="button"
+          onClick={() => {
+            setOpenFeatDropdownSlotId((current) => (current === slotId ? null : slotId));
+            setHoverDescription("");
+          }}
+          style={{
+            width: "100%",
+            minWidth: "220px",
+            textAlign: "left",
+            padding: "4px 8px",
+            border: "1px solid #cfcfcf",
+            background: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          {getSelectedFeatLabel(slotId, featOptions)}
+        </button>
+
+        {isOpen ? (
+          <div
+            onMouseLeave={() => setHoverDescription("")}
+            style={{
+              position: "absolute",
+              top: "calc(100% + 4px)",
+              left: 0,
+              width: "100%",
+              maxHeight: "220px",
+              overflowY: "auto",
+              border: "1px solid #cfcfcf",
+              background: "#fff",
+              zIndex: 20,
+              boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+            }}
+          >
+            <div
+              onMouseEnter={() => setHoverDescription("")}
+              style={{
+                padding: "6px 8px",
+                fontSize: "13px",
+                cursor: "pointer",
+                borderBottom: "1px solid #efefef",
+              }}
+              onClick={() => {
+                setFeatSelection(slotId, null);
+                setOpenFeatDropdownSlotId(null);
+                setHoverDescription("");
+              }}
+            >
+              --
+            </div>
+            {groupedFeatOptions.map((entry, index) => {
+              if (entry.kind === "divider") {
+                return (
+                  <div
+                    key={`${slotId}:divider:${index}`}
+                    style={{
+                      padding: "6px 8px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: "#666",
+                      background: "#f5f5f5",
+                      borderTop: "1px solid #efefef",
+                      borderBottom: "1px solid #efefef",
+                    }}
+                  >
+                    {entry.label}
+                  </div>
+                );
+              }
+
+const isSelected = selectedFeatId === entry.feat.id;
+              return (
+                <div
+                  key={entry.feat.id}
+                  onMouseEnter={() => setHoverDescription(entry.feat.notes ?? "")}
+                  style={{
+                    padding: "6px 8px",
+                    fontSize: "13px",
+                    cursor: "pointer",
+                    background: isSelected ? "#f1f1f1" : "#fff",
+                    borderBottom: "1px solid #f3f3f3",
+                  }}
+                  onClick={() => {
+                    setFeatSelection(slotId, entry.feat.id);
+                    setOpenFeatDropdownSlotId(null);
+                    setHoverDescription("");
+                  }}
+                >
+                  {entry.feat.name}
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  function renderChoiceFeature(feature: typeof choiceFeatures[number]) {
+    const selectionKey = feature.selectionKey ?? feature.featureId;
+    const selections = safeDraft.featureSelections[selectionKey] ?? [];
+    const knownSkillIds = new Set(Object.keys(sheet.skills));
+    const proficientSkillIds = new Set(
+      Object.entries(sheet.skills)
+        .filter(([, value]) => value.proficiency && value.proficiency !== "none")
+        .map(([skillId]) => skillId)
+    );
+
+    let options = (feature.choiceOptions ?? []).map((opt) => ({
+      id: opt.id,
+      label: opt.label,
+    }));
+
+    if (feature.choiceKind === "proficiency_choice") {
+      options = options.filter((option) => {
+        if (!knownSkillIds.has(option.id)) {
+          return true;
+        }
+
+        if (selections.includes(option.id)) {
+          return true;
+        }
+
+        return !proficientSkillIds.has(option.id);
+      });
+    }
+
+    if (feature.choiceKind === "expertise_choice") {
+      options = Array.from(
+        new Set([
+          ...Array.from(proficientSkillIds),
+          ...selections,
+        ])
+      )
+        .map((skillId) => {
+          const existingOption = (feature.choiceOptions ?? []).find((option) => option.id === skillId);
+          return {
+            id: skillId,
+            label: existingOption?.label ?? formatSkillLabel(skillId),
+          };
+        })
+        .sort((a, b) => a.label.localeCompare(b.label));
+    }
+
+    selections.forEach((selection) => {
+      if (options.some((option) => option.id === selection)) {
+        return;
+      }
+
+      options.push({
+        id: selection,
+        label: formatSkillLabel(selection),
+      });
+    });
+
+    const count = feature.choiceCount ?? 0;
+    const isSingleChoice = count === 1;
+    const isWeaponMasteryChoice = feature.choiceKind === "weapon_mastery";
+    const useCompactChoiceBox = isWeaponMasteryChoice || options.length > 6;
+    const otherWeaponMasterySelections = isWeaponMasteryChoice
+      ? Array.from(
+          new Set(
+            choiceFeatures
+              .filter(
+                (candidate) =>
+                  candidate.choiceKind === "weapon_mastery" &&
+                  candidate.featureId !== feature.featureId
+              )
+              .flatMap((candidate) => {
+                const candidateSelectionKey = candidate.selectionKey ?? candidate.featureId;
+                return safeDraft.featureSelections[candidateSelectionKey] ?? [];
+              })
+          )
+        )
+      : [];
+
+    return (
+      <div key={feature.featureId} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+        <label style={fieldLabelStyle}>{feature.featureName}</label>
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          <div style={{ fontSize: "12px", color: "#7a7a7a" }}>
+            Choose {count}
+          </div>
+          {useCompactChoiceBox ? (
+            <div
+              style={{
+                width: "30%",
+                minWidth: "220px",
+                maxHeight: "160px",
+                overflowY: "auto",
+                border: "1px solid #cfcfcf",
+                padding: "8px",
+                background: "#fff",
+                display: "flex",
+                flexDirection: "column",
+                gap: "6px",
+              }}
+            >
+              {options.map((option) => {
+                const isChecked = selections.includes(option.id);
+                const isTakenByOtherWeaponMastery =
+                  isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id);
+                const disableUnchecked =
+                  isTakenByOtherWeaponMastery ||
+                  (!isSingleChoice && !isChecked && selections.length >= count);
+
+                return (
+                  <label key={option.id} style={{ fontSize: "13px" }}>
+                    <input
+                      type={isSingleChoice ? "radio" : "checkbox"}
+                      name={selectionKey}
+                      checked={isChecked}
+                      disabled={disableUnchecked}
+                      onChange={(e) => {
+                        const nextSelections = isSingleChoice
+                          ? e.target.checked
+                            ? [option.id]
+                            : []
+                          : e.target.checked
+                            ? [...selections, option.id]
+                            : selections.filter((selectedId) => selectedId !== option.id);
+
+                        setDraft({
+                          ...draft,
+                          featureSelections: {
+                            ...draft.featureSelections,
+                            [selectionKey]: nextSelections,
+                          },
+                        });
+                      }}
+                    />{" "}
+                    {isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id)
+                      ? `✓ ${option.label}`
+                      : option.label}
+                  </label>
+                );
+              })}
+            </div>
+          ) : (
+            options.map((option) => (
+              <label key={option.id} style={{ fontSize: "13px" }}>
+                <input
+                  type={isSingleChoice ? "radio" : "checkbox"}
+                  name={selectionKey}
+                  checked={selections.includes(option.id)}
+                  disabled={
+                    (isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id)) ||
+                    (!isSingleChoice &&
+                      !selections.includes(option.id) &&
+                      selections.length >= count)
+                  }
+                  onChange={(e) => {
+                    const nextSelections = isSingleChoice
+                      ? e.target.checked
+                        ? [option.id]
+                        : []
+                      : e.target.checked
+                        ? [...selections, option.id]
+                        : selections.filter((w) => w !== option.id);
+
+                    setDraft({
+                      ...draft,
+                      featureSelections: {
+                        ...draft.featureSelections,
+                        [selectionKey]: nextSelections,
+                      },
+                    });
+                  }}
+                />{" "}
+                {isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id)
+                  ? `✓ ${option.label}`
+                  : option.label}
+              </label>
+            ))
+          )}
+        </div>
+      </div>
+    );
+  }
+
+
+  function setSpellSelection(
+    bucket: "known" | "prepared",
+    index: number,
+    nextSpellId: string | null
+  ) {
+    const current = bucket === "known"
+      ? [...safeDraft.knownSpells]
+      : [...safeDraft.preparedSpells];
+
+    while (current.length <= index) {
+      current.push("");
+    }
+
+    current[index] = nextSpellId ?? "";
+
+    while (current.length > 0 && !current[current.length - 1]) {
+      current.pop();
+    }
+
+    if (bucket === "known") {
+      setDraft({
+        ...draft,
+        knownSpells: current.filter(Boolean),
+      });
+      return;
+    }
+
+    setDraft({
+      ...draft,
+      preparedSpells: current.filter(Boolean),
+    });
+  }
+
+  function renderRightPaneSection(
+    key: RightPaneSectionKey,
+    title: string,
+    content: ReactNode,
+    options?: { marginBottom?: string; textTransform?: CSSProperties["textTransform"] }
+  ) {
+    const isOpen = openSections[key];
+
+    return (
+      <div style={{ marginBottom: options?.marginBottom ?? "16px", textAlign: "left" }}>
+        <button
+          type="button"
+          onClick={() =>
+            setOpenSections((prev) => ({
+              ...prev,
+              [key]: !prev[key],
+            }))
+          }
+          style={{
+            width: "100%",
+            background: "transparent",
+            border: "1px solid #d8d8d8",
+            padding: "6px 10px",
+            textAlign: "left",
+            fontWeight: 700,
+            cursor: "pointer",
+            textTransform: options?.textTransform,
+          }}
+        >
+          {isOpen ? "▾ " : "▸ "}
+          {title}
+        </button>
+        {isOpen ? <div style={{ paddingTop: "10px" }}>{content}</div> : null}
+      </div>
+    );
+  }
+
+  return (
+  <div
+    style={{
+      display: "flex",
+      height: "100vh",
+      fontFamily: "Roboto, system-ui, sans-serif",
+      background: "#efefef",
+      color: "#111",
+    }}
+  >
+    {/* LEFT */}
+    <div
+      style={{
+        width: "50%",
+        padding: "20px",
+        paddingBottom: "48px",
+        borderRight: "2px solid #000",
+        background: "#fafafa",
+        overflow: "auto",
+      }}
+    >
+      <h2 style={{ marginBottom: "16px", fontWeight: 500 }}>Inputs</h2>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "16px",
+          alignItems: "start",
+        }}
+      >
+        <div style={{ display: "grid", gap: "10px", alignContent: "start" }}>
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Name</label>
+            <input
+              style={{ width: "30%", minWidth: "140px" }}
+              value={safeDraft.characterName}
+              onChange={(e) =>
+                setDraft({ ...draft, characterName: e.target.value })
+              }
+            />
+          </div>
+
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Class</label>
+            <select
+              style={{ width: "30%", minWidth: "140px" }}
+              value={safeDraft.classId ?? ""}
+              onChange={(e) => setClassId(e.target.value || null)}
+            >
+              <option value="">--</option>
+              {classes.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Subclass</label>
+            <select
+              style={{ width: "30%", minWidth: "140px" }}
+              value={safeDraft.subclassId ?? ""}
+              onChange={(e) =>
+                setDraft({ ...draft, subclassId: e.target.value || null })
+              }
+            >
+              <option value="">--</option>
+              {availableSubclasses.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Level</label>
+            <input
+              style={{ width: "30%", minWidth: "140px" }}
+              type="number"
+              value={safeDraft.level ?? ""}
+              onChange={(e) =>
+                setDraft({
+                  ...draft,
+                  level: e.target.value ? Number(e.target.value) : null,
+                })
+              }
+            />
+          </div>
+
+          {nonFeatChoiceFeatures.map((feature) => renderChoiceFeature(feature))}
+
+          {/* FEAT SLOTS */}
+          {featSlots.map((slot) => {
+            if (slot.slotId === "background_origin_feat") {
+              return null;
+            }
+
+            const featOptions = getAvailableFeatsForSlot(safeDraft, slot.slotId);
+            const featSelections =
+              (safeDraft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {};
+            const selectedFeatId = featSelections[slot.slotId] ?? "";
+            const takenFeatIds = new Set(
+              Object.entries(featSelections)
+                .filter(([otherSlotId, featId]) => otherSlotId !== slot.slotId && typeof featId === "string" && featId)
+                .map(([, featId]) => featId as string)
+            );
+
+            const groupedFeatOptions = ["Origin", "General", "Epic Boon"].flatMap((featType) => {
+              const normalizedTargetType = featType.toLowerCase();
+              const matchingFeats = featOptions
+                .filter((feat) => (feat.type ?? "").toLowerCase() === normalizedTargetType)
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              if (matchingFeats.length === 0) {
+                return [] as Array<
+                  | { kind: "divider"; label: string }
+                  | { kind: "feat"; feat: (typeof featOptions)[number] }
+                >;
+              }
+
+              return [
+                {
+                  kind: "divider" as const,
+                  label:
+                    featType === "Origin"
+                      ? "--Origin Feats--"
+                      : featType === "General"
+                        ? "--General Feats--"
+                        : "--Epic Boon Feats--",
+                },
+                ...matchingFeats.map((feat) => ({ kind: "feat" as const, feat })),
+              ];
+            });
+
+            const selectedFeatChoiceFeatures = selectedFeatId
+              ? featChoiceFeatures.filter(
+                  (feature) =>
+                    feature.parentFeatureId === selectedFeatId &&
+                    feature.sourceId === selectedFeatId
+                )
+              : [];
+
+            return (
+              <div key={slot.slotId} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div style={fieldRowStyle}>
+                  <label style={fieldLabelStyle}>{slot.label}</label>
+                  {renderGroupedFeatDropdown(
+                    slot.slotId,
+                    groupedFeatOptions.map((entry) =>
+                      entry.kind === "feat"
+                        ? {
+                            kind: "feat" as const,
+                            feat: {
+                              ...entry.feat,
+                              name: takenFeatIds.has(entry.feat.id)
+                                ? `✓ ${entry.feat.name}`
+                                : entry.feat.name,
+                            },
+                          }
+                        : entry
+                    ),
+                    featOptions
+                  )}
+                </div>
+
+                {selectedFeatChoiceFeatures.length > 0 && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                    {selectedFeatChoiceFeatures.map((feature) => renderChoiceFeature(feature))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          {sheet.spellcasting.selectionState.knownSpellSlots.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "8px" }}>
+                Spell Repertoire
+              </div>
+              <div style={{ fontSize: "12px", color: "#7a7a7a" }}>
+                Cantrips: {cantripSlots.length} · Spells in repertoire: {repertoireSlots.length}
+              </div>
+
+              {cantripSlots.length > 0 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "4px" }}>
+                    Cantrips
+                  </div>
+                  {cantripSlots.map((slot, index) => (
+                    <div key={slot.slotId} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                      <label style={fieldLabelStyle}>{`Cantrip ${index + 1}`}</label>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                        <div style={{ fontSize: "12px", color: "#7a7a7a" }}>
+                          {formatAllowedSpellLevels(slot.allowedSpellLevels)}
+                          {slot.allowedSchools.length > 0
+                            ? ` · Schools: ${slot.allowedSchools.join(", ")}`
+                            : ""}
+                        </div>
+                        <select
+                          style={{ width: "30%", minWidth: "220px" }}
+                          value={slot.selectedSpellId ?? ""}
+                          onChange={(e) =>
+                            setSpellSelection(
+                              "known",
+                              index,
+                              e.target.value || null
+                            )
+                          }
+                        >
+                          <option value="">--</option>
+                          {slot.options.map((option, optionIndex) => (
+                            <option
+                              key={`${slot.slotId}:${option.spellId}:${optionIndex}`}
+                              value={option.spellId}
+                            >
+                              {formatSpellOptionLabel(option)}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {repertoireSlots.length > 0 && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "4px" }}>
+                    Spells in Repertoire
+                  </div>
+                  {repertoireSlots.map((slot, index) => (
+                    <div key={slot.slotId} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                      <label style={fieldLabelStyle}>{`Spell ${index + 1}`}</label>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                        <div style={{ fontSize: "12px", color: "#7a7a7a" }}>
+                          {formatAllowedSpellLevels(slot.allowedSpellLevels)}
+                          {slot.allowedSchools.length > 0
+                            ? ` · Schools: ${slot.allowedSchools.join(", ")}`
+                            : ""}
+                        </div>
+                        <select
+                          style={{ width: "30%", minWidth: "220px" }}
+                          value={slot.selectedSpellId ?? ""}
+                          onChange={(e) =>
+                            setSpellSelection(
+                              "known",
+                              cantripSlots.length + index,
+                              e.target.value || null
+                            )
+                          }
+                        >
+                          <option value="">--</option>
+                          {slot.options.map((option, optionIndex) => (
+                            <option
+                              key={`${slot.slotId}:${option.spellId}:${optionIndex}`}
+                              value={option.spellId}
+                            >
+                              {formatSpellOptionLabel(option)}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {sheet.spellcasting.selectionState.preparedSpellSlots.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "8px" }}>
+                Prepared Spells
+              </div>
+              {sheet.spellcasting.selectionState.preparedSpellSlots.map((slot, index) => (
+                <div key={slot.slotId} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <label style={fieldLabelStyle}>{slot.sourceName}</label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                    <div style={{ fontSize: "12px", color: "#7a7a7a" }}>
+                      {slot.allowedSpellLevels.length > 0
+                        ? `Levels: ${slot.allowedSpellLevels.join(", ")}`
+                        : "All available levels"}
+                      {slot.allowedSchools.length > 0
+                        ? ` · Schools: ${slot.allowedSchools.join(", ")}`
+                        : ""}
+                    </div>
+                    <select
+                      style={{ width: "30%", minWidth: "220px" }}
+                      value={slot.selectedSpellId ?? ""}
+                      onChange={(e) =>
+                        setSpellSelection(
+                          "prepared",
+                          index,
+                          e.target.value || null
+                        )
+                      }
+                    >
+                      <option value="">--</option>
+                      {slot.options.map((option, optionIndex) => (
+                        <option
+                          key={`${slot.slotId}:${option.spellId}:${optionIndex}`}
+                          value={option.spellId}
+                        >
+                          {formatSpellOptionLabel(option)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {sheet.spellcasting.selectionState.grantedSpellSlots.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "8px" }}>
+                Granted Spells
+              </div>
+              {sheet.spellcasting.selectionState.grantedSpellSlots.map((slot) => (
+                <div key={slot.slotId} style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                  <label style={fieldLabelStyle}>{slot.sourceName}</label>
+                  <div style={{ fontSize: "13px" }}>
+                    {slot.fixedSpellId ?? slot.selectedSpellId ?? "Unselected granted slot"}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div style={{ display: "grid", gap: "10px", alignContent: "start" }}>
+          <div style={abilitySectionStyle}>
+            <div style={{ fontSize: "12px", fontWeight: 700, marginBottom: "10px" }}>
+              Abilities
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>STR</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.abilities.strength ?? ""}
+                onChange={(e) =>
+                  setAbilityScore(
+                    "strength",
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+              >
+                <option value="">--</option>
+                {abilityScoreOptions.map((score) => (
+                  <option key={score} value={score}>
+                    {score}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>DEX</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.abilities.dexterity ?? ""}
+                onChange={(e) =>
+                  setAbilityScore(
+                    "dexterity",
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+              >
+                <option value="">--</option>
+                {abilityScoreOptions.map((score) => (
+                  <option key={score} value={score}>
+                    {score}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>CON</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.abilities.constitution ?? ""}
+                onChange={(e) =>
+                  setAbilityScore(
+                    "constitution",
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+              >
+                <option value="">--</option>
+                {abilityScoreOptions.map((score) => (
+                  <option key={score} value={score}>
+                    {score}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>INT</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.abilities.intelligence ?? ""}
+                onChange={(e) =>
+                  setAbilityScore(
+                    "intelligence",
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+              >
+                <option value="">--</option>
+                {abilityScoreOptions.map((score) => (
+                  <option key={score} value={score}>
+                    {score}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>WIS</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.abilities.wisdom ?? ""}
+                onChange={(e) =>
+                  setAbilityScore(
+                    "wisdom",
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+              >
+                <option value="">--</option>
+                {abilityScoreOptions.map((score) => (
+                  <option key={score} value={score}>
+                    {score}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>CHA</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.abilities.charisma ?? ""}
+                onChange={(e) =>
+                  setAbilityScore(
+                    "charisma",
+                    e.target.value ? Number(e.target.value) : null
+                  )
+                }
+              >
+                <option value="">--</option>
+                {abilityScoreOptions.map((score) => (
+                  <option key={score} value={score}>
+                    {score}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Species</label>
+            <select
+              style={{ width: "30%", minWidth: "140px" }}
+              value={safeDraft.speciesId ?? ""}
+              onChange={(e) =>
+                setDraft({
+                  ...draft,
+                  speciesId: e.target.value || null,
+                  lineageId: null,
+                })
+              }
+            >
+              <option value="">--</option>
+              {speciesOptions.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Lineage</label>
+            <select
+              style={{ width: "30%", minWidth: "140px" }}
+              value={safeDraft.lineageId ?? ""}
+              onChange={(e) =>
+                setDraft({ ...draft, lineageId: e.target.value || null })
+              }
+            >
+              <option value="">--</option>
+              {availableLineages.map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div style={fieldRowStyle}>
+            <label style={fieldLabelStyle}>Background</label>
+            <select
+              style={{ width: "30%", minWidth: "140px" }}
+              value={safeDraft.backgroundId ?? ""}
+              onChange={(e) => setBackgroundId(e.target.value || null)}
+            >
+              <option value="">--</option>
+              {backgrounds.map((b) => (
+                <option key={b.id} value={b.id}>
+                  {b.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* RIGHT */}
+    <div
+      style={{
+        width: "50%",
+        padding: "20px",
+        background: "#ffffff",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "auto",
+      }}
+    >
+      <h2 style={{ marginBottom: "16px", fontWeight: 500, textAlign: "left" }}>
+        Resolved Sheet
+      </h2>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "20px",
+          alignItems: "start",
+          fontSize: "13px",
+          lineHeight: 1.6,
+          fontFamily: "Roboto, system-ui, sans-serif",
+          textAlign: "left",
+          alignSelf: "stretch",
+        }}
+      >
+        <div>
+          {renderRightPaneSection(
+            "identity",
+            "Identity",
+            <div style={{ paddingLeft: "12px" }}>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>Character name: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.characterName || ""}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>classId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.classId ?? "null"}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>className: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.className || ""}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>subclassId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.subclassId ?? "null"}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>subclassName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.subclassName || ""}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>level: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.level ?? "null"}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>speciesId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.speciesId ?? "null"}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>speciesName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.speciesName || ""}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>lineageId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.lineageId ?? "null"}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>lineageName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.lineageName || ""}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>backgroundId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.backgroundId ?? "null"}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>backgroundName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.backgroundName || ""}</span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>height: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{displayHeight ?? "null"}</span>
+              </div>
+            </div>,
+            { textTransform: "capitalize" }
+          )}
+          {renderRightPaneSection(
+            "features",
+            "Features",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              {allResolvedFeatures.map((f) => {
+                const featureSelectionKey = f.selectionKey ?? f.featureId;
+                const draftSelections = safeDraft.featureSelections[featureSelectionKey] ?? [];
+                const displayedSelections = Array.from(
+                  new Set([...(f.selections ?? []), ...draftSelections])
+                );
+
+                return (
+                <div key={f.featureId} style={{ marginBottom: "12px" }}>
+                  <div>
+                    <span style={{ color: "#7a7a7a" }}>Feature: </span>
+                    <span style={{ color: "#111", fontWeight: 600 }}>
+                      {f.featureName}
+                    </span>
+                  </div>
+                  <div>
+                    <span style={{ color: "#7a7a7a" }}>Level gained: </span>
+                    <span style={{ color: "#111", fontWeight: 500 }}>
+                      {f.levelGained ?? "null"}
+                    </span>
+                  </div>
+                  <div>
+                    <span style={{ color: "#7a7a7a" }}>Description: </span>
+                    <span style={{ color: "#111", fontWeight: 400 }}>
+                      {f.description}
+                    </span>
+                  </div>
+                  {displayedSelections.length > 0 && (
+                    <div>
+                      <span style={{ color: "#7a7a7a" }}>Selections: </span>
+                      <span style={{ color: "#111", fontWeight: 400 }}>
+                        {displayedSelections
+                          .map((selectionId) => {
+                            const matchingOption = f.choiceOptions?.find((option) => option.id === selectionId);
+                            return matchingOption?.label ?? selectionId;
+                          })
+                          .join(", ")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                );
+              })}
+            </div>
+          )}
+          {renderRightPaneSection(
+            "classDcAndAttack",
+            "classDcAndAttack",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              <div style={{ marginBottom: "10px" }}>
+                <div style={{ fontWeight: 600, marginBottom: "4px" }}>attackBonuses</div>
+                {sheet.classDcAndAttack.attackBonuses.length > 0 ? (
+                  sheet.classDcAndAttack.attackBonuses.map((entry, index) => (
+                    <div key={`${entry.sourceId}-${index}`} style={{ marginBottom: "6px", paddingLeft: "12px" }}>
+                      <div>sourceName: {entry.sourceName}</div>
+                      <div>attackType: {entry.attackType}</div>
+                      <div>ability: {entry.ability}</div>
+                      <div>value: {entry.value ?? "null"}</div>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ paddingLeft: "12px" }}>—</div>
+                )}
+              </div>
+
+              <div>
+                <div style={{ fontWeight: 600, marginBottom: "4px" }}>saveDcs</div>
+                {sheet.classDcAndAttack.saveDcs.length > 0 ? (
+                  sheet.classDcAndAttack.saveDcs.map((entry, index) => (
+                    <div key={`${entry.sourceId}-${index}`} style={{ marginBottom: "6px", paddingLeft: "12px" }}>
+                      <div>sourceName: {entry.sourceName}</div>
+                      <div>dcType: {entry.dcType}</div>
+                      <div>ability: {entry.ability}</div>
+                      <div>value: {entry.value ?? "null"}</div>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ paddingLeft: "12px" }}>—</div>
+                )}
+              </div>
+            </div>
+          )}
+          {renderRightPaneSection(
+            "spellcasting",
+            "spellcasting",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              <div>spellcastingAbility: {sheet.spellcasting.spellcastingAbility ?? "null"}</div>
+              <div>spellSaveDc: {sheet.spellcasting.spellSaveDc ?? "null"}</div>
+              <div>spellAttackBonus: {sheet.spellcasting.spellAttackBonus ?? "null"}</div>
+              <div>preparedSpellLimit: {sheet.spellcasting.preparedSpellLimit ?? "null"}</div>
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>spellSlotsByLevel</div>
+              {sheet.spellcasting.spellSlotsByLevel.length > 0 ? (
+                sheet.spellcasting.spellSlotsByLevel.map((entry, index) => (
+                  <div key={`${entry.source}-${entry.spellLevel}-${index}`} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>spellLevel: {entry.spellLevel}</div>
+                    <div>slotsTotal: {entry.slotsTotal ?? "null"}</div>
+                    <div>source: {entry.source}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>knownSpells</div>
+              {sheet.spellcasting.knownSpells.length > 0 ? (
+                sheet.spellcasting.knownSpells.map((entry, index) => (
+                  <div key={`known-${entry.spellId}-${index}`} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>spellName: {entry.spellName}</div>
+                    <div>sourceName: {entry.sourceName}</div>
+                    <div>isAlwaysPrepared: {entry.isAlwaysPrepared ? "true" : "false"}</div>
+                    <div>countsAgainstLimit: {entry.countsAgainstLimit ? "true" : "false"}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>preparedSpells</div>
+              {sheet.spellcasting.preparedSpells.length > 0 ? (
+                sheet.spellcasting.preparedSpells.map((entry, index) => (
+                  <div key={`prepared-${entry.spellId}-${index}`} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>spellName: {entry.spellName}</div>
+                    <div>sourceName: {entry.sourceName}</div>
+                    <div>isAlwaysPrepared: {entry.isAlwaysPrepared ? "true" : "false"}</div>
+                    <div>countsAgainstLimit: {entry.countsAgainstLimit ? "true" : "false"}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>selectionState</div>
+              <div style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                <div>classId: {sheet.spellcasting.selectionState.classId ?? "null"}</div>
+                <div>subclassId: {sheet.spellcasting.selectionState.subclassId ?? "null"}</div>
+                <div>className: {sheet.spellcasting.selectionState.className || ""}</div>
+                <div>subclassName: {sheet.spellcasting.selectionState.subclassName || ""}</div>
+                <div>maxSpellLevel: {sheet.spellcasting.selectionState.maxSpellLevel ?? "null"}</div>
+                <div>cantripSlotCount: {cantripSlots.length}</div>
+                <div>spellRepertoireCount: {repertoireSlots.length}</div>
+                <div>note: repertoire choices are not castable spell slots</div>
+              </div>
+
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>knownSpellSlots</div>
+              {sheet.spellcasting.selectionState.knownSpellSlots.length > 0 ? (
+                sheet.spellcasting.selectionState.knownSpellSlots.map((slot) => (
+                  <div key={slot.slotId} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>slotId: {slot.slotId}</div>
+                    <div>sourceName: {slot.sourceName}</div>
+                    <div>bucket: {slot.bucket}</div>
+                    <div>kind: {slot.kind}</div>
+                    <div>selectedSpellId: {slot.selectedSpellId ?? "null"}</div>
+                    <div>allowedSpellLevels: {slot.allowedSpellLevels.length > 0 ? slot.allowedSpellLevels.join(", ") : "—"}</div>
+                    <div>allowedSchools: {slot.allowedSchools.length > 0 ? slot.allowedSchools.join(", ") : "—"}</div>
+                    <div>options: {slot.options.length}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>preparedSpellSlots</div>
+              {sheet.spellcasting.selectionState.preparedSpellSlots.length > 0 ? (
+                sheet.spellcasting.selectionState.preparedSpellSlots.map((slot) => (
+                  <div key={slot.slotId} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>slotId: {slot.slotId}</div>
+                    <div>sourceName: {slot.sourceName}</div>
+                    <div>bucket: {slot.bucket}</div>
+                    <div>kind: {slot.kind}</div>
+                    <div>selectedSpellId: {slot.selectedSpellId ?? "null"}</div>
+                    <div>allowedSpellLevels: {slot.allowedSpellLevels.length > 0 ? slot.allowedSpellLevels.join(", ") : "—"}</div>
+                    <div>allowedSchools: {slot.allowedSchools.length > 0 ? slot.allowedSchools.join(", ") : "—"}</div>
+                    <div>options: {slot.options.length}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>grantedSpellSlots</div>
+              {sheet.spellcasting.selectionState.grantedSpellSlots.length > 0 ? (
+                sheet.spellcasting.selectionState.grantedSpellSlots.map((slot) => (
+                  <div key={slot.slotId} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>slotId: {slot.slotId}</div>
+                    <div>sourceName: {slot.sourceName}</div>
+                    <div>bucket: {slot.bucket}</div>
+                    <div>kind: {slot.kind}</div>
+                    <div>fixedSpellId: {slot.fixedSpellId ?? "null"}</div>
+                    <div>selectedSpellId: {slot.selectedSpellId ?? "null"}</div>
+                    <div>isAlwaysPrepared: {slot.isAlwaysPrepared ? "true" : "false"}</div>
+                    <div>countsAgainstLimit: {slot.countsAgainstLimit ? "true" : "false"}</div>
+                    <div>allowedSpellLevels: {slot.allowedSpellLevels.length > 0 ? slot.allowedSpellLevels.join(", ") : "—"}</div>
+                    <div>allowedSchools: {slot.allowedSchools.length > 0 ? slot.allowedSchools.join(", ") : "—"}</div>
+                    <div>options: {slot.options.length}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+
+              <div style={{ marginTop: "8px", fontWeight: 600 }}>allAvailableSpells</div>
+              {sheet.spellcasting.selectionState.allAvailableSpells.length > 0 ? (
+                sheet.spellcasting.selectionState.allAvailableSpells.map((spell, index) => (
+                  <div key={`${spell.spellId}-${index}`} style={{ paddingLeft: "12px", marginBottom: "6px" }}>
+                    <div>spellName: {spell.spellName}</div>
+                    <div>spellLevel: {spell.spellLevel}</div>
+                    <div>school: {spell.school}</div>
+                  </div>
+                ))
+              ) : (
+                <div style={{ paddingLeft: "12px" }}>—</div>
+              )}
+            </div>
+          )}
+          {renderRightPaneSection(
+            "proficiencies",
+            "proficiencies",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>armor: </span>
+                <span style={{ color: "#111", fontWeight: 400 }}>
+                  {sheet.proficiencies.armor.length > 0
+                    ? sheet.proficiencies.armor.join(", ")
+                    : "—"}
+                </span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>weapons: </span>
+                <span style={{ color: "#111", fontWeight: 400 }}>
+                  {sheet.proficiencies.weapons.length > 0
+                    ? sheet.proficiencies.weapons.join(", ")
+                    : "—"}
+                </span>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <span style={{ color: "#7a7a7a" }}>tools: </span>
+                <span style={{ color: "#111", fontWeight: 400 }}>
+                  {sheet.proficiencies.tools.length > 0
+                    ? sheet.proficiencies.tools.join(", ")
+                    : "—"}
+                </span>
+              </div>
+              <div>
+                <span style={{ color: "#7a7a7a" }}>skills: </span>
+                <span style={{ color: "#111", fontWeight: 400 }}>
+                  {sheet.proficiencies.skills.length > 0
+                    ? sheet.proficiencies.skills.join(", ")
+                    : "—"}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div>
+          {renderRightPaneSection(
+            "abilities",
+            "abilities",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              {Object.entries(sheet.abilities).map(([key, value]) => (
+                <div key={key} style={{ marginBottom: "6px" }}>
+                  <div style={{ fontWeight: 600 }}>{key}</div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <div>score: {value.score ?? "null"}</div>
+                    <div>modifier: {value.modifier ?? "null"}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {renderRightPaneSection(
+            "combatBasics",
+            "combatBasics",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              <div>proficiencyBonus: {sheet.combatBasics.proficiencyBonus.value ?? "null"}</div>
+              <div>initiative: {sheet.combatBasics.initiative.value ?? "null"}</div>
+              <div>armorClass: {sheet.combatBasics.armorClass.value ?? "null"}</div>
+              <div>speed: {displaySpeed ?? "null"}</div>
+              <div>passivePerception: {sheet.combatBasics.passivePerception.value ?? "null"}</div>
+              <div>perceptionModifier: {displayPerceptionModifier ?? "null"}</div>
+            </div>
+          )}
+          {renderRightPaneSection(
+            "durability",
+            "durability",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              <div style={{ marginBottom: "6px" }}>
+                <div style={{ fontWeight: 600 }}>hpMax</div>
+                <div style={{ paddingLeft: "12px" }}>
+                  <div>value: {sheet.durability.hpMax.value ?? "null"}</div>
+                </div>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <div style={{ fontWeight: 600 }}>hitDice</div>
+                <div style={{ paddingLeft: "12px" }}>
+                  <div>die: {sheet.durability.hitDice.die || "null"}</div>
+                  <div>total: {sheet.durability.hitDice.total ?? "null"}</div>
+                </div>
+              </div>
+            </div>
+          )}
+          {renderRightPaneSection(
+            "savingThrows",
+            "savingThrows",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              {Object.entries(sheet.savingThrows).map(([key, value]) => (
+                <div key={key} style={{ marginBottom: "6px" }}>
+                  <div style={{ fontWeight: 600 }}>{key}</div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <div>proficiency: {value.proficiency}</div>
+                    <div>totalModifier: {value.totalModifier ?? "null"}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {renderRightPaneSection(
+            "skills",
+            "skills",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              {Object.entries(sheet.skills).map(([key, value]) => (
+                <div key={key} style={{ marginBottom: "6px" }}>
+                  <div style={{ fontWeight: 600 }}>{key}</div>
+                  <div style={{ paddingLeft: "12px" }}>
+                    <div>ability: {value.ability}</div>
+                    <div>proficiency: {value.proficiency}</div>
+                    <div>totalModifier: {value.totalModifier ?? "null"}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+    {hoverDescription ? (
+      <div
+        style={{
+          position: "fixed",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          padding: "10px 16px",
+          background: "rgba(20,20,20,0.95)",
+          color: "#fff",
+          fontSize: "13px",
+          lineHeight: 1.4,
+          borderTop: "1px solid rgba(255,255,255,0.14)",
+          zIndex: 100,
+        }}
+      >
+        {hoverDescription}
+      </div>
+    ) : null}
+  </div>
+);
+}

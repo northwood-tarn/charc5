@@ -1,0 +1,982 @@
+{
+  "class_id": "fighter",
+  "features": [
+    {
+      "id": "fighting_style",
+      "name": "Fighting Style",
+      "description": "Passive; you gain a Fighting Style feat of your choice.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "feat",
+        "count": 1,
+        "pool": "fighting_style_feats"
+      }
+    },
+    {
+      "id": "second_wind",
+      "name": "Second Wind",
+      "description": "Bonus Action; regain HP = 1d10 + your Fighter level. Uses: 2 (Fighter levels 1–3), 3 (levels 4–9), 4 (levels 10–20). Regain 1 expended use when you finish a Short Rest; regain all uses when you finish a Long Rest.",
+      "level": 1,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "second_wind",
+            "resource_name": "Second Wind",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "3" },
+              { "level": 5, "value": "3" },
+              { "level": 6, "value": "3" },
+              { "level": 7, "value": "3" },
+              { "level": 8, "value": "3" },
+              { "level": 9, "value": "3" },
+              { "level": 10, "value": "4" },
+              { "level": 11, "value": "4" },
+              { "level": 12, "value": "4" },
+              { "level": 13, "value": "4" },
+              { "level": 14, "value": "4" },
+              { "level": 15, "value": "4" },
+              { "level": 16, "value": "4" },
+              { "level": 17, "value": "4" },
+              { "level": 18, "value": "4" },
+              { "level": 19, "value": "4" },
+              { "level": 20, "value": "4" }
+            ]
+          }
+        ],
+        "recovery": {
+          "short_rest": 1,
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "second_wind",
+      "stack_role": "base"
+    },
+    {
+      "id": "weapon_mastery",
+      "name": "Weapon Mastery",
+      "description": "Passive; you can use the mastery properties of three kinds of Simple or Martial weapons you choose. Whenever you finish a Long Rest, you can change one of those chosen weapon kinds. Number of weapon kinds you can master: 3 (Fighter levels 1–3), 4 (levels 4–9), 5 (levels 10–15), 6 (levels 16–20).",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "weapon_mastery",
+        "count_by_level": [
+          { "level": 1, "value": 3 },
+          { "level": 4, "value": 4 },
+          { "level": 10, "value": 5 },
+          { "level": 16, "value": 6 }
+        ],
+        "pool": "simple_or_martial_weapon_kinds",
+        "change_rule": "change_one_on_long_rest"
+      }
+    },
+    {
+      "id": "action_surge",
+      "name": "Action Surge",
+      "description": "No action (on your turn); take one additional Action, except the Magic action. Uses: 1 per Short or Long Rest; starting at Fighter 17 you can use it twice between rests (but only once on the same turn).",
+      "level": 2,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "action_surge",
+            "resource_name": "Action Surge",
+            "scaling": [
+              { "level": 2, "value": "1" },
+              { "level": 3, "value": "1" },
+              { "level": 4, "value": "1" },
+              { "level": 5, "value": "1" },
+              { "level": 6, "value": "1" },
+              { "level": 7, "value": "1" },
+              { "level": 8, "value": "1" },
+              { "level": 9, "value": "1" },
+              { "level": 10, "value": "1" },
+              { "level": 11, "value": "1" },
+              { "level": 12, "value": "1" },
+              { "level": 13, "value": "1" },
+              { "level": 14, "value": "1" },
+              { "level": 15, "value": "1" },
+              { "level": 16, "value": "1" },
+              { "level": 17, "value": "2" },
+              { "level": 18, "value": "2" },
+              { "level": 19, "value": "2" },
+              { "level": 20, "value": "2" }
+            ]
+          }
+        ],
+        "recovery": {
+          "short_rest": "all",
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "action_surge",
+      "stack_role": "base"
+    },
+    {
+      "id": "tactical_mind",
+      "name": "Tactical Mind",
+      "description": "Trigger: you fail an ability check. Cost: you may expend 1 use of Second Wind (instead of healing). Effect: roll 1d10 and add it to the failed check, potentially turning failure into success. If the check still fails, the Second Wind use is not expended.",
+      "level": 2,
+      "type": "paper",
+      "feature_stack": "second_wind",
+      "stack_role": "consumer",
+      "modifies": ["second_wind"]
+    },
+    {
+      "id": "fighter_subclass",
+      "name": "Fighter Subclass",
+      "description": "Passive; choose a Fighter subclass. You gain that subclass’s features at Fighter levels 3, 7, 10, 15, and 18.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "fighter_subclasses"
+      }
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "description": "Passive; when you take the Attack action on your turn, you can make two attacks instead of one.",
+      "level": 5,
+      "type": "derived_output",
+      "derived_effects": {
+        "attack_count_by_level": [
+          { "level": 1, "value": 1 },
+          { "level": 2, "value": 1 },
+          { "level": 3, "value": 1 },
+          { "level": 4, "value": 1 },
+          { "level": 5, "value": 2 },
+          { "level": 6, "value": 2 },
+          { "level": 7, "value": 2 },
+          { "level": 8, "value": 2 },
+          { "level": 9, "value": 2 },
+          { "level": 10, "value": 2 },
+          { "level": 11, "value": 3 },
+          { "level": 12, "value": 3 },
+          { "level": 13, "value": 3 },
+          { "level": 14, "value": 3 },
+          { "level": 15, "value": 3 },
+          { "level": 16, "value": 3 },
+          { "level": 17, "value": 3 },
+          { "level": 18, "value": 3 },
+          { "level": 19, "value": 3 },
+          { "level": 20, "value": 4 }
+        ]
+      },
+      "feature_stack": "extra_attack",
+      "stack_role": "base"
+    },
+    {
+      "id": "tactical_shift",
+      "name": "Tactical Shift",
+      "description": "No extra action; whenever you activate Second Wind with a Bonus Action, you can move up to half your Speed immediately as part of the same Bonus Action, and this movement doesn’t provoke Opportunity Attacks.",
+      "level": 5,
+      "type": "paper",
+      "feature_stack": "second_wind",
+      "stack_role": "modifier",
+      "modifies": ["second_wind"]
+    },
+    {
+      "id": "indomitable",
+      "name": "Indomitable",
+      "description": "Trigger (no action required); when you fail a saving throw, reroll it and add a bonus equal to your Fighter level. You must use the new roll. Uses: 1 per Long Rest at Fighter 9; 2 per Long Rest at Fighter 13; 3 per Long Rest at Fighter 17.",
+      "level": 9,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "indomitable",
+            "resource_name": "Indomitable",
+            "scaling": [
+              { "level": 9, "value": "1" },
+              { "level": 10, "value": "1" },
+              { "level": 11, "value": "1" },
+              { "level": 12, "value": "1" },
+              { "level": 13, "value": "2" },
+              { "level": 14, "value": "2" },
+              { "level": 15, "value": "2" },
+              { "level": 16, "value": "2" },
+              { "level": 17, "value": "3" },
+              { "level": 18, "value": "3" },
+              { "level": 19, "value": "3" },
+              { "level": 20, "value": "3" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "indomitable",
+      "stack_role": "base"
+    },
+    {
+      "id": "tactical_master",
+      "name": "Tactical Master",
+      "description": "Passive; when you make an attack with a weapon whose mastery property you can use, you can replace that weapon’s mastery property for that attack with Push, Sap, or Slow.",
+      "level": 9,
+      "type": "paper"
+    },
+    {
+      "id": "second_wind_improvement",
+      "name": "Second Wind Improvement",
+      "description": "Passive; your number of Second Wind uses becomes 4 (and remains 4 through level 20).",
+      "level": 10,
+      "type": "paper",
+      "feature_stack": "second_wind",
+      "stack_role": "modifier",
+      "modifies": ["second_wind"]
+    },
+    {
+      "id": "two_extra_attacks",
+      "name": "Two Extra Attacks",
+      "description": "You can attack three times instead of once whenever you take the Attack action on your turn.",
+      "level": 11,
+      "type": "paper",
+      "feature_stack": "extra_attack",
+      "stack_role": "modifier",
+      "modifies": ["extra_attack"]
+    },
+    {
+      "id": "studied_attacks",
+      "name": "Studied Attacks",
+      "description": "Passive; if you make an attack roll against a creature and miss, you have Advantage on your next attack roll against that creature before the end of your next turn.",
+      "level": 13,
+      "type": "paper"
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Combat Prowess is recommended.",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "three_extra_attacks",
+      "name": "Three Extra Attacks",
+      "description": "You can attack four times instead of once whenever you take the Attack action on your turn.",
+      "level": 20,
+      "type": "paper",
+      "feature_stack": "extra_attack",
+      "stack_role": "modifier",
+      "modifies": ["extra_attack"]
+    },
+    {
+      "id": "action_surge_improvement",
+      "name": "Action Surge Improvement",
+      "description": "Passive; you can now use Action Surge twice between Short or Long Rests (but only once on the same turn). Also, your Indomitable uses become 3 per Long Rest.",
+      "level": 17,
+      "type": "paper",
+      "feature_stack": "action_surge",
+      "stack_role": "modifier",
+      "modifies": ["action_surge", "indomitable"]
+    }
+  ],
+  "subclasses": {
+    "champion": {
+      "features": [
+        {
+          "id": "improved_critical",
+          "name": "Improved Critical",
+          "description": "Passive; your weapon attacks and Unarmed Strikes score a critical hit on a d20 roll of 19–20.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "champion_critical_range",
+          "stack_role": "base"
+        },
+        {
+          "id": "remarkable_athlete",
+          "name": "Remarkable Athlete",
+          "description": "Passive; you have Advantage on Initiative rolls and Strength (Athletics) checks. Also, when you score a critical hit, you can move up to half your Speed without provoking Opportunity Attacks.",
+          "level": 7,
+          "type": "derived_output",
+          "derived_effects": {
+            "initiative": {
+              "advantage": true
+            },
+            "skill_check_advantages": ["athletics"]
+          }
+        },
+        {
+          "id": "additional_fighting_style",
+          "name": "Additional Fighting Style",
+          "description": "Passive; you gain a second Fighting Style feat of your choice.",
+          "level": 7,
+          "type": "choice",
+          "choice": {
+            "kind": "feat",
+            "count": 1,
+            "pool": "fighting_style_feats"
+          }
+        },
+        {
+          "id": "heroic_warrior",
+          "name": "Heroic Warrior",
+          "description": "Passive; at the start of each of your turns in combat, if you don’t have Heroic Inspiration, you gain it.",
+          "level": 10,
+          "type": "paper"
+        },
+        {
+          "id": "superior_critical",
+          "name": "Superior Critical",
+          "description": "Passive; your weapon attacks and Unarmed Strikes score a critical hit on a d20 roll of 18–20.",
+          "level": 15,
+          "type": "paper",
+          "feature_stack": "champion_critical_range",
+          "stack_role": "modifier",
+          "modifies": ["improved_critical"]
+        },
+        {
+          "id": "survivor",
+          "name": "Survivor",
+          "description": "Passive; you have Advantage on death saving throws, and when you roll an 18–20 on a death saving throw it counts as a critical success (regain 1 HP).",
+          "level": 18,
+          "type": "derived_output",
+          "derived_effects": {
+            "death_saves": {
+              "advantage": true,
+              "critical_success_on": [18, 19, 20]
+            }
+          }
+        }
+      ]
+    },
+    "battle_master": {
+      "features": [
+        {
+          "id": "combat_superiority_save_ability",
+          "name": "Combat Superiority Save Ability",
+          "description": "Choose the ability used for your Battle Master maneuver save DC calculation.",
+          "level": 3,
+          "type": "choice",
+          "choice": {
+            "kind": "mode_choice",
+            "count": 1,
+            "options": [
+              {
+                "id": "strength",
+                "label": "Strength",
+                "derived_effects": {
+                  "maneuver_save_dc": {
+                    "base": 8,
+                    "proficiency_bonus": true,
+                    "ability": "str"
+                  }
+                }
+              },
+              {
+                "id": "dexterity",
+                "label": "Dexterity",
+                "derived_effects": {
+                  "maneuver_save_dc": {
+                    "base": 8,
+                    "proficiency_bonus": true,
+                    "ability": "dex"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "combat_superiority",
+          "name": "Combat Superiority",
+          "description": "You learn battle maneuvers fueled by Superiority Dice. Dice: 4d8 at level 3; you regain all expended dice when you finish a Short or Long Rest. Save DC for maneuvers that require one = 8 + your Proficiency Bonus + your Strength or Dexterity modifier (your choice when you gain this feature). You learn 3 maneuvers at level 3; you learn 2 more at level 7, 2 more at level 10, and 2 more at level 15.",
+          "level": 3,
+          "type": "choice",
+          "choice": {
+            "kind": "maneuver",
+            "count_by_level": [
+              { "level": 3, "value": 3 },
+              { "level": 7, "value": 5 },
+              { "level": 10, "value": 7 },
+              { "level": 15, "value": 9 }
+            ],
+            "options": [
+              {
+                "id": "ambush",
+                "label": "Ambush",
+                "cost": "1",
+                "description": "When you make a Dexterity (Stealth) check or an Initiative roll, you can expend one Superiority Die and add it to the roll."
+              },
+              {
+                "id": "bait_and_switch",
+                "label": "Bait and Switch",
+                "cost": "1",
+                "description": "When you are within 5 ft of a creature on your turn, you can expend one Superiority Die and switch places with that creature; until the start of your next turn, one of you (your choice) gains a bonus to AC equal to the die roll."
+              },
+              {
+                "id": "brace",
+                "label": "Brace",
+                "cost": "1",
+                "description": "Reaction; when a creature you can see enters your reach, you can expend one Superiority Die to make one melee weapon attack against that creature, adding the die to the attack’s damage on a hit."
+              },
+              {
+                "id": "commanders_strike",
+                "label": "Commander's Strike",
+                "cost": "1",
+                "description": "When you take the Attack action, you can forgo one of your attacks and expend one Superiority Die; a creature of your choice that can see or hear you can use its Reaction to make one weapon attack, adding the die to the attack’s damage."
+              },
+              {
+                "id": "commanding_presence",
+                "label": "Commanding Presence",
+                "cost": "1",
+                "description": "When you make a Charisma (Intimidation, Performance, or Persuasion) check, you can expend one Superiority Die and add it to the roll."
+              },
+              {
+                "id": "disarming_attack",
+                "label": "Disarming Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; the target must make a Strength saving throw or drop one item it is holding (of your choice), which lands at its feet."
+              },
+              {
+                "id": "distracting_strike",
+                "label": "Distracting Strike",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; the next attack roll against that target by a creature other than you before the start of your next turn has Advantage."
+              },
+              {
+                "id": "evasive_footwork",
+                "label": "Evasive Footwork",
+                "cost": "1",
+                "description": "When you move, you can expend one Superiority Die, rolling it and adding the result to your AC until you stop moving."
+              },
+              {
+                "id": "feinting_attack",
+                "label": "Feinting Attack",
+                "cost": "1",
+                "description": "Bonus Action; expend one Superiority Die to gain Advantage on your next attack roll against a creature this turn; if it hits, add the die to the attack’s damage."
+              },
+              {
+                "id": "goading_attack",
+                "label": "Goading Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; the target must make a Wisdom saving throw or have Disadvantage on attack rolls against targets other than you until the end of your next turn."
+              },
+              {
+                "id": "grappling_strike",
+                "label": "Grappling Strike",
+                "cost": "1",
+                "description": "Immediately after you hit a creature with a melee weapon attack on your turn, you can expend one Superiority Die to attempt to Grapple the target as a Bonus Action, adding the die to your Strength (Athletics) check."
+              },
+              {
+                "id": "lunging_attack",
+                "label": "Lunging Attack",
+                "cost": "1",
+                "description": "When you make a melee weapon attack on your turn, you can expend one Superiority Die to increase your reach by 5 ft for that attack; if it hits, add the die to the attack’s damage."
+              },
+              {
+                "id": "maneuvering_attack",
+                "label": "Maneuvering Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; a friendly creature who can see or hear you can use its Reaction to move up to half its Speed without provoking Opportunity Attacks from the target."
+              },
+              {
+                "id": "menacing_attack",
+                "label": "Menacing Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; the target must make a Wisdom saving throw or be Frightened of you until the end of your next turn."
+              },
+              {
+                "id": "parry",
+                "label": "Parry",
+                "cost": "1",
+                "description": "Reaction; when another creature damages you with a melee attack, you can expend one Superiority Die to reduce the damage by the die roll + your Dexterity modifier."
+              },
+              {
+                "id": "precision_attack",
+                "label": "Precision Attack",
+                "cost": "1",
+                "description": "When you make a weapon attack roll against a creature, you can expend one Superiority Die to add it to the roll; you can use this after seeing the roll but before knowing if it hits."
+              },
+              {
+                "id": "pushing_attack",
+                "label": "Pushing Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; if the target is Large or smaller, it must make a Strength saving throw or be pushed up to 15 ft away from you."
+              },
+              {
+                "id": "rally",
+                "label": "Rally",
+                "cost": "1",
+                "description": "Bonus Action; expend one Superiority Die to grant temporary hit points to a creature other than yourself within 30 ft that can see or hear you; the temp HP equals the die roll + your Charisma modifier."
+              },
+              {
+                "id": "riposte",
+                "label": "Riposte",
+                "cost": "1",
+                "description": "Reaction; when a creature misses you with a melee attack, you can expend one Superiority Die to make a melee weapon attack against that creature; if it hits, add the die to the attack’s damage."
+              },
+              {
+                "id": "sweeping_attack",
+                "label": "Sweeping Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a melee weapon attack, you can expend one Superiority Die to attempt to damage another creature within 5 ft of the original target and within your reach; if the original attack roll would hit the second creature, it takes damage equal to the die roll."
+              },
+              {
+                "id": "tactical_assessment",
+                "label": "Tactical Assessment",
+                "cost": "1",
+                "description": "When you make an Intelligence (History or Investigation) check, you can expend one Superiority Die and add it to the roll."
+              },
+              {
+                "id": "trip_attack",
+                "label": "Trip Attack",
+                "cost": "1",
+                "description": "When you hit a creature with a weapon attack, expend one Superiority Die to add it to the damage; if the target is Large or smaller, it must make a Strength saving throw or be knocked Prone."
+              }
+            ]
+          },
+          "derived_effects": {
+            "maneuver_save_dc": {
+              "base": 8,
+              "proficiency_bonus": true,
+              "ability_choice_feature": "combat_superiority_save_ability"
+            }
+          },
+          "resource": {
+            "kind": "class_resources",
+                "resources": [
+                  {
+                    "resource_id": "superiority_dice",
+                    "resource_name": "Superiority Dice",
+                    "scaling": [
+                      { "level": 3, "value": "4" },
+                      { "level": 7, "value": "5" },
+                      { "level": 15, "value": "6" }
+                    ]
+                  },
+              {
+                "resource_id": "superiority_die_size",
+                "resource_name": "Superiority Die Size",
+                "scaling": [
+                  { "level": 3, "value": "d8" },
+                  { "level": 10, "value": "d10" },
+                  { "level": 18, "value": "d12" }
+                ]
+              }
+            ],
+            "recovery": {
+              "short_rest": "all",
+              "long_rest": "all"
+            }
+          },
+          "feature_stack": "combat_superiority",
+          "stack_role": "base"
+        },
+        {
+          "id": "student_of_war",
+          "name": "Student of War",
+          "description": "Passive; gain proficiency in one skill of your choice and proficiency with one set of artisan’s tools of your choice.",
+          "level": 3,
+          "type": "choice",
+          "choice": {
+            "kind": "compound",
+            "components": [
+              {
+                "kind": "skill_proficiency",
+                "count": 1
+              },
+              {
+                "kind": "tool_proficiency",
+                "source": "artisan_tools",
+                "count": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "know_your_enemy",
+          "name": "Know Your Enemy",
+          "description": "Bonus Action; choose one creature you can see within 30 feet of yourself. You learn whether that creature has any Immunities, Resistances, or Vulnerabilities, and if the creature has any, you know what they are. Once you use this feature, you can’t do so again until you finish a Long Rest. You can also restore a use of the feature by expending one Superiority Die (no action required).",
+          "level": 7,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "know_your_enemy",
+                "resource_name": "Know Your Enemy",
+                "scaling": [
+                  { "level": 7, "value": "1" }
+                ]
+              }
+            ],
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "improved_combat_superiority",
+          "name": "Improved Combat Superiority",
+          "description": "Passive; your Superiority Dice become d10s.",
+          "level": 10,
+          "type": "paper",
+          "feature_stack": "combat_superiority",
+          "stack_role": "modifier",
+          "modifies": ["combat_superiority"]
+        },
+        {
+          "id": "relentless",
+          "name": "Relentless",
+          "description": "Passive; once per turn when you use a maneuver, you can use a d8 in place of expending a Superiority Die.",
+          "level": 15,
+          "type": "paper",
+          "feature_stack": "combat_superiority",
+          "stack_role": "modifier",
+          "modifies": ["combat_superiority"]
+        },
+        {
+          "id": "ultimate_combat_superiority",
+          "name": "Ultimate Combat Superiority",
+          "description": "Passive; your Superiority Dice become d12s.",
+          "level": 18,
+          "type": "paper",
+          "feature_stack": "combat_superiority",
+          "stack_role": "modifier",
+          "modifies": ["combat_superiority"]
+        }
+      ]
+    },
+    "eldritch_knight": {
+      "features": [
+        {
+          "id": "eldritch_knight_spellcasting",
+          "name": "Spellcasting",
+          "description": "You learn spells from the Wizard spell list and cast them using Intelligence (spell save DC and spell attack bonus). Cantrips: you learn 2 Wizard cantrips at level 3; when you gain a Fighter level, you can replace one known cantrip with another Wizard cantrip. You learn and prepare a limited number of Wizard spells as shown on the Eldritch Knight table.",
+          "level": 3,
+          "type": "paper",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "cantrips",
+                "resource_name": "Cantrips",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "2" },
+                  { "level": 4, "value": "2" },
+                  { "level": 5, "value": "2" },
+                  { "level": 6, "value": "2" },
+                  { "level": 7, "value": "2" },
+                  { "level": 8, "value": "2" },
+                  { "level": 9, "value": "2" },
+                  { "level": 10, "value": "2" },
+                  { "level": 11, "value": "2" },
+                  { "level": 12, "value": "2" },
+                  { "level": 13, "value": "2" },
+                  { "level": 14, "value": "2" },
+                  { "level": 15, "value": "2" },
+                  { "level": 16, "value": "2" },
+                  { "level": 17, "value": "2" },
+                  { "level": 18, "value": "2" },
+                  { "level": 19, "value": "2" },
+                  { "level": 20, "value": "2" }
+                ]
+              },
+              {
+                "resource_id": "prepared_spells",
+                "resource_name": "Prepared Spells",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "3" },
+                  { "level": 4, "value": "4" },
+                  { "level": 5, "value": "4" },
+                  { "level": 6, "value": "4" },
+                  { "level": 7, "value": "5" },
+                  { "level": 8, "value": "6" },
+                  { "level": 9, "value": "6" },
+                  { "level": 10, "value": "7" },
+                  { "level": 11, "value": "8" },
+                  { "level": 12, "value": "8" },
+                  { "level": 13, "value": "9" },
+                  { "level": 14, "value": "10" },
+                  { "level": 15, "value": "10" },
+                  { "level": 16, "value": "11" },
+                  { "level": 17, "value": "11" },
+                  { "level": 18, "value": "11" },
+                  { "level": 19, "value": "12" },
+                  { "level": 20, "value": "13" }
+                ]
+              },
+              {
+                "resource_id": "spell_repertoire",
+                "resource_name": "Spell Repertoire",
+                "scaling": [
+                  { "level": 3, "value": "3" },
+                  { "level": 4, "value": "4" },
+                  { "level": 5, "value": "5" },
+                  { "level": 6, "value": "5" },
+                  { "level": 7, "value": "6" },
+                  { "level": 8, "value": "6" },
+                  { "level": 9, "value": "6" },
+                  { "level": 10, "value": "7" },
+                  { "level": 11, "value": "8" },
+                  { "level": 12, "value": "8" },
+                  { "level": 13, "value": "9" },
+                  { "level": 14, "value": "10" },
+                  { "level": 15, "value": "10" },
+                  { "level": 16, "value": "11" },
+                  { "level": 17, "value": "12" },
+                  { "level": 18, "value": "12" },
+                  { "level": 19, "value": "13" },
+                  { "level": 20, "value": "13" }
+                ]
+              },
+              {
+                "resource_id": "spell_slots",
+                "resource_name": "Spell Slots",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "2" },
+                  { "level": 4, "value": "3" },
+                  { "level": 5, "value": "3" },
+                  { "level": 6, "value": "3" },
+                  { "level": 7, "value": "4" },
+                  { "level": 8, "value": "4" },
+                  { "level": 9, "value": "4|2" },
+                  { "level": 10, "value": "4|2" },
+                  { "level": 11, "value": "4|3" },
+                  { "level": 12, "value": "4|3" },
+                  { "level": 13, "value": "4|3|2" },
+                  { "level": 14, "value": "4|3|2" },
+                  { "level": 15, "value": "4|3|3" },
+                  { "level": 16, "value": "4|3|3" },
+                  { "level": 17, "value": "4|3|3|1" },
+                  { "level": 18, "value": "4|3|3|1" },
+                  { "level": 19, "value": "4|3|3|2" },
+                  { "level": 20, "value": "4|3|3|2" }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "war_bond",
+          "name": "War Bond",
+          "description": "Ritual; bond with one weapon (you can have up to two bonded weapons). While bonded: you can’t be disarmed of that weapon unless you have the Incapacitated condition. Bonus Action: summon one bonded weapon to your hand if it is on the same plane. You can’t bond a weapon already bonded to another Fighter or attuned to another creature.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "war_magic",
+          "name": "War Magic",
+          "description": "Passive; when you take the Attack action on your turn, you can replace one of the attacks with a Wizard cantrip that has a casting time of 1 Action.",
+          "level": 7,
+          "type": "paper",
+          "feature_stack": "war_magic",
+          "stack_role": "base"
+        },
+        {
+          "id": "eldritch_strike",
+          "name": "Eldritch Strike",
+          "description": "Passive; when you hit a creature with a weapon attack, that creature has Disadvantage on the next saving throw it makes against a spell you cast before the end of your next turn.",
+          "level": 10,
+          "type": "paper"
+        },
+        {
+          "id": "arcane_charge",
+          "name": "Arcane Charge",
+          "description": "No action; when you use Action Surge, you can teleport up to 30 ft to an unoccupied space you can see. You can teleport before or after the additional action.",
+          "level": 15,
+          "type": "paper"
+        },
+        {
+          "id": "improved_war_magic",
+          "name": "Improved War Magic",
+          "description": "Passive; when you take the Attack action on your turn, you can replace two of the attacks with a Wizard spell of 1st or 2nd level that has a casting time of 1 Action.",
+          "level": 18,
+          "type": "paper",
+          "feature_stack": "war_magic",
+          "stack_role": "modifier",
+          "modifies": ["war_magic"]
+        }
+      ]
+    },
+    "psi_warrior": {
+      "features": [
+        {
+          "id": "psionic_power",
+          "name": "Psionic Power",
+          "description": "You gain Psionic Energy dice. Dice: 4d6 at level 3, 6d8 at level 5, 8d8 at level 9, 8d10 at level 11, 10d10 at level 13, and 12d12 at level 17. You regain all expended dice on a Long Rest and regain 1 die when you finish a Short Rest. Save DC (if required) = 8 + your Proficiency Bonus + your Intelligence modifier. You learn the following options: Protective Field (Reaction; reduce damage to a creature within 30 ft by 1 Psionic Energy die + your Intelligence modifier), Psionic Strike (once per turn when you hit with a weapon attack, expend 1 die to deal extra Force damage equal to the die + your Intelligence modifier), and Telekinetic Movement (Action; move one object or willing creature within 30 ft up to 30 ft; once per Short or Long Rest unless you expend a die to use it again).",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "psi_dice",
+                "resource_name": "Psi Dice",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "4" },
+                  { "level": 4, "value": "4" },
+                  { "level": 5, "value": "6" },
+                  { "level": 6, "value": "6" },
+                  { "level": 7, "value": "6" },
+                  { "level": 8, "value": "6" },
+                  { "level": 9, "value": "8" },
+                  { "level": 10, "value": "8" },
+                  { "level": 11, "value": "8" },
+                  { "level": 12, "value": "8" },
+                  { "level": 13, "value": "10" },
+                  { "level": 14, "value": "10" },
+                  { "level": 15, "value": "10" },
+                  { "level": 16, "value": "10" },
+                  { "level": 17, "value": "12" },
+                  { "level": 18, "value": "12" },
+                  { "level": 19, "value": "12" },
+                  { "level": 20, "value": "12" }
+                ]
+              },
+              {
+                "resource_id": "psi_die",
+                "resource_name": "Psi Die",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "d6" },
+                  { "level": 4, "value": "d6" },
+                  { "level": 5, "value": "d8" },
+                  { "level": 6, "value": "d8" },
+                  { "level": 7, "value": "d8" },
+                  { "level": 8, "value": "d8" },
+                  { "level": 9, "value": "d8" },
+                  { "level": 10, "value": "d8" },
+                  { "level": 11, "value": "d10" },
+                  { "level": 12, "value": "d10" },
+                  { "level": 13, "value": "d10" },
+                  { "level": 14, "value": "d10" },
+                  { "level": 15, "value": "d10" },
+                  { "level": 16, "value": "d10" },
+                  { "level": 17, "value": "d12" },
+                  { "level": 18, "value": "d12" },
+                  { "level": 19, "value": "d12" },
+                  { "level": 20, "value": "d12" }
+                ]
+              },
+              {
+                "resource_id": "telekinetic_movement",
+                "resource_name": "Telekinetic Movement",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "1" },
+                  { "level": 4, "value": "1" },
+                  { "level": 5, "value": "1" },
+                  { "level": 6, "value": "1" },
+                  { "level": 7, "value": "1" },
+                  { "level": 8, "value": "1" },
+                  { "level": 9, "value": "1" },
+                  { "level": 10, "value": "1" },
+                  { "level": 11, "value": "1" },
+                  { "level": 12, "value": "1" },
+                  { "level": 13, "value": "1" },
+                  { "level": 14, "value": "1" },
+                  { "level": 15, "value": "1" },
+                  { "level": 16, "value": "1" },
+                  { "level": 17, "value": "1" },
+                  { "level": 18, "value": "1" },
+                  { "level": 19, "value": "1" },
+                  { "level": 20, "value": "1" }
+                ]
+              }
+            ],
+            "recovery": {
+              "short_rest": 1,
+              "long_rest": "all"
+            }
+          },
+          "derived_effects": {
+            "psi_save_dc": {
+              "base": 8,
+              "proficiency_bonus": true,
+              "ability": "int"
+            },
+            "psi_attack_bonus": {
+              "proficiency_bonus": true,
+              "ability": "int"
+            }
+          },
+          "feature_stack": "psionic_power",
+          "stack_role": "base"
+        },
+        {
+          "id": "telekinetic_adept",
+          "name": "Telekinetic Adept",
+          "description": "You gain two additional Psionic Power options: Psi-Powered Leap (Bonus Action; gain a Fly Speed equal to twice your walking Speed until end of turn; once per Short or Long Rest unless you expend a die), and Telekinetic Thrust (when you deal Psionic Strike damage, target makes a Strength save or is knocked Prone or pushed up to 10 ft). Also, your Psionic Energy dice become d8s.",
+          "level": 7,
+          "type": "paper",
+          "feature_stack": "psionic_power",
+          "stack_role": "modifier",
+          "modifies": ["psionic_power"]
+        },
+        {
+          "id": "guarded_mind",
+          "name": "Guarded Mind",
+          "description": "Passive; you have Resistance to Psychic damage. When you start your turn Charmed or Frightened, you can expend 1 Psionic Energy die to end one of those conditions on yourself.",
+          "level": 10,
+          "type": "derived_output",
+          "derived_effects": {
+            "resistances": ["psychic"]
+          }
+        },
+        {
+          "id": "bulwark_of_force",
+          "name": "Bulwark of Force",
+          "description": "Bonus Action; choose creatures within 30 ft up to your Intelligence modifier (minimum 1). For 1 minute, they gain Half Cover (+2 bonus to AC and Dexterity saving throws). Uses: 1 per Long Rest unless you expend 1 Psionic Energy die to use it again.",
+          "level": 15,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "bulwark_of_force",
+                "resource_name": "Bulwark of Force",
+                "scaling": [
+                  { "level": 15, "value": "1" }
+                ]
+              }
+            ],
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "telekinetic_master",
+          "name": "Telekinetic Master",
+          "description": "You always have Telekinesis prepared and can cast it once without expending a spell slot; regain the free cast on a Long Rest. When you cast it, you can also make one weapon attack as a Bonus Action on each of your turns for the spell’s duration.",
+          "level": 18,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["telekinesis"] }
+            ]
+          },
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            },
+            "applies_to": "telekinetic_master_free_cast"
+          }
+        }
+      ]
+    }
+  }
+}

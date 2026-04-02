@@ -1,0 +1,1016 @@
+[
+  {
+    "feat_id": "alert",
+    "name": "Alert",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {},
+    "notes": "Add your Proficiency Bonus to Initiative; after rolling, you may swap Initiative with a willing ally."
+  },
+  {
+    "feat_id": "crafter",
+    "name": "Crafter",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {
+      "tool_choices": { "count": 3, "pool": "artisan_tools" }
+    },
+    "notes": "Gain proficiency with three artisan’s tools; 20% discount on nonmagical items; craft temporary gear after a long rest."
+  },
+  {
+    "feat_id": "healer",
+    "name": "Healer",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {},
+    "notes": "As an action, and by consuming one use of a Healer's Kit, you can allow a creature to spend a Hit Die. They regain hit points equal to the die plus your Proficiency Bonus. You reroll 1s on dice used for any healing purpose."
+  },
+  {
+    "feat_id": "lucky",
+    "name": "Lucky",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": { "uses": { "count": "PB" } },
+    "notes": "Spend Luck Points to gain advantage on a d20 test or impose disadvantage on an attack against you (Proficiency Bonus times per day)."
+  },
+  {
+    "feat_id": "magic_initiate",
+    "name": "Magic Initiate",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": { "feature": "spellcasting_stub" },
+    "effects": {
+      "uses": { "count": "1" },
+      "spellcasting_ability_choice": {
+        "count": 1,
+        "options": ["int", "wis", "cha"]
+      },
+      "granted_spellcasting": {
+        "ability_choice_effect": "spellcasting_ability_choice",
+        "spell_save_dc": { "base": 8, "include_proficiency_bonus": true },
+        "spell_attack_bonus": { "include_proficiency_bonus": true }
+      },
+      "spell_grants": [
+        { "kind": "choice", "count": 2, "level": 0 },
+        { "kind": "choice", "count": 1, "level": 1 }
+      ]
+    },
+    "notes": "Learn 2 cantrips and 1 1st-level spell; cast the spell once per long rest for free."
+  },
+  {
+    "feat_id": "musician",
+    "name": "Musician",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {
+      "tool_choices": { "count": 3, "pool": "musical_instruments" }
+    },
+    "notes": "Proficiency with three instruments; grant Heroic Inspiration to allies after a rest."
+  },
+  {
+    "feat_id": "savage_attacker",
+    "name": "Savage Attacker",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {},
+    "notes": "Once per turn, roll weapon damage twice and use either result."
+  },
+  {
+    "feat_id": "skilled",
+    "name": "Skilled",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {
+      "proficiency_choices": { "count": 3, "pools": ["skills", "tools"] }
+    },
+    "notes": "Gain proficiency in three skills or tools of your choice."
+  },
+  {
+    "feat_id": "tavern_brawler",
+    "name": "Tavern Brawler",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {
+      "gear_seed_stub": {
+        "target": "gearResolver",
+        "case": "monk_unarmed_strike_first_row"
+      }
+    },
+    "notes": "Unarmed strikes now deal 1d4+strength modifier damage. Reroll any 1's on an unarmed attack. Once per turn, you can push 5ft on an unarmed hit."
+  },
+  {
+    "feat_id": "tough",
+    "name": "Tough",
+    "type": "Origin",
+    "min_level": 0,
+    "requirements": {},
+    "effects": {
+      "hit_point_bonus": {
+        "per_level": 2
+      }
+    },
+    "notes": "Increase maximum HP by double your level; gain +2 HP per level thereafter."
+  },
+  {
+    "feat_id": "actor",
+    "name": "Actor",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "CHA:13" },
+    "effects": {},
+    "notes": "Advantage on Deception/Performance while disguised. When mimicking any noise, the fake can only be detected on successful DC8 + PB + CHA modifier Insight check."
+  },
+  {
+    "feat_id": "athlete",
+    "name": "Athlete",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR|DEX:13" },
+    "effects": {},
+    "notes": "Climb speed; stand with 5 ft movement; improved running jumps."
+  },
+  {
+    "feat_id": "charger",
+    "name": "Charger",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR|DEX:13" },
+    "effects": {},
+    "notes": "Dash distance +10 ft; moving 10+ ft before a melee hit adds damage or pushes target."
+  },
+  {
+    "feat_id": "crossbow_expert",
+    "name": "Crossbow Expert",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "DEX:13" },
+    "effects": {},
+    "notes": "Ignore Loading; no disadvantage in melee; add modifier to bonus attack damage."
+  },
+  {
+    "feat_id": "crusher",
+    "name": "Crusher",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {},
+    "notes": "Bludgeoning hits can push; critical hits grant advantage to allies."
+  },
+  {
+    "feat_id": "defensive_duelist",
+    "name": "Defensive Duelist",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "DEX:13" },
+    "effects": {},
+    "notes": "Reaction: add PB to AC against a melee attack."
+  },
+  {
+    "feat_id": "dual_wielder",
+    "name": "Dual Wielder",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR|DEX:13" },
+    "effects": {},
+    "notes": "Use two-weapon fighting with more weapons; draw/stow two weapons."
+  },
+  {
+    "feat_id": "durable",
+    "name": "Durable",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {},
+    "notes": "Advantage on death saves; spend Hit Die as bonus action to heal."
+  },
+  {
+    "feat_id": "grappler",
+    "name": "Grappler",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR|DEX:13" },
+    "effects": {},
+    "notes": "Unarmed strikes can grapple; advantage vs grappled targets; move grappled creatures."
+  },
+  {
+    "feat_id": "great_weapon_master",
+    "name": "Great Weapon Master",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR:13" },
+    "effects": {},
+    "notes": "Extra damage with heavy weapons; bonus attack on crit or kill."
+  },
+  {
+    "feat_id": "polearm_master",
+    "name": "Polearm Master",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR|DEX:13" },
+    "effects": {},
+    "notes": "Bonus attack with polearm; reaction attack when enemies enter reach."
+  },
+  {
+    "feat_id": "sentinel",
+    "name": "Sentinel",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "STR|DEX:13" },
+    "effects": {},
+    "notes": "Opportunity attacks stop movement; trigger on disengage or ally attacks."
+  },
+  {
+    "feat_id": "sharpshooter",
+    "name": "Sharpshooter",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "DEX:13" },
+    "effects": {},
+    "notes": "Ignore cover; no disadvantage at long range or in melee for ranged attacks."
+  },
+  {
+    "feat_id": "skulker",
+    "name": "Skulker",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "DEX:13" },
+    "effects": {},
+    "notes": "Blindsight 10 ft; advantage on Stealth in combat; missed attacks don’t reveal position."
+  },
+  {
+    "feat_id": "slasher",
+    "name": "Slasher",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {},
+    "notes": "Reduce speed on hit; critical hits impose disadvantage on attacks."
+  },
+  {
+    "feat_id": "speedy",
+    "name": "Speedy",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "DEX|CON:13" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["dex", "con"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "speed_bonus": {
+        "type": "walk",
+        "value": 10
+      }
+    },
+    "notes": "Speed +10 ft; ignore difficult terrain when dashing; opportunity attacks vs you have disadvantage."
+  },
+  {
+    "feat_id": "war_caster",
+    "name": "War Caster",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "spellcasting" },
+    "effects": {},
+    "notes": "Advantage on concentration saves; cast spells as reactions; perform somatic components with hands occupied."
+  },
+  {
+    "feat_id": "weapon_master",
+    "name": "Weapon Master",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "weapon_mastery_choices": {
+        "count": 1,
+        "pool": "weapons",
+        "require_proficiency": true,
+        "reassignable_after_long_rest": true
+      }
+    },
+    "notes": "Gain mastery with a chosen weapon type; change after a long rest."
+  },
+  {
+    "feat_id": "ability_score_improvement",
+    "name": "Ability Score Improvement",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 2,
+        "count": 2,
+        "options": ["str", "dex", "con", "int", "wis", "cha"],
+        "per_choice_max": 2,
+        "allow_same_choice_twice": true,
+        "score_cap": 20
+      }
+    },
+    "notes": "Increase one ability score by 2, or increase two ability scores by 1 each (maximum 20)."
+  },
+  {
+    "feat_id": "chef",
+    "name": "Chef",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["con", "wis"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Constitution or Wisdom. Gain proficiency with Cook’s Utensils. During a Short or Long Rest, you can cook for allies to grant extra healing, and you can prepare treats that grant Temporary Hit Points equal to your Proficiency Bonus."
+  },
+  {
+    "feat_id": "elemental_adept",
+    "name": "Elemental Adept",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "spellcasting_stub" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "damage_type_choice": {
+        "count": 1,
+        "options": ["acid", "cold", "fire", "lightning", "thunder"]
+      }
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. Choose acid, cold, fire, lightning, or thunder. Your spells ignore Resistance to that type, and 1s on damage dice of that type count as 2s."
+  },
+  {
+    "feat_id": "fey_touched",
+    "name": "Fey-Touched",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "uses": { "count": "1" },
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "spell_grants": [
+        { "kind": "fixed", "spells": ["misty_step"] },
+        {
+          "kind": "choice",
+          "count": 1,
+          "level": 1,
+          "schools": ["divination", "enchantment"]
+        }
+      ]
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. Misty Step and one level 1 Divination or Enchantment spell are always prepared; each can be cast once for free per Long Rest."
+  },
+  {
+    "feat_id": "heavily_armored",
+    "name": "Heavily Armored",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "medium_armor_training" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "con"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "armor_training_grants": ["heavy_armor"]
+    },
+    "notes": "+1 Strength or Constitution. Gain proficiency with Heavy armor."
+  },
+  {
+    "feat_id": "heavy_armor_master",
+    "name": "Heavy Armor Master",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "heavy_armor_training" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "con"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Strength or Constitution. While wearing Heavy armor, reduce Bludgeoning, Piercing, and Slashing damage taken by your Proficiency Bonus."
+  },
+  {
+    "feat_id": "inspiring_leader",
+    "name": "Inspiring Leader",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "WIS|CHA:13" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Wisdom or Charisma. After a Short or Long Rest, you can inspire up to six creatures; each gains Temporary Hit Points equal to your character level plus the modifier of the ability increased by this feat."
+  },
+  {
+    "feat_id": "keen_mind",
+    "name": "Keen Mind",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "INT:13" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "skill_training_choices": {
+        "count": 1,
+        "options": ["arcana", "history", "investigation", "nature", "religion"],
+        "upgrade_if_proficient": true
+      }
+    },
+    "notes": "+1 Intelligence. Choose Arcana, History, Investigation, Nature, or Religion; gain proficiency in that skill, or Expertise if already proficient. You can take the Study action as a Bonus Action."
+  },
+  {
+    "feat_id": "lightly_armored",
+    "name": "Lightly Armored",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "armor_training_grants": ["light_armor", "shields"]
+    },
+    "notes": "+1 Strength or Dexterity. Gain proficiency with Light armor and Shields."
+  },
+  {
+    "feat_id": "mage_slayer",
+    "name": "Mage Slayer",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Strength or Dexterity. When you damage a concentrating creature, it has Disadvantage on its Concentration save. Once per rest, you can turn a failed Intelligence, Wisdom, or Charisma save into a success."
+  },
+  {
+    "feat_id": "martial_weapon_training",
+    "name": "Martial Weapon Training",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "weapon_training_grants": ["martial_weapons"]
+    },
+    "notes": "+1 Strength or Dexterity. Gain proficiency with Martial weapons."
+  },
+  {
+    "feat_id": "medium_armor_master",
+    "name": "Medium Armor Master",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "medium_armor_training" },
+    "effects": {},
+    "notes": "+1 Strength or Dexterity. While wearing Medium armor, you can add up to 3 to AC from Dexterity instead of 2, if your Dexterity score is 16 or higher."
+  },
+  {
+    "feat_id": "moderately_armored",
+    "name": "Moderately Armored",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "light_armor_training" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "armor_training_grants": ["medium_armor"]
+    },
+    "notes": "+1 Strength or Dexterity. Gain proficiency with Medium armor."
+  },
+  {
+    "feat_id": "mounted_combatant",
+    "name": "Mounted Combatant",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex", "wis"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Strength, Dexterity, or Wisdom. Gain Advantage on attacks against smaller unmounted creatures, and your mount takes only half damage on failed Dexterity saves from effects that target you while mounted."
+  },
+  {
+    "feat_id": "observant",
+    "name": "Observant",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "INT|WIS:13" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "skill_training_choices": {
+        "count": 1,
+        "options": ["insight", "investigation", "perception"],
+        "upgrade_if_proficient": true
+      }
+    },
+    "notes": "+1 Intelligence or Wisdom. Choose Insight, Investigation, or Perception; gain proficiency in that skill, or Expertise if already proficient. You can take the Search action as a Bonus Action."
+  },
+  {
+    "feat_id": "piercer",
+    "name": "Piercer",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Strength or Dexterity. Once per turn, reroll one damage die of a Piercing attack. On a critical hit with Piercing damage, roll one additional damage die."
+  },
+  {
+    "feat_id": "poisoner",
+    "name": "Poisoner",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["dex", "int"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Dexterity or Intelligence. Your Poison damage ignores Resistance. After a Long Rest, you can brew one poison dose worth 50 GP that deals 2d8 Poison damage."
+  },
+  {
+    "feat_id": "resilient",
+    "name": "Resilient",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex", "con", "int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "saving_throw_choices": {
+        "count": 1,
+        "options": ["str", "dex", "con", "int", "wis", "cha"],
+        "exclude_existing_proficiencies": true
+      }
+    },
+    "notes": "+1 to one ability score for which you lack saving throw proficiency. Gain saving throw proficiency with that ability."
+  },
+  {
+    "feat_id": "ritual_caster",
+    "name": "Ritual Caster",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "ability": "INT|WIS|CHA:13", "feature": "spellcasting_stub" },
+    "effects": {
+      "uses": { "count": "1" },
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "spell_grants": [
+        { "kind": "choice", "count": "PB", "level": 1, "ritual_only": true }
+      ]
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. A number of level 1 Ritual spells equal to your Proficiency Bonus are always prepared. You can cast one prepared Ritual quickly for free once per Long Rest."
+  },
+  {
+    "feat_id": "shadow_touched",
+    "name": "Shadow-Touched",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "uses": { "count": "1" },
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "spell_grants": [
+        { "kind": "fixed", "spells": ["invisibility"] },
+        {
+          "kind": "choice",
+          "count": 1,
+          "level": 1,
+          "schools": ["illusion", "necromancy"]
+        }
+      ]
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. Invisibility and one level 1 Illusion or Necromancy spell are always prepared; each can be cast once for free per Long Rest."
+  },
+  {
+    "feat_id": "shield_master",
+    "name": "Shield Master",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "shield_training" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Strength. Shield Bash can push a target 5 feet or knock it Prone once per turn. You can use your Reaction to take no damage on a successful Dexterity save."
+  },
+  {
+    "feat_id": "skill_expert",
+    "name": "Skill Expert",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["str", "dex", "con", "int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "proficiency_choices": {
+        "count": 1,
+        "pools": ["skills"],
+        "exclude_existing_proficiencies": true
+      },
+      "expertise_choices": { "count": 1, "pools": ["skills"], "require_proficiency": true }
+    },
+    "notes": "+1 to one ability score. Gain proficiency in one skill, and gain Expertise in one skill in which you are already proficient."
+  },
+  {
+    "feat_id": "spell_sniper",
+    "name": "Spell Sniper",
+    "type": "General",
+    "min_level": 4,
+    "requirements": { "feature": "spellcasting_stub" },
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      }
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. Spell attacks ignore Cover, suffer no Disadvantage in melee, and attack spell range increases by 60 feet when the spell's range is at least 10 feet."
+  },
+  {
+    "feat_id": "telekinetic",
+    "name": "Telekinetic",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "spell_grants": [
+        { "kind": "fixed", "spells": ["mage_hand"] }
+      ]
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. You learn Mage Hand with increased range and invisibility, and as a Bonus Action you can try to shove a target 5 feet with telekinetic force."
+  },
+  {
+    "feat_id": "telepathic",
+    "name": "Telepathic",
+    "type": "General",
+    "min_level": 4,
+    "requirements": {},
+    "effects": {
+      "uses": { "count": "1" },
+      "ability_score_choices": {
+        "points": 1,
+        "count": 1,
+        "options": ["int", "wis", "cha"],
+        "per_choice_max": 1,
+        "allow_same_choice_twice": false,
+        "score_cap": 20
+      },
+      "spell_grants": [
+        { "kind": "fixed", "spells": ["detect_thoughts"] }
+      ]
+    },
+    "notes": "+1 Intelligence, Wisdom, or Charisma. You can speak telepathically to one creature within 60 feet that shares a language with you. Detect Thoughts is prepared, and you can cast it once for free per Long Rest."
+  },
+  {
+    "feat_id": "archery",
+    "name": "Archery",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "+2 bonus to attack rolls with ranged weapons."
+  },
+  {
+    "feat_id": "blind_fighting",
+    "name": "Blind Fighting",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "Blindsight 10 ft."
+  },
+  {
+    "feat_id": "defense",
+    "name": "Defense",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "+1 bonus to AC while wearing armor."
+  },
+  {
+    "feat_id": "dueling",
+    "name": "Dueling",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "+2 damage when wielding a single one-handed melee weapon."
+  },
+  {
+    "feat_id": "great_weapon_fighting",
+    "name": "Great Weapon Fighting",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "Treat 1s and 2s on damage dice as 3s for two-handed/versatile melee weapons."
+  },
+  {
+    "feat_id": "interception",
+    "name": "Interception",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "Reaction: reduce damage to an ally within 5 ft by 1d10 + PB."
+  },
+  {
+    "feat_id": "protection",
+    "name": "Protection",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "Reaction: impose disadvantage on attacks against an adjacent ally."
+  },
+  {
+    "feat_id": "thrown_weapon_fighting",
+    "name": "Thrown Weapon Fighting",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "+2 damage with thrown weapons."
+  },
+  {
+    "feat_id": "two_weapon_fighting",
+    "name": "Two-Weapon Fighting",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "Add ability modifier to off-hand attack damage."
+  },
+  {
+    "feat_id": "unarmed_fighting",
+    "name": "Unarmed Fighting",
+    "type": "Fighting Style",
+    "min_level": 0,
+    "requirements": { "feature": "fighting_style" },
+    "effects": {},
+    "notes": "Unarmed strike damage increases; deal extra damage to a grappled creature each turn."
+  },
+  {
+    "feat_id": "boon_of_combat_prowess",
+    "name": "Boon of Combat Prowess",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": { "uses": { "count": "PB" } },
+    "notes": "When you miss with an attack roll, you can turn it into a hit a number of times per long rest equal to your Proficiency Bonus."
+  },
+  {
+    "feat_id": "boon_of_dimensional_travel",
+    "name": "Boon of Dimensional Travel",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": { "uses": { "count": "PB" } },
+    "notes": "As a bonus action, teleport up to 30 feet a number of times per long rest equal to your Proficiency Bonus."
+  },
+  {
+    "feat_id": "boon_of_energy_resistance",
+    "name": "Boon of Energy Resistance",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": {
+      "resistances": {
+        "choice": 1,
+        "options": ["acid","cold","fire","lightning","necrotic","poison","psychic","radiant","thunder"]
+      }
+    },
+    "notes": "Gain resistance to one damage type; you can further reduce that damage once per turn."
+  },
+  {
+    "feat_id": "boon_of_fate",
+    "name": "Boon of Fate",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": { "uses": { "count": "PB" } },
+    "notes": "Add or subtract a d10 from a creature’s d20 roll within 60 ft, a number of times per long rest equal to your Proficiency Bonus."
+  },
+  {
+    "feat_id": "boon_of_fortitude",
+    "name": "Boon of Fortitude",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": {},
+    "notes": "Increase maximum HP by 40; when you would be reduced to 0 HP, you can instead regain HP equal to your Constitution modifier. You can’t do so again until the start of your next turn."
+  },
+  {
+    "feat_id": "boon_of_irresistible_offense",
+    "name": "Boon of Irresistible Offense",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": {},
+    "notes": "Your bludgeoning, piercing and slashing damage ignores resistance."
+  },
+  {
+    "feat_id": "boon_of_luck",
+    "name": "Boon of Luck",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": { "uses": { "count": "PB" } },
+    "notes": "Reroll failed d20 tests a number of times per long rest equal to your Proficiency Bonus."
+  },
+  {
+    "feat_id": "boon_of_recovery",
+    "name": "Boon of Recovery",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": { "uses": { "count": "1" } },
+    "notes": "As a bonus action, regain significant HP once per long rest."
+  },
+  {
+    "feat_id": "boon_of_skill",
+    "name": "Boon of Skill",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": {},
+    "notes": "Gain proficiency in all skills and add a bonus die to ability checks."
+  },
+  {
+    "feat_id": "boon_of_speed",
+    "name": "Boon of Speed",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": {},
+    "notes": "Your walking speed increases significantly, and opportunity attacks against you have Disadvantage."
+  },
+  {
+    "feat_id": "boon_of_spell_recall",
+    "name": "Boon of Spell Recall",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": { "feature": "spellcasting_stub" },
+    "effects": { "uses": { "count": "1" } },
+    "notes": "Once per Long Rest, you can regain one expended spell slot of mid level or lower without resting."
+  },
+  {
+    "feat_id": "boon_of_truesight",
+    "name": "Boon of Truesight",
+    "type": "Epic Boon",
+    "min_level": 19,
+    "requirements": {},
+    "effects": {},
+    "notes": "Gain truesight out to a significant range, commonly 60 feet."
+  }
+]

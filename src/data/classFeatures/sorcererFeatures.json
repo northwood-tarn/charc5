@@ -1,0 +1,784 @@
+
+
+{
+  "class_id": "sorcerer",
+  "features": [
+    {
+      "id": "innate_sorcery",
+      "name": "Innate Sorcery",
+      "description": "Bonus Action; self; lasts 1 minute. While active: your Sorcerer spell save DC increases by 1, and you have Advantage on attack rolls for Sorcerer spells. Uses: 2 per Long Rest.",
+      "level": 1,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": 2,
+        "recovery": {
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "innate_sorcery",
+      "stack_role": "base"
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "description": "You prepare Sorcerer spells and cast them using spell slots. Spellcasting ability: Charisma (spell save DC and spell attack bonus). Cantrips: you know Sorcerer cantrips per the class table; whenever you gain a Sorcerer level, you can replace one Sorcerer cantrip you know with another Sorcerer cantrip. Prepared Spells (level 1+): you prepare a fixed number of Sorcerer spells by Sorcerer level (per the class table); whenever you gain a Sorcerer level, you can replace one prepared Sorcerer spell with another Sorcerer spell for which you have spell slots.",
+      "level": 1,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "cantrips",
+            "resource_name": "Cantrips",
+            "scaling": [
+              { "level": 1, "value": "4" },
+              { "level": 2, "value": "4" },
+              { "level": 3, "value": "4" },
+              { "level": 4, "value": "5" },
+              { "level": 5, "value": "5" },
+              { "level": 6, "value": "5" },
+              { "level": 7, "value": "5" },
+              { "level": 8, "value": "5" },
+              { "level": 9, "value": "5" },
+              { "level": 10, "value": "6" },
+              { "level": 11, "value": "6" },
+              { "level": 12, "value": "6" },
+              { "level": 13, "value": "6" },
+              { "level": 14, "value": "6" },
+              { "level": 15, "value": "6" },
+              { "level": 16, "value": "6" },
+              { "level": 17, "value": "6" },
+              { "level": 18, "value": "6" },
+              { "level": 19, "value": "6" },
+              { "level": 20, "value": "6" }
+            ]
+          },
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "4" },
+              { "level": 3, "value": "6" },
+              { "level": 4, "value": "7" },
+              { "level": 5, "value": "9" },
+              { "level": 6, "value": "10" },
+              { "level": 7, "value": "11" },
+              { "level": 8, "value": "12" },
+              { "level": 9, "value": "14" },
+              { "level": 10, "value": "15" },
+              { "level": 11, "value": "16" },
+              { "level": 12, "value": "16" },
+              { "level": 13, "value": "17" },
+              { "level": 14, "value": "17" },
+              { "level": 15, "value": "18" },
+              { "level": 16, "value": "18" },
+              { "level": 17, "value": "19" },
+              { "level": 18, "value": "20" },
+              { "level": 19, "value": "21" },
+              { "level": 20, "value": "22" }
+            ]
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4" },
+              { "level": 4, "value": "5" },
+              { "level": 5, "value": "6" },
+              { "level": 6, "value": "7" },
+              { "level": 7, "value": "8" },
+              { "level": 8, "value": "9" },
+              { "level": 9, "value": "10" },
+              { "level": 10, "value": "11" },
+              { "level": 11, "value": "12" },
+              { "level": 12, "value": "13" },
+              { "level": 13, "value": "14" },
+              { "level": 14, "value": "15" },
+              { "level": 15, "value": "16" },
+              { "level": 16, "value": "17" },
+              { "level": 17, "value": "18" },
+              { "level": 18, "value": "19" },
+              { "level": 19, "value": "20" },
+              { "level": 20, "value": "21" }
+            ]
+          },
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Spell Slots",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4|2" },
+              { "level": 4, "value": "4|3" },
+              { "level": 5, "value": "4|3|2" },
+              { "level": 6, "value": "4|3|3" },
+              { "level": 7, "value": "4|3|3|1" },
+              { "level": 8, "value": "4|3|3|2" },
+              { "level": 9, "value": "4|3|3|3|1" },
+              { "level": 10, "value": "4|3|3|3|2" },
+              { "level": 11, "value": "4|3|3|3|2|1" },
+              { "level": 12, "value": "4|3|3|3|2|1" },
+              { "level": 13, "value": "4|3|3|3|2|1|1" },
+              { "level": 14, "value": "4|3|3|3|2|1|1" },
+              { "level": 15, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 16, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 17, "value": "4|3|3|3|2|1|1|1|1" },
+              { "level": 18, "value": "4|3|3|3|3|1|1|1|1" },
+              { "level": 19, "value": "4|3|3|3|3|2|1|1|1" },
+              { "level": 20, "value": "4|3|3|3|3|2|2|1|1" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "font_of_magic",
+      "name": "Font of Magic",
+      "description": "You gain Sorcery Points (SP) as shown on the Sorcerer class table; you regain all expended SP when you finish a Long Rest. You can convert between SP and spell slots: (1) Create Spell Slot—Bonus Action; spend SP to create one spell slot. Cost: 1st=2 SP, 2nd=3 SP, 3rd=5 SP, 4th=6 SP, 5th=7 SP. You can create only one slot per turn, and created slots vanish when you finish a Long Rest. (2) Convert Spell Slot—no action required; expend one spell slot to gain Sorcery Points equal to the slot’s level.",
+      "level": 2,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "sorcery_points",
+            "resource_name": "Sorcery Points",
+            "scaling": [
+              { "level": 1, "value": "0" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "3" },
+              { "level": 4, "value": "4" },
+              { "level": 5, "value": "5" },
+              { "level": 6, "value": "6" },
+              { "level": 7, "value": "7" },
+              { "level": 8, "value": "8" },
+              { "level": 9, "value": "9" },
+              { "level": 10, "value": "10" },
+              { "level": 11, "value": "11" },
+              { "level": 12, "value": "12" },
+              { "level": 13, "value": "13" },
+              { "level": 14, "value": "14" },
+              { "level": 15, "value": "15" },
+              { "level": 16, "value": "16" },
+              { "level": 17, "value": "17" },
+              { "level": 18, "value": "18" },
+              { "level": 19, "value": "19" },
+              { "level": 20, "value": "20" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "sorcery_points",
+      "stack_role": "base"
+    },
+    {
+      "id": "metamagic",
+      "name": "Metamagic",
+      "description": "Because your magic flows from within, you can alter your spells to suit your needs; you gain two Metamagic options of your choice. You use the chosen options to temporarily modify spells you cast, spending Sorcery Points as listed. You can use only one Metamagic option on a spell when you cast it unless otherwise noted in one of those options. Whenever you gain a Sorcerer level, you can replace one of your Metamagic options with one you don’t know. You gain two more options at Sorcerer level 10 and two more at Sorcerer level 17.",
+      "level": 2,
+      "type": "choice",
+      "choice": {
+        "kind": "mode_choice",
+        "count": 2,
+        "count_by_level": [
+          { "level": 2, "value": 2 },
+          { "level": 10, "value": 4 },
+          { "level": 17, "value": 6 }
+        ],
+        "options": [
+          {
+            "id": "careful_spell",
+            "label": "Careful Spell",
+            "cost": "1",
+            "description": "When you cast a spell that forces a saving throw, you can choose a number of creatures up to your Charisma modifier (minimum 1); chosen creatures automatically succeed on the save and take no damage if they would take half damage on a success."
+          },
+          {
+            "id": "distant_spell",
+            "label": "Distant Spell",
+            "cost": "1",
+            "description": "When you cast a spell with a range of at least 5 ft, double its range; if it has a range of Touch, it becomes 30 ft."
+          },
+          {
+            "id": "empowered_spell",
+            "label": "Empowered Spell",
+            "cost": "1",
+            "description": "When you roll damage for a spell, you can reroll a number of damage dice up to your Charisma modifier (minimum 1); you must use the new rolls."
+          },
+          {
+            "id": "extended_spell",
+            "label": "Extended Spell",
+            "cost": "1",
+            "description": "When you cast a spell with a duration of 1 minute or longer, double its duration to a maximum of 24 hours."
+          },
+          {
+            "id": "heightened_spell",
+            "label": "Heightened Spell",
+            "cost": "2",
+            "description": "When you cast a spell that forces a saving throw, you can give one target of the spell Disadvantage on its first saving throw against the spell."
+          },
+          {
+            "id": "quickened_spell",
+            "label": "Quickened Spell",
+            "cost": "2",
+            "description": "When you cast a spell that has a casting time of an Action, change the casting time to a Bonus Action for this casting."
+          },
+          {
+            "id": "seeking_spell",
+            "label": "Seeking Spell",
+            "cost": "1",
+            "description": "When you make a spell attack roll and miss, you can reroll the d20; you must use the new roll."
+          },
+          {
+            "id": "subtle_spell",
+            "label": "Subtle Spell",
+            "cost": "1",
+            "description": "When you cast a spell, you can cast it without Verbal or Somatic components."
+          },
+          {
+            "id": "twinned_spell",
+            "label": "Twinned Spell",
+            "cost": "1+",
+            "description": "When you cast a spell that can target only one creature and doesn’t have a range of Self, you can target a second creature in range; cost equals the spell’s level (1 SP for a cantrip)."
+          }
+        ]
+      },
+      "feature_stack": "sorcery_points",
+      "stack_role": "consumer",
+      "modifies": ["font_of_magic"]
+    },
+    {
+      "id": "sorcerer_subclass",
+      "name": "Sorcerer Subclass",
+      "description": "Passive; you choose a Sorcerous Origin. You gain that origin’s features at Sorcerer levels 3, 6, 14, and 18.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "sorcerer_subclasses"
+      }
+    },
+    {
+      "id": "sorcerous_restoration",
+      "name": "Sorcerous Restoration",
+      "description": "When you finish a Short Rest, you can regain expended Sorcery Points up to a maximum equal to half your Sorcerer level (round down). Once you use this feature, you can’t use it again until you finish a Long Rest.",
+      "level": 5,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": 1,
+        "recovery": {
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "sorcery_points",
+      "stack_role": "modifier",
+      "modifies": ["font_of_magic"]
+    },
+    {
+      "id": "sorcery_incarnate",
+      "name": "Sorcery Incarnate",
+      "description": "If you have no uses of Innate Sorcery left, you can activate Innate Sorcery anyway by spending 2 Sorcery Points when you take the Bonus Action to activate it. Also, while Innate Sorcery is active, you can apply up to two Metamagic options to each Sorcerer spell you cast (paying each option’s Sorcery Point cost as normal).",
+      "level": 7,
+      "type": "paper",
+      "feature_stack": "innate_sorcery",
+      "stack_role": "modifier",
+      "modifies": ["innate_sorcery"]
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Dimensional Travel is recommended.",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "arcane_apotheosis",
+      "name": "Arcane Apotheosis",
+      "description": "Passive upgrade; while Innate Sorcery is active, once on each of your turns you can apply one Metamagic option to a Sorcerer spell you cast without spending Sorcery Points for that one option (any additional Metamagic you apply still costs SP as normal).",
+      "level": 20,
+      "type": "paper",
+      "feature_stack": "innate_sorcery",
+      "stack_role": "modifier",
+      "modifies": ["innate_sorcery"]
+    }
+  ],
+  "subclasses": {
+    "aberrant_sorcery": {
+      "features": [
+        {
+          "id": "psionic_spells",
+          "name": "Psionic Spells",
+          "description": "You always have certain spells prepared based on your Sorcerer level: 3—Arms of Hadar, Calm Emotions, Detect Thoughts, Dissonant Whispers, Mind Sliver; 5—Hunger of Hadar, Sending; 7—Evard’s Black Tentacles, Summon Aberration; 9—Rary’s Telepathic Bond, Telekinesis. Special casting: if you cast one of these spells by spending Sorcery Points (see Psionic Sorcery), it requires no Verbal or Somatic components and no Material components unless the components are consumed or have a cost.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["arms_of_hadar", "calm_emotions", "detect_thoughts", "dissonant_whispers", "mind_sliver"] },
+              { "kind": "fixed", "context": "sorcerer_5", "spells": ["hunger_of_hadar", "sending"] },
+              { "kind": "fixed", "context": "sorcerer_7", "spells": ["evards_black_tentacles", "summon_aberration"] },
+              { "kind": "fixed", "context": "sorcerer_9", "spells": ["rarys_telepathic_bond", "telekinesis"] }
+            ]
+          }
+        },
+        {
+          "id": "telepathic_speech",
+          "name": "Telepathic Speech",
+          "description": "Bonus Action; choose one creature you can see within 30 ft. You and that creature can communicate telepathically while you are within miles of each other equal to your Charisma modifier (minimum 1 mile). To understand each other, you must each communicate mentally in a language the other knows. Duration: minutes equal to your Sorcerer level. Ends early if you form a telepathic connection with a different creature using this feature.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "psionic_sorcery",
+          "name": "Psionic Sorcery",
+          "description": "When you cast a 1st‑level or higher spell from your Psionic Spells feature, you can either expend a spell slot as normal or spend Sorcery Points equal to the spell’s level to cast it. If you cast it by spending Sorcery Points, it uses the component rules from Psionic Spells (no V/S, and no M unless consumed/cost).",
+          "level": 6,
+          "type": "paper",
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "psychic_defenses",
+          "name": "Psychic Defenses",
+          "description": "Passive; you have Resistance to Psychic damage, and you have Advantage on saving throws to avoid or end the Charmed or Frightened condition.",
+          "level": 6,
+          "type": "derived_output",
+          "derived_effects": {
+            "resistances": ["psychic"],
+            "saving_throw_advantages_against_conditions": ["charmed", "frightened"]
+          }
+        },
+        {
+          "id": "revelation_in_flesh",
+          "name": "Revelation in Flesh",
+          "description": "Bonus Action; spend 1 or more Sorcery Points to transform your body for 10 minutes. For each Sorcery Point spent, choose one benefit: Aquatic Adaptation—Swim Speed = 2× your Speed and you can breathe underwater; Glistening Flight—Fly Speed = your Speed and you can hover; See the Invisible—see Invisible creatures within 60 ft that aren’t behind Total Cover; Wormlike Movement—you can move through 1‑inch spaces and you can spend 5 ft of movement to escape nonmagical restraints or the Grappled condition.",
+          "level": 14,
+          "type": "choice",
+          "choice": {
+            "kind": "mode_choice",
+            "count": 1,
+            "count_by_level": [
+              { "level": 14, "value": 1 },
+              { "level": 15, "value": 1 },
+              { "level": 16, "value": 1 },
+              { "level": 17, "value": 1 },
+              { "level": 18, "value": 1 },
+              { "level": 19, "value": 1 },
+              { "level": 20, "value": 1 }
+            ],
+            "options": [
+              {
+                "id": "aquatic_adaptation",
+                "label": "Aquatic Adaptation",
+                "derived_effects": {
+                  "swim_speed_multiplier": 2,
+                  "water_breathing": true
+                }
+              },
+              {
+                "id": "glistening_flight",
+                "label": "Glistening Flight",
+                "derived_effects": {
+                  "fly_speed": "equal_to_speed",
+                  "hover": true
+                }
+              },
+              {
+                "id": "see_the_invisible",
+                "label": "See the Invisible",
+                "derived_effects": {
+                  "see_invisible_feet": 60
+                }
+              },
+              {
+                "id": "wormlike_movement",
+                "label": "Wormlike Movement",
+                "derived_effects": {
+                  "squeeze_through_inches": 1,
+                  "escape_nonmagical_restraints_or_grapple_for_5ft": true
+                }
+              }
+            ]
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "warping_implosion",
+          "name": "Warping Implosion",
+          "description": "Magic Action; teleport to an unoccupied space you can see within 120 ft. Then each creature within 30 ft of the space you left makes a Strength save vs your spell save DC. Fail: 3d10 Force damage and pulled straight toward the space you left (ending in the nearest unoccupied space). Success: half damage, no pull. Uses: 1 per Long Rest, unless you spend 5 Sorcery Points (no action) to restore the use.",
+          "level": 18,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        }
+      ]
+    },
+    "clockwork_sorcery": {
+      "features": [
+        {
+          "id": "clockwork_spells",
+          "name": "Clockwork Spells",
+          "description": "You always have certain spells prepared based on your Sorcerer level (see the Clockwork Spells table for the subclass).",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["aid", "alarm", "lesser_restoration", "protection_from_evil_and_good"] },
+              { "kind": "fixed", "context": "sorcerer_5", "spells": ["dispel_magic", "protection_from_energy"] },
+              { "kind": "fixed", "context": "sorcerer_7", "spells": ["freedom_of_movement", "summon_construct"] },
+              { "kind": "fixed", "context": "sorcerer_9", "spells": ["greater_restoration", "wall_of_force"] }
+            ]
+          }
+        },
+        {
+          "id": "restore_balance",
+          "name": "Restore Balance",
+          "description": "Reaction; trigger: a creature you can see within 60 ft is about to roll a d20 with Advantage or Disadvantage. Effect: cancel both Advantage and Disadvantage for that roll (it becomes a normal roll). Uses: a number of times equal to your Charisma modifier (minimum 1); regain all uses on a Long Rest.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "charisma_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "bastion_of_law",
+          "name": "Bastion of Law",
+          "description": "Action; 30 ft; choose yourself or one creature you can see. Spend 1–5 Sorcery Points to create a magical ward that lasts until you finish a Long Rest or you use this feature again. The ward has a pool of d8s equal to Sorcery Points spent. When the warded creature takes damage, it can use its Reaction to spend any number of those d8s, roll them, and reduce the damage by the total rolled; the spent dice are removed from the pool.",
+          "level": 6,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "bastion_of_law_dice",
+                "resource_name": "Bastion of Law Dice",
+                "scaling": [
+                  { "level": 6, "value": "1-5d8" },
+                  { "level": 7, "value": "1-5d8" },
+                  { "level": 8, "value": "1-5d8" },
+                  { "level": 9, "value": "1-5d8" },
+                  { "level": 10, "value": "1-5d8" },
+                  { "level": 11, "value": "1-5d8" },
+                  { "level": 12, "value": "1-5d8" },
+                  { "level": 13, "value": "1-5d8" },
+                  { "level": 14, "value": "1-5d8" },
+                  { "level": 15, "value": "1-5d8" },
+                  { "level": 16, "value": "1-5d8" },
+                  { "level": 17, "value": "1-5d8" },
+                  { "level": 18, "value": "1-5d8" },
+                  { "level": 19, "value": "1-5d8" },
+                  { "level": 20, "value": "1-5d8" }
+                ]
+              }
+            ]
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "trance_of_order",
+          "name": "Trance of Order",
+          "description": "Bonus Action; self; lasts 1 minute. While active: (1) attack rolls against you can’t benefit from Advantage; (2) whenever you make an attack roll, ability check, or saving throw, you can treat a d20 roll of 9 or lower as a 10. Uses: 1 per Long Rest, unless you spend 5 Sorcery Points (no action) to restore the use.",
+          "level": 14,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "clockwork_cavalcade",
+          "name": "Clockwork Cavalcade",
+          "description": "Action; 30‑ft Cube originating from you. Summon intangible spirits of order that immediately do all of the following in the Cube: (1) restore up to 100 HP total, divided as you choose among any number of creatures of your choice in the Cube; (2) repair any damaged objects entirely in the Cube; (3) end every spell of 6th level or lower on creatures and objects of your choice in the Cube. Uses: 1 per Long Rest, unless you spend 7 Sorcery Points (no action) to restore the use.",
+          "level": 18,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        }
+      ]
+    },
+    "draconic_sorcery": {
+      "features": [
+        {
+          "id": "draconic_resilience",
+          "name": "Draconic Resilience",
+          "description": "Passive; when you aren’t wearing armor, your base AC is 10 + your Dexterity modifier + your Charisma modifier. Also, your HP maximum increases by 3 at Sorcerer 3, and it increases by 1 whenever you gain another Sorcerer level.",
+          "level": 3,
+          "type": "derived_output",
+          "derived_effects": {
+            "ac": {
+              "base": 10,
+              "modifiers": ["dex", "cha"],
+              "conditions": {
+                "armor_category": ["none"]
+              }
+            },
+            "hp_max_bonus_by_level": [
+              { "level": 3, "value": 3 },
+              { "level": 4, "value": 4 },
+              { "level": 5, "value": 5 },
+              { "level": 6, "value": 6 },
+              { "level": 7, "value": 7 },
+              { "level": 8, "value": 8 },
+              { "level": 9, "value": 9 },
+              { "level": 10, "value": 10 },
+              { "level": 11, "value": 11 },
+              { "level": 12, "value": 12 },
+              { "level": 13, "value": 13 },
+              { "level": 14, "value": 14 },
+              { "level": 15, "value": 15 },
+              { "level": 16, "value": 16 },
+              { "level": 17, "value": 17 },
+              { "level": 18, "value": 18 },
+              { "level": 19, "value": 19 },
+              { "level": 20, "value": 20 }
+            ]
+          }
+        },
+        {
+          "id": "draconic_spells",
+          "name": "Draconic Spells",
+          "description": "You always have certain spells prepared based on your Sorcerer level (see the Draconic Spells table for the subclass).",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["alter_self", "chromatic_orb", "command", "dragons_breath"] },
+              { "kind": "fixed", "context": "sorcerer_5", "spells": ["fear", "fly"] },
+              { "kind": "fixed", "context": "sorcerer_7", "spells": ["arcane_eye", "charm_monster"] },
+              { "kind": "fixed", "context": "sorcerer_9", "spells": ["legend_lore", "summon_dragon"] }
+            ]
+          }
+        },
+        {
+          "id": "elemental_affinity",
+          "name": "Elemental Affinity",
+          "description": "Choose a damage type when you gain the feature: Acid, Cold, Fire, Lightning, or Poison. Resistance: you have Resistance to that damage type. Extra Damage: once on each of your turns, when you deal damage of that type with a Sorcerer spell, add your Charisma modifier to one damage roll of that spell.",
+          "level": 6,
+          "type": "choice",
+          "choice": {
+            "kind": "mode_choice",
+            "count": 1,
+            "options": [
+              { "id": "acid", "label": "Acid", "derived_effects": { "resistances": ["acid"] } },
+              { "id": "cold", "label": "Cold", "derived_effects": { "resistances": ["cold"] } },
+              { "id": "fire", "label": "Fire", "derived_effects": { "resistances": ["fire"] } },
+              { "id": "lightning", "label": "Lightning", "derived_effects": { "resistances": ["lightning"] } },
+              { "id": "poison", "label": "Poison", "derived_effects": { "resistances": ["poison"] } }
+            ]
+          }
+        },
+        {
+          "id": "dragon_wings",
+          "name": "Dragon Wings",
+          "description": "As a Bonus Action, you can cause draconic wings to appear on your back. The wings last for 1 hour or until you dismiss them (no action required). For the duration, you have a Fly Speed of 60 feet. Once you use this feature, you can’t use it again until you finish a Long Rest unless you spend 3 Sorcery Points (no action required) to restore your use of it.",
+          "level": 14,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "derived_effects": {
+            "fly_speed": 60
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "dragon_companion",
+          "name": "Dragon Companion",
+          "description": "You can cast Summon Dragon without a Material component. You can also cast it once without a spell slot, and you regain the ability to cast it in this way when you finish a Long Rest. Whenever you start casting the spell, you can modify it so that it doesn’t require Concentration. If you do so, the spell’s duration becomes 1 minute for that casting.",
+          "level": 18,
+          "type": "resource",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["summon_dragon"] }
+            ]
+          },
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            },
+            "applies_to": "summon_dragon_free_cast"
+          }
+        }
+      ]
+    },
+    "spellfire_sorcery": {
+      "features": [
+        {
+          "id": "spellfire_burst",
+          "name": "Spellfire Burst",
+          "description": "When you spend at least 1 Sorcery Point as part of a Magic action or a Bonus Action on your turn, you can unleash one of the following magical effects of your choice. You can do so only once per turn. Bolstering Flames: you or one creature you can see within 30 feet of yourself gains Temporary Hit Points equal to 1d4 plus your Charisma modifier. Radiant Fire: one creature you can see within 30 feet of yourself takes 1d4 Fire or Radiant damage (your choice).",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "sorcery_points",
+          "stack_role": "modifier",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "spellfire_spells",
+          "name": "Spellfire Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["cure_wounds", "guiding_bolt", "lesser_restoration", "scorching_ray"] },
+              { "kind": "fixed", "context": "sorcerer_5", "spells": ["aura_of_vitality", "dispel_magic"] },
+              { "kind": "fixed", "context": "sorcerer_7", "spells": ["fire_shield", "wall_of_fire"] },
+              { "kind": "fixed", "context": "sorcerer_9", "spells": ["greater_restoration", "flame_strike"] }
+            ]
+          }
+        },
+        {
+          "id": "absorb_spells",
+          "name": "Absorb Spells",
+          "description": "You always have Counterspell prepared. Additionally, whenever a target fails the saving throw against a Counterspell you cast, you regain 1d4 Sorcery Points.",
+          "level": 6,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["counterspell"] }
+            ]
+          },
+          "feature_stack": "sorcery_points",
+          "stack_role": "modifier",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "honed_spellfire",
+          "name": "Honed Spellfire",
+          "description": "Your Spellfire Burst improves. You add your Sorcerer level to the Temporary Hit Points gained from Bolstering Flames, and the damage of your Radiant Fire increases to 1d8.",
+          "level": 14,
+          "type": "paper",
+          "feature_stack": "spellfire_burst",
+          "stack_role": "modifier",
+          "modifies": ["spellfire_burst"]
+        },
+        {
+          "id": "crown_of_spellfire",
+          "name": "Crown of Spellfire",
+          "description": "When you use Innate Sorcery, you can alter it and infuse yourself with the essence of spellfire, gaining the following benefits while this use of Innate Sorcery is active. Once you use this feature to alter Innate Sorcery, you can’t use it again until you finish a Long Rest unless you spend 5 Sorcery Points (no action required) to restore your use of it. Burning Life Force: once per turn when you are hit by an attack roll, you can expend a number of Hit Point Dice, up to a maximum equal to your Charisma modifier (minimum of one). Roll the expended dice, and reduce the amount of damage from that attack equal to the total rolled. Flight: you gain a Fly Speed of 60 feet and can hover. Spell Avoidance: when you’re subjected to a spell or magical effect that allows you to make a saving throw to take only half damage, you instead take no damage if you succeed on the save and only half damage if you fail. You can’t use this benefit if you have the Incapacitated condition.",
+          "level": 18,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "derived_effects": {
+            "fly_speed": 60,
+            "hover": true
+          },
+          "feature_stack": "innate_sorcery",
+          "stack_role": "modifier",
+          "modifies": ["innate_sorcery"]
+        }
+      ]
+    },
+    "wild_magic_sorcery": {
+      "features": [
+        {
+          "id": "wild_magic_surge",
+          "name": "Wild Magic Surge",
+          "description": "Once per turn, immediately after you cast a Sorcerer spell with a spell slot, you can roll 1d20. If you roll a 20, roll on the Wild Magic Surge table to create a magical effect. If the magical effect is a spell, it is too wild to be affected by your Metamagic.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "tides_of_chaos",
+          "name": "Tides of Chaos",
+          "description": "You can manipulate chaos itself to give yourself Advantage on one D20 Test before you roll the d20. Once you do so, you must cast a Sorcerer spell with a spell slot or finish a Long Rest before you can use this feature again. If you do cast a Sorcerer spell with a spell slot before you finish a Long Rest, you automatically roll on the Wild Magic Surge table.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "bend_luck",
+          "name": "Bend Luck",
+          "description": "Immediately after another creature you can see rolls the d20 for a D20 Test, you can take a Reaction and spend 1 Sorcery Point to roll 1d4 and apply the number rolled as a bonus or penalty (your choice) to the d20 roll.",
+          "level": 6,
+          "type": "paper",
+          "feature_stack": "sorcery_points",
+          "stack_role": "consumer",
+          "modifies": ["font_of_magic"]
+        },
+        {
+          "id": "controlled_chaos",
+          "name": "Controlled Chaos",
+          "description": "When you roll on the Wild Magic Surge table, roll twice and choose which of the two results takes effect.",
+          "level": 14,
+          "type": "paper"
+        },
+        {
+          "id": "tamed_surge",
+          "name": "Tamed Surge",
+          "description": "Immediately after you cast a Sorcerer spell with a spell slot, you can create an effect of your choice from the Wild Magic Surge table instead of rolling on that table. You can choose any effect in the table except for the final row, and if the chosen effect involves a roll, you must make it. Once you use this feature, you can’t use so again until you finish a Long Rest.",
+          "level": 18,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

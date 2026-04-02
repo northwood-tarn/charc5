@@ -1,0 +1,446 @@
+{
+  "class_id": "bard",
+  "features": [
+    {
+      "id": "bardic_inspiration",
+      "name": "Bardic Inspiration",
+      "description": "Bonus Action; 60 ft; choose one creature that can see or hear you. That creature gains one Bardic Inspiration die (a creature can have only one at a time). Within the next 1 hour, when it fails a D20 Test (attack roll, ability check, or saving throw), it can roll the die and add it to the d20, potentially turning failure into success; the die is expended when rolled. Uses: a number of times equal to your Charisma modifier (minimum 1) per Long Rest. Die size: d6 at Bard 1–4, d8 at 5–9, d10 at 10–14, d12 at 15–20.",
+      "level": 1,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "bardic_inspiration",
+            "resource_name": "Bardic Inspiration",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "3" },
+              { "level": 4, "value": "3" },
+              { "level": 5, "value": "3" },
+              { "level": 6, "value": "4" },
+              { "level": 7, "value": "4" },
+              { "level": 8, "value": "4" },
+              { "level": 9, "value": "4" },
+              { "level": 10, "value": "4" },
+              { "level": 11, "value": "5" },
+              { "level": 12, "value": "5" },
+              { "level": 13, "value": "5" },
+              { "level": 14, "value": "5" },
+              { "level": 15, "value": "5" },
+              { "level": 16, "value": "5" },
+              { "level": 17, "value": "6" },
+              { "level": 18, "value": "6" },
+              { "level": 19, "value": "6" },
+              { "level": 20, "value": "6" }
+            ]
+          },
+          {
+            "resource_id": "bardic_inspiration_die",
+            "resource_name": "Bardic Inspiration Die",
+            "scaling": [
+              { "level": 1, "value": "d6" },
+              { "level": 2, "value": "d6" },
+              { "level": 3, "value": "d6" },
+              { "level": 4, "value": "d6" },
+              { "level": 5, "value": "d8" },
+              { "level": 6, "value": "d8" },
+              { "level": 7, "value": "d8" },
+              { "level": 8, "value": "d8" },
+              { "level": 9, "value": "d8" },
+              { "level": 10, "value": "d10" },
+              { "level": 11, "value": "d10" },
+              { "level": 12, "value": "d10" },
+              { "level": 13, "value": "d10" },
+              { "level": 14, "value": "d10" },
+              { "level": 15, "value": "d12" },
+              { "level": 16, "value": "d12" },
+              { "level": 17, "value": "d12" },
+              { "level": 18, "value": "d12" },
+              { "level": 19, "value": "d12" },
+              { "level": 20, "value": "d12" }
+            ]
+          }
+        ],
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "description": "You prepare Bard spells and cast them using spell slots. Spellcasting ability: Charisma (spell save DC and spell attack bonus). Cantrips: you know 2 cantrips at Bard 1; you learn 1 additional Bard cantrip at Bard levels 4 and 10; whenever you gain a Bard level, you may replace one known Bard cantrip with another. Prepared Spells (level 1+): at Bard 1, prepare 4 level-1 Bard spells; whenever your Prepared Spells number increases, add new Bard spells of levels you have spell slots for; whenever you gain a Bard level, you may replace one prepared spell with another Bard spell you have slots for.",
+      "level": 1,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "cantrips",
+            "resource_name": "Cantrips",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "2" },
+              { "level": 4, "value": "3" },
+              { "level": 5, "value": "3" },
+              { "level": 6, "value": "3" },
+              { "level": 7, "value": "3" },
+              { "level": 8, "value": "3" },
+              { "level": 9, "value": "3" },
+              { "level": 10, "value": "4" },
+              { "level": 11, "value": "4" },
+              { "level": 12, "value": "4" },
+              { "level": 13, "value": "4" },
+              { "level": 14, "value": "4" },
+              { "level": 15, "value": "4" },
+              { "level": 16, "value": "4" },
+              { "level": 17, "value": "4" },
+              { "level": 18, "value": "4" },
+              { "level": 19, "value": "4" },
+              { "level": 20, "value": "4" }
+            ]
+          },
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "scaling": [
+              { "level": 1, "value": "4" },
+              { "level": 2, "value": "5" },
+              { "level": 3, "value": "6" },
+              { "level": 4, "value": "7" },
+              { "level": 5, "value": "9" },
+              { "level": 6, "value": "10" },
+              { "level": 7, "value": "11" },
+              { "level": 8, "value": "12" },
+              { "level": 9, "value": "14" },
+              { "level": 10, "value": "15" },
+              { "level": 11, "value": "16" },
+              { "level": 12, "value": "16" },
+              { "level": 13, "value": "17" },
+              { "level": 14, "value": "17" },
+              { "level": 15, "value": "18" },
+              { "level": 16, "value": "18" },
+              { "level": 17, "value": "19" },
+              { "level": 18, "value": "20" },
+              { "level": 19, "value": "21" },
+              { "level": 20, "value": "22" }
+            ]
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "scaling": [
+              { "level": 1, "value": "4" },
+              { "level": 3, "value": "6" },
+              { "level": 5, "value": "9" },
+              { "level": 10, "value": "15" },
+              { "level": 15, "value": "18" },
+              { "level": 20, "value": "21" }
+            ]
+          },
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Spell Slots",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4|2" },
+              { "level": 4, "value": "4|3" },
+              { "level": 5, "value": "4|3|2" },
+              { "level": 6, "value": "4|3|3" },
+              { "level": 7, "value": "4|3|3|1" },
+              { "level": 8, "value": "4|3|3|2" },
+              { "level": 9, "value": "4|3|3|3|1" },
+              { "level": 10, "value": "4|3|3|3|2" },
+              { "level": 11, "value": "4|3|3|3|2|1" },
+              { "level": 12, "value": "4|3|3|3|2|1" },
+              { "level": 13, "value": "4|3|3|3|2|1|1" },
+              { "level": 14, "value": "4|3|3|3|2|1|1" },
+              { "level": 15, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 16, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 17, "value": "4|3|3|3|2|1|1|1|1" },
+              { "level": 18, "value": "4|3|3|3|3|1|1|1|1" },
+              { "level": 19, "value": "4|3|3|3|3|2|1|1|1" },
+              { "level": 20, "value": "4|3|3|3|3|2|2|1|1" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ritual_casting",
+      "name": "Ritual Casting",
+      "description": "You can cast a prepared Bard spell as a ritual if it has the ritual tag, increasing its casting time by 10 minutes but expending no spell slot.",
+      "level": 1,
+      "type": "paper"
+    },
+    {
+      "id": "spellcasting_focus",
+      "name": "Spellcasting Focus",
+      "description": "You can use a musical instrument as a spellcasting focus for Bard spells, replacing material components without a gold cost and not consumed.",
+      "level": 1,
+      "type": "paper"
+    },
+    {
+      "id": "jack_of_all_trades",
+      "name": "Jack of All Trades",
+      "description": "Passive; add half your Proficiency Bonus (rounded down) to any ability check you make that uses a skill proficiency you lack and that doesn’t otherwise include your Proficiency Bonus.",
+      "level": 2,
+      "type": "paper"
+    },
+    {
+      "id": "expertise",
+      "name": "Expertise",
+      "description": "Choose two skill proficiencies; your Proficiency Bonus is doubled for checks using those skills.",
+      "level": 2,
+      "type": "choice",
+      "choice": {
+        "kind": "skill_expertise",
+        "count": 2,
+        "pool": "owned_skill_proficiencies_without_expertise"
+      },
+      "feature_stack": "bard_expertise",
+      "stack_role": "base"
+    },
+    {
+      "id": "bard_subclass",
+      "name": "Bard Subclass",
+      "description": "Passive; choose a Bard subclass. You gain its features at Bard levels 3, 6, and 14.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "bard_subclasses"
+      }
+    },
+    {
+      "id": "font_of_inspiration",
+      "name": "Font of Inspiration",
+      "description": "Passive upgrade; you regain all expended Bardic Inspiration uses when you finish a Short or Long Rest. Also, you can expend 1 spell slot (no action required) to regain 1 expended use of Bardic Inspiration.",
+      "level": 5,
+      "type": "paper",
+      "feature_stack": "bardic_inspiration_progression",
+      "stack_role": "modifier",
+      "modifies": ["bardic_inspiration"]
+    },
+    {
+      "id": "countercharm",
+      "name": "Countercharm",
+      "description": "Reaction; trigger: you or a creature within 30 ft fails a saving throw against an effect that would apply the Charmed or Frightened condition. Effect: the creature rerolls that saving throw, and the reroll has Advantage.",
+      "level": 7,
+      "type": "paper"
+    },
+    {
+      "id": "expertise_9",
+      "name": "Additional Expertise",
+      "description": "Passive; choose two skill proficiencies; your Proficiency Bonus is doubled for checks using those skills.",
+      "level": 9,
+      "type": "choice",
+      "choice": {
+        "kind": "skill_expertise",
+        "count": 2,
+        "pool": "owned_skill_proficiencies_without_expertise"
+      },
+      "feature_stack": "bard_expertise",
+      "stack_role": "modifier",
+      "modifies": ["expertise"]
+    },
+    {
+      "id": "magical_secrets",
+      "name": "Magical Secrets",
+      "description": "Passive; whenever you reach a Bard level (starting at 10) and your Prepared Spells number increases, you may choose any of those new prepared spells from the Bard, Cleric, Druid, or Wizard spell lists; any spell chosen this way counts as a Bard spell for you. Also, whenever you replace a prepared spell when you gain a Bard level, you may replace it with a spell from those same four lists (it also counts as a Bard spell for you).",
+      "level": 10,
+      "type": "paper"
+    },
+    {
+      "id": "superior_inspiration",
+      "name": "Superior Inspiration",
+      "description": "Passive; when you roll Initiative, regain expended uses of Bardic Inspiration until you have 2 uses, but only if you had fewer than 2 when Initiative was rolled.",
+      "level": 18,
+      "type": "paper",
+      "feature_stack": "bardic_inspiration_progression",
+      "stack_role": "modifier",
+      "modifies": ["bardic_inspiration"]
+    },
+    {
+      "id": "words_of_creation",
+      "name": "Words of Creation",
+      "description": "Passive; you always have Power Word Heal and Power Word Kill prepared. When you cast either spell, you can target a second creature with it if the second target is within 10 feet of the first.",
+      "level": 20,
+      "type": "paper",
+      "effects": {
+        "spell_grants": [
+          { "kind": "fixed", "spells": ["power_word_heal", "power_word_kill"] }
+        ]
+      }
+    }
+  ],
+  
+  "subclasses": {
+    "college_of_lore": {
+      "features": [
+        {
+          "id": "bonus_proficiencies",
+          "name": "Bonus Proficiencies",
+          "description": "You gain proficiency with three skills of your choice.",
+          "level": 3,
+          "type": "choice",
+          "choice": {
+            "kind": "skill_proficiency",
+            "count": 3,
+            "pool": "skills"
+          }
+        },
+        {
+          "id": "cutting_words",
+          "name": "Cutting Words",
+          "description": "Reaction; 60 ft; trigger: a creature you can see makes an attack roll, ability check, or damage roll. Cost: expend one Bardic Inspiration die. Effect: roll the die and subtract it from the triggering roll (apply to the roll you chose). Timing: after the creature rolls but before the outcome is resolved.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "magical_discoveries",
+          "name": "Magical Discoveries",
+          "description": "You learn two spells of your choice. These spells can come from the Cleric, Druid, or Wizard spell list or any combination thereof. A spell you choose must be a cantrip or a spell for which you have spell slots. You always have the chosen spells prepared, and whenever you gain a Bard level, you can replace one of the spells with another spell that meets these requirements.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "peerless_skill",
+          "name": "Peerless Skill",
+          "description": "When you make an ability check or attack roll and fail, you can expend one use of Bardic Inspiration; roll the Bardic Inspiration die, and add the number rolled to the d20, potentially turning a failure into a success. On a failure, the Bardic Inspiration isn’t expended.",
+          "level": 14,
+          "type": "paper"
+        }
+      ]
+    },
+    "college_of_valor": {
+      "features": [
+        {
+          "id": "combat_inspiration",
+          "name": "Combat Inspiration",
+          "description": "Passive upgrade to your Bardic Inspiration. A creature that has your Bardic Inspiration can use it to add to a weapon damage roll (after it hits) or use its Reaction to add the die to AC against one attack (potentially turning a hit into a miss). Timing: declared after the attack roll is made but before damage is rolled.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "martial_training",
+          "name": "Martial Training",
+          "description": "You gain proficiency with Martial weapons and training with Medium armor and Shields. In addition, you can use a Simple or Martial weapon as a Spellcasting Focus to cast spells from your Bard spell list.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "extra_attack",
+          "name": "Extra Attack",
+          "description": "You can attack twice instead of once whenever you take the Attack action on your turn. In addition, you can cast one of your cantrips that has a casting time of an action in place of one of those attacks.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "battle_magic",
+          "name": "Battle Magic",
+          "description": "Trigger: you cast a Bard spell that takes 1 Action to cast. Effect: you can make one weapon attack as a Bonus Action immediately after the spell is cast. Limit: still only one Bonus Action per turn.",
+          "level": 14,
+          "type": "paper"
+        }
+      ]
+    },
+    "college_of_glamour": {
+      "features": [
+        {
+          "id": "beguiling_magic",
+          "name": "Beguiling Magic",
+          "description": "You always have the Charm Person and Mirror Image spells prepared. In addition, immediately after you cast an Enchantment or Illusion spell using a spell slot, you can cause a creature you can see within 60 feet of yourself to make a Wisdom saving throw against your spell save DC. On a failed save, the target has the Charmed or Frightened condition (your choice) for 1 minute. The target repeats the save at the end of each of its turns, ending the effect on itself on a success. Once you use this benefit, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending one use of your Bardic Inspiration (no action required).",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["charm_person", "mirror_image"] }
+            ]
+          }
+        },
+        {
+          "id": "mantle_of_inspiration",
+          "name": "Mantle of Inspiration",
+          "description": "As a Bonus Action, you can expend a use of your Bardic Inspiration, rolling a Bardic Inspiration die. When you do so, choose a number of other creatures within 60 feet of yourself, up to a number equal to your Charisma modifier (minimum of one creature). Each of those creatures gains a number of Temporary Hit Points equal to two times the number rolled on the Bardic Inspiration die, and then each can use its Reaction to move up to its Speed without provoking Opportunity Attacks.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "mantle_of_majesty",
+          "name": "Mantle of Majesty",
+          "description": "You always have the Command spell prepared. As a Bonus Action, you cast Command without expending a spell slot, and you take on an unearthly appearance for 1 minute or until your Concentration ends. During this time, you can cast Command as a Bonus Action without expending a spell slot. Any creature Charmed by you automatically fails its saving throw against the Command you cast with this feature. Once you use this feature, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending a level 3+ spell slot (no action required).",
+          "level": 6,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["command"] }
+            ]
+          }
+        },
+        {
+          "id": "unbreakable_majesty",
+          "name": "Unbreakable Majesty",
+          "description": "As a Bonus Action, you can assume a magically majestic presence for 1 minute or until you have the Incapacitated condition. For the duration, whenever any creature hits you with an attack roll for the first time on a turn, the attacker must succeed on a Charisma saving throw against your spell save DC, or the attack misses instead, as the creature recoils from your majesty. Once you assume this majestic presence, you can't do so again until you finish a Short or Long Rest.",
+          "level": 14,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "short_rest": "all",
+              "long_rest": "all"
+            }
+          }
+        }
+      ]
+    },
+    "college_of_dance": {
+      "features": [
+        {
+          "id": "dazzling_footwork",
+          "name": "Dazzling Footwork",
+          "description": "While you aren’t wearing armor or wielding a Shield: (1) Dance Virtuoso—Advantage on Charisma (Performance) checks that involve dancing; (2) Unarmored Defense—base AC = 10 + your Dexterity modifier + your Charisma modifier; (3) Agile Strikes—when you expend a use of Bardic Inspiration as part of an action, Bonus Action, or Reaction, you can also make 1 Unarmed Strike as part of that same action/Bonus Action/Reaction; (4) Bardic Damage—you can use Dexterity for the attack rolls of your Unarmed Strikes, and when you deal damage with an Unarmed Strike you can deal Bludgeoning damage equal to your Bardic Inspiration die + your Dexterity modifier instead of the strike’s normal damage (this roll does NOT expend the die).",
+          "level": 3,
+          "type": "derived_output",
+          "derived_effects": {
+            "ac": {
+              "base": 10,
+              "modifiers": ["dex", "cha"],
+              "conditions": {
+                "armor_category": ["none"],
+                "shield_equipped": false
+              }
+            }
+          }
+        },
+        {
+          "id": "inspiring_movement",
+          "name": "Inspiring Movement",
+          "description": "Reaction; trigger: an enemy you can see ends its turn within 5 ft of you. Cost: expend 1 use of Bardic Inspiration. Effect: you move up to half your Speed, and one ally of your choice within 30 ft also moves up to half their Speed using their Reaction. None of this movement provokes Opportunity Attacks.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "tandem_footwork",
+          "name": "Tandem Footwork",
+          "description": "When you roll Initiative, if you don’t have the Incapacitated condition you can expend 1 use of Bardic Inspiration and roll your Bardic Inspiration die. You and each ally within 30 ft who can see or hear you gains a bonus to Initiative equal to the number rolled.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "leading_evasion",
+          "name": "Leading Evasion",
+          "description": "When an effect allows you to make a Dexterity saving throw to take only half damage, you instead take no damage on a success and only half damage on a failure. If any creatures within 5 ft of you are making the same Dexterity saving throw, you can share this benefit with them for that save. You can’t use this feature if you have the Incapacitated condition.",
+          "level": 14,
+          "type": "paper"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,505 @@
+{
+  "class_id": "ranger",
+  "features": [
+    {
+      "id": "favored_enemy",
+      "name": "Favored Enemy",
+      "description": "You always have Hunter’s Mark prepared. You can cast Hunter’s Mark without expending a spell slot a number of times as shown in the Ranger Features table, and you regain all expended uses when you finish a Long Rest.",
+      "level": 1,
+      "type": "resource",
+      "effects": {
+        "spell_grants": [
+          { "kind": "fixed", "spells": ["hunters_mark"] }
+        ]
+      },
+      "resource": {
+        "kind": "uses",
+        "value": {
+          "base": 2,
+          "scaling": [
+            { "level": 5, "value": 3 },
+            { "level": 9, "value": 4 },
+            { "level": 13, "value": 5 },
+            { "level": 17, "value": 6 }
+          ]
+        },
+        "recovery": "long_rest",
+        "applies_to": "hunters_mark_free_casts"
+      }
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "description": "You prepare Ranger spells and cast them using spell slots. Spellcasting ability: Wisdom (spell save DC and spell attack bonus). Prepared Spells (level 1+): at Ranger 1, you prepare 2 level-1 Ranger spells; your prepared list size increases by Ranger level as shown on the Ranger table (e.g., 6 prepared spells at Ranger 5). Whenever the number increases, add new Ranger spells of levels you have slots for. Whenever you finish a Long Rest, you can replace 1 prepared Ranger spell with another Ranger spell you have slots for. Spellcasting Focus: you can use a Druidic Focus.",
+      "level": 1,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Spell Slots",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "3" },
+              { "level": 4, "value": "3" },
+              { "level": 5, "value": "4|2" },
+              { "level": 6, "value": "4|2" },
+              { "level": 7, "value": "4|3" },
+              { "level": 8, "value": "4|3" },
+              { "level": 9, "value": "4|3|2" },
+              { "level": 10, "value": "4|3|2" },
+              { "level": 11, "value": "4|3|3" },
+              { "level": 12, "value": "4|3|3" },
+              { "level": 13, "value": "4|3|3|1" },
+              { "level": 14, "value": "4|3|3|1" },
+              { "level": 15, "value": "4|3|3|2" },
+              { "level": 16, "value": "4|3|3|2" },
+              { "level": 17, "value": "4|3|3|3|1" },
+              { "level": 18, "value": "4|3|3|3|1" },
+              { "level": 19, "value": "4|3|3|3|2" },
+              { "level": 20, "value": "4|3|3|3|2" }
+            ]
+          },
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4" },
+              { "level": 4, "value": "5" },
+              { "level": 5, "value": "6" },
+              { "level": 6, "value": "6" },
+              { "level": 7, "value": "7" },
+              { "level": 8, "value": "7" },
+              { "level": 9, "value": "9" },
+              { "level": 10, "value": "9" },
+              { "level": 11, "value": "10" },
+              { "level": 12, "value": "10" },
+              { "level": 13, "value": "11" },
+              { "level": 14, "value": "11" },
+              { "level": 15, "value": "12" },
+              { "level": 16, "value": "12" },
+              { "level": 17, "value": "14" },
+              { "level": 18, "value": "14" },
+              { "level": 19, "value": "15" },
+              { "level": 20, "value": "15" }
+            ]
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4" },
+              { "level": 4, "value": "5" },
+              { "level": 5, "value": "6" },
+              { "level": 7, "value": "7" },
+              { "level": 9, "value": "9" },
+              { "level": 11, "value": "11" },
+              { "level": 13, "value": "12" },
+              { "level": 15, "value": "13" },
+              { "level": 17, "value": "15" },
+              { "level": 19, "value": "16" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "weapon_mastery",
+      "name": "Weapon Mastery",
+      "description": "Passive; you can use the mastery properties of two kinds of weapons you choose that you’re proficient with (e.g., Longbows, Shortswords). Whenever you finish a Long Rest, you can change the two chosen weapon kinds.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "weapon_mastery",
+        "count": 2,
+        "pool": "proficient_weapon_kinds",
+        "reselection": "change_all_on_long_rest"
+      },
+      "feature_stack": "ranger_weapon_mastery",
+      "stack_role": "base"
+    },
+    {
+      "id": "deft_explorer",
+      "name": "Deft Explorer",
+      "description": "Passive; you gain Expertise in 1 skill proficiency you have (choose a skill you’re proficient with that you don’t already have Expertise in). You also learn 2 languages of your choice.",
+      "level": 2,
+      "type": "choice",
+      "choice": {
+        "kind": "compound",
+        "components": [
+          {
+            "kind": "skill_expertise",
+            "count": 1,
+            "pool": "owned_skill_proficiencies_without_expertise"
+          },
+          {
+            "kind": "language",
+            "count": 2,
+            "pool": "languages"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fighting_style",
+      "name": "Fighting Style",
+      "description": "Passive; you gain a Fighting Style feat of your choice. Alternative option: Druidic Warrior—learn 2 Druid cantrips of your choice; they count as Ranger spells for you and use Wisdom; whenever you gain a Ranger level, you may replace 1 of these cantrips with another Druid cantrip.",
+      "level": 2,
+      "type": "choice",
+      "choice": {
+        "kind": "feat",
+        "count": 1,
+        "pool": "fighting_style_feats"
+      }
+    },
+    {
+      "id": "ranger_subclass",
+      "name": "Ranger Subclass",
+      "description": "Passive; choose a Ranger subclass. You gain that subclass’s features at Ranger levels 3, 7, 11, and 15.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "ranger_subclasses"
+      }
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "description": "Passive; when you take the Attack action on your turn, you can make two attacks instead of one.",
+      "level": 5,
+      "type": "paper"
+    },
+    {
+      "id": "roving",
+      "name": "Roving",
+      "description": "Passive; while you aren’t wearing Heavy Armor, your Speed increases by 10 feet. You also gain a Climb Speed and a Swim Speed equal to your Speed.",
+      "level": 6,
+      "type": "paper"
+    },
+    {
+      "id": "expertise",
+      "name": "Expertise",
+      "description": "Passive; choose 2 skill proficiencies you have that you don’t already have Expertise in; you gain Expertise in those skills.",
+      "level": 9,
+      "type": "choice",
+      "choice": {
+        "kind": "skill_expertise",
+        "count": 2,
+        "pool": "owned_skill_proficiencies_without_expertise"
+      }
+    },
+    {
+      "id": "tireless",
+      "name": "Tireless",
+      "description": "You gain two benefits. Temporary Hit Points: Magic Action; give yourself Temporary HP equal to 1d8 + your Wisdom modifier (minimum 1). Uses: a number of times equal to your Wisdom modifier (minimum 1) per Long Rest. Decrease Exhaustion: whenever you finish a Short Rest, your Exhaustion level (if any) decreases by 1.",
+      "level": 10,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": {
+          "formula": "wisdom_modifier",
+          "minimum": 1
+        },
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "relentless_hunter",
+      "name": "Relentless Hunter",
+      "description": "Passive; taking damage can’t break your Concentration on Hunter’s Mark.",
+      "level": 13,
+      "type": "paper"
+    },
+    {
+      "id": "natures_veil",
+      "name": "Nature’s Veil",
+      "description": "Bonus Action; you gain the Invisible condition until the end of your next turn. Uses: a number of times equal to your Wisdom modifier (minimum 1) per Long Rest.",
+      "level": 14,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": {
+          "formula": "wisdom_modifier",
+          "minimum": 1
+        },
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "precise_hunter",
+      "name": "Precise Hunter",
+      "description": "Passive; you have Advantage on attack rolls against the creature currently marked by your Hunter’s Mark.",
+      "level": 17,
+      "type": "paper"
+    },
+    {
+      "id": "feral_senses",
+      "name": "Feral Senses",
+      "description": "Passive; you gain Blindsight 30 ft.",
+      "level": 18,
+      "type": "paper"
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Dimensional Travel is recommended.",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "foe_slayer",
+      "name": "Foe Slayer",
+      "description": "Passive; the bonus-damage die of your Hunter’s Mark becomes a d10 (instead of a d6).",
+      "level": 20,
+      "type": "derived_output",
+      "derived_effects": {
+        "spell_modifiers": {
+          "hunters_mark": {
+            "damage_die": "1d10"
+          }
+        }
+      }
+    }
+  ],
+  "subclasses": {
+    "fey_wanderer": {
+      "features": [
+        {
+          "id": "dreadful_strikes",
+          "name": "Dreadful Strikes",
+          "description": "When you hit a creature with a weapon, you can deal an extra 1d4 Psychic damage to the target, which can take this extra damage only once per turn. The extra damage increases to 1d6 when you reach Ranger level 11.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "fey_wanderer_spells",
+          "name": "Fey Wanderer Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["charm_person"] },
+              { "kind": "fixed", "spells": ["misty_step"] },
+              { "kind": "fixed", "spells": ["summon_fey"] },
+              { "kind": "fixed", "spells": ["dimension_door"] },
+              { "kind": "fixed", "spells": ["mislead"] }
+            ]
+          }
+        },
+        {
+          "id": "otherworldly_glamour",
+          "name": "Otherworldly Glamour",
+          "description": "Whenever you make a Charisma check, you gain a bonus to the check equal to your Wisdom modifier (minimum of +1). You also gain proficiency in one of these skills of your choice: Deception, Performance, or Persuasion.",
+          "level": 3,
+          "type": "choice",
+          "choice": {
+            "kind": "skill_proficiency",
+            "count": 1,
+            "pool": ["deception", "performance", "persuasion"]
+          }
+        },
+        {
+          "id": "beguiling_twist",
+          "name": "Beguiling Twist",
+          "description": "You have Advantage on saving throws to avoid or end the Charmed or Frightened condition. In addition, whenever you or a creature you can see within 120 feet of you succeeds on a saving throw to avoid or end the Charmed or Frightened condition, you can take a Reaction to force a different creature you can see within 120 feet of yourself to make a Wisdom saving throw against your spell save DC. On a failed save, the target is Charmed or Frightened (your choice) for 1 minute. The target repeats the save at the end of each of its turns, ending the effect on itself on a success.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "fey_reinforcements",
+          "name": "Fey Reinforcements",
+          "description": "You can cast Summon Fey without a Material component. You can also cast it once without a spell slot, and you regain the ability to cast it in this way when you finish a Long Rest. Whenever you start casting the spell, you can modify it so that it doesn’t require Concentration. If you do so, the spell’s duration becomes 1 minute for the casting.",
+          "level": 11,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          },
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["summon_fey"] }
+            ]
+          }
+        },
+        {
+          "id": "misty_wanderer",
+          "name": "Misty Wanderer",
+          "description": "You can cast Misty Step without expending a spell slot a number of times equal to your Wisdom modifier (minimum of once), and you regain all expended uses when you finish a Long Rest. In addition, whenever you cast Misty Step, you can bring along one willing creature you can see within 5 feet of yourself. That creature teleports to an unoccupied space of your choice within 5 feet of your destination space.",
+          "level": 15,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          },
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["misty_step"] }
+            ]
+          }
+        }
+      ]
+    },
+    "hunter": {
+      "features": [
+        {
+          "id": "hunters_lore",
+          "name": "Hunter’s Lore",
+          "description": "Passive; while a creature is marked by your Hunter’s Mark, you know whether it has any damage immunities, resistances, or vulnerabilities; if it has any, you know what they are.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "hunters_prey",
+          "name": "Hunter’s Prey",
+          "description": "Choose one option; you can switch the choice whenever you finish a Short or Long Rest. Colossus Slayer—once per turn when you hit a creature with a weapon attack, deal +1d8 extra weapon damage if the target is missing any of its HP. Horde Breaker—once on each of your turns when you make a weapon attack, you can make another weapon attack with the same weapon against a different creature that is within 5 ft of the original target, within the weapon’s range, and that you haven’t attacked this turn.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "defensive_tactics",
+          "name": "Defensive Tactics",
+          "description": "Choose one option; you can switch the choice whenever you finish a Short or Long Rest. Escape the Horde—Opportunity Attacks against you have Disadvantage. Multiattack Defense—when a creature hits you with an attack, that creature has Disadvantage on any further attack rolls it makes against you until the start of your next turn.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "superior_hunters_prey",
+          "name": "Superior Hunter’s Prey",
+          "description": "Once per turn when you deal damage to a creature marked by your Hunter’s Mark, you can also deal Hunter’s Mark’s extra damage to a different creature that you can see within 30 ft of the first creature.",
+          "level": 11,
+          "type": "paper"
+        },
+        {
+          "id": "superior_hunters_defense",
+          "name": "Superior Hunter’s Defense",
+          "description": "Reaction; trigger: you take damage. Effect: you gain Resistance to that damage type until the end of the current turn (reducing the triggering damage and any other damage of that type you take before the turn ends).",
+          "level": 15,
+          "type": "paper"
+        }
+      ]
+    },
+    "beast_master": {
+      "features": [
+        {
+          "id": "primal_companion",
+          "name": "Primal Companion",
+          "description": "You magically summon a primal beast companion (choose Beast of the Land, Sea, or Sky stat block). The companion is Friendly to you and obeys your commands. It acts on your turn: it moves and uses its Reaction normally, but takes only the Dodge action unless you use a Bonus Action to command it to take another action (including an action in its stat block). When you take the Attack action, you can forgo one of your attacks to command the beast to take its Beast’s Strike action. If you’re Incapacitated, the beast acts on its own. If the beast died within the last hour, you can take a Magic action to touch it and expend a spell slot; it returns to life after 1 minute with all HP restored. Whenever you finish a Long Rest, you can summon a different primal beast; the old one vanishes. The beast vanishes if you die.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "exceptional_training",
+          "name": "Exceptional Training",
+          "description": "When you use your Bonus Action to command your Primal Companion to take an action, you can also command it to take Dash, Disengage, Dodge, or Help using its Bonus Action. Also, whenever it hits with an attack roll and deals damage, it can deal Force damage instead of its normal damage type.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "bestial_fury",
+          "name": "Bestial Fury",
+          "description": "When you command your Primal Companion to take the Beast’s Strike action, it can use Beast’s Strike twice. Also, the first time each turn it hits a creature under the effect of your Hunter’s Mark, it deals extra Force damage equal to Hunter’s Mark’s bonus damage.",
+          "level": 11,
+          "type": "paper"
+        },
+        {
+          "id": "share_spells",
+          "name": "Share Spells",
+          "description": "When you cast a spell that targets only yourself, you can also have it affect your Primal Companion if the beast is within 30 ft of you.",
+          "level": 15,
+          "type": "paper"
+        }
+      ]
+    },
+    "gloom_stalker": {
+      "features": [
+        {
+          "id": "dread_ambusher",
+          "name": "Dread Ambusher",
+          "description": "You have mastered the art of creating fearsome ambushes. Ambusher’s Leap: at the start of your first turn of each combat, your Speed increases by 10 feet until the end of that turn. Dreadful Strike: when you attack a creature and hit it with a weapon, you can deal an extra 2d6 Psychic damage. You can use this benefit only once per turn, and you can use it a number of times equal to your Wisdom modifier (minimum of once), regaining all expended uses when you finish a Long Rest. Initiative Bonus: when you roll Initiative, you can add your Wisdom modifier to the roll.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "gloom_stalker_spells",
+          "name": "Gloom Stalker Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["disguise_self"] },
+              { "kind": "fixed", "spells": ["rope_trick"] },
+              { "kind": "fixed", "spells": ["fear"] },
+              { "kind": "fixed", "spells": ["greater_invisibility"] },
+              { "kind": "fixed", "spells": ["seeming"] }
+            ]
+          }
+        },
+        {
+          "id": "umbral_sight",
+          "name": "Umbral Sight",
+          "level": 3,
+          "type": "paper",
+          "description": "Passive; you gain Darkvision 60 ft (or +60 ft if you already have it). While you’re in Darkness, you have the Invisible condition to any creature that relies on Darkvision to see you in that Darkness."
+        },
+        {
+          "id": "iron_mind",
+          "name": "Iron Mind",
+          "description": "Passive; you gain proficiency in Wisdom saving throws. If you already have that proficiency, you instead gain proficiency in Intelligence or Charisma saving throws (your choice).",
+          "level": 7,
+          "type": "choice",
+          "choice": {
+            "kind": "saving_throw_proficiency",
+            "count": 1,
+            "pool": ["wis", "int", "cha"]
+          }
+        },
+        {
+          "id": "stalkers_flurry",
+          "name": "Stalker’s Flurry",
+          "description": "The Psychic damage of your Dreadful Strike becomes 2d8. In addition, when you use the Dreadful Strike effect of your Dread Ambusher feature, you can use one of the following additional effects. Sudden Strike: you can make another attack with the same weapon against a different creature that is within 5 feet of the original target and that is within the weapon’s range. Mass Fear: the target and each creature within 10 feet of it must make a Wisdom saving throw against your spell save DC. On a failed save, a creature has the Frightened condition until the start of your next turn.",
+          "level": 11,
+          "type": "paper",
+          "feature_stack": "dread_ambusher",
+          "stack_role": "modifier",
+          "modifies": ["dread_ambusher"]
+        },
+        {
+          "id": "shadowy_dodge",
+          "name": "Shadowy Dodge",
+          "description": "Reaction; trigger: a creature makes an attack roll against you. Effect: impose Disadvantage on that roll. After the attack is resolved (hit or miss), you can teleport up to 30 ft to an unoccupied space you can see.",
+          "level": 15,
+          "type": "paper"
+        }
+      ]
+    }
+  }
+}

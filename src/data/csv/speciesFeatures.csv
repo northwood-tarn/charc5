@@ -1,0 +1,46 @@
+feature_id,species_id,lineage_id,feature_name,min_level,build_effect,description,grants_spell_id
+healing_hands,aasimar,base,Healing Hands,1,none,"As an action, you can touch a creature and restore HP equal to your Proficiency Bonus.",
+light_bearer,aasimar,base,Light Bearer,1,none,You know the Light cantrip. Charisma is your spellcasting ability for it.,light
+celestial_revelation,aasimar,base,Celestial Revelation,3,none,"As a Bonus Action, transform for 1 minute. Choose Radiant Soul, Radiant Consumption, or Necrotic Shroud.",
+breath_weapon,dragonborn,base,Breath Weapon,1,none,Replace one attack with a line or cone of energy. DC = 8 + Con mod + PB.,
+draconic_flight,dragonborn,base,Draconic Flight,5,none,Bonus Action: gain flying speed equal to Speed for 10 minutes.,
+dwarven_resilience,dwarf,base,Dwarven Resilience,1,none,Advantage on saving throws to avoid or end the Poisoned condition.,
+dwarven_toughness,dwarf,base,Dwarven Toughness,1,hp_bonus_per_level,HP max increases by 1 per level.,
+stonecunning,dwarf,base,Stonecunning,1,none,Bonus Action: gain Truesense 60 ft for 10 minutes. Uses = PB per Long Rest.,
+keen_senses,elf,base,Keen Senses,1,skill_choice,"Gain proficiency in Insight, Perception, or Survival (your choice).",
+fey_ancestry,elf,base,Fey Ancestry,1,none,Advantage on saving throws to avoid or end the Charmed condition.,
+trance,elf,base,Trance,1,none,You do not need sleep and complete a Long Rest in 4 hours.,
+gnomish_cunning,gnome,base,Gnomish Cunning,1,none,"Advantage on Intelligence, Wisdom, and Charisma saving throws.",
+forest_gnome_magic_1,gnome,forest,Forest Gnome Magic,1,none,You know Minor Illusion.,minor_illusion
+forest_gnome_magic_3,gnome,forest,Forest Gnome Magic,3,none,You can cast Disguise Self once per Long Rest.,disguise_self
+forest_gnome_magic_5,gnome,forest,Forest Gnome Magic,5,none,You can cast Invisibility once per Long Rest.,invisibility
+rock_gnome_magic_1,gnome,rock,Rock Gnome Magic,1,none,You know Mending.,mending
+rock_gnome_magic_3,gnome,rock,Rock Gnome Magic,3,none,You can cast Identify once per Long Rest.,identify
+rock_gnome_magic_5,gnome,rock,Rock Gnome Magic,5,none,You can cast Alarm once per Long Rest.,alarm
+powerful_build,goliath,base,Powerful Build,1,none,Count as one size larger for carrying capacity.,
+large_form,goliath,base,Large Form,5,none,Bonus Action: gain Large benefits for 10 minutes.,
+clouds_jaunt,goliath,cloud,Cloud’s Jaunt,1,none,Bonus Action teleport 30 ft. Uses = PB per Long Rest.,
+fires_burn,goliath,fire,Fire’s Burn,1,none,"On hit, deal extra fire damage = PB. Uses = PB per Long Rest.",
+frosts_chill,goliath,frost,Frost’s Chill,1,none,"On hit, reduce target Speed by 10 ft.",
+hills_tumble,goliath,hill,Hill’s Tumble,1,none,Reaction to impose Disadvantage on an attack.,
+stones_endurance,goliath,stone,Stone’s Endurance,1,none,Reaction: reduce damage by 1d12 + Con mod.,
+storms_thunder,goliath,storm,Storm’s Thunder,1,none,"On hit, deal thunder damage = PB.",
+lucky,halfling,base,Lucky,1,none,Reroll a 1 on a d20 Test.,
+brave,halfling,base,Brave,1,none,Advantage on saving throws vs Frightened.,
+halfling_nimbleness,halfling,base,Halfling Nimbleness,1,none,Move through spaces of larger creatures.,
+naturally_stealthy,halfling,base,Naturally Stealthy,1,none,Hide when obscured by a larger creature.,
+resourceful,human,base,Resourceful,1,none,"Once per Long Rest, add 1d4 to a d20 Test.",
+skillful,human,base,Skillful,1,skill_choice,Gain proficiency in one skill of your choice.,
+versatile,human,base,Versatile,1,feat_choice,Gain one Origin feat of your choice.,
+adrenaline_rush,orc,base,Adrenaline Rush,1,none,Bonus Action Dash; gain temp HP = PB. Uses = PB per rest.,
+relentless_endurance,orc,base,Relentless Endurance,1,none,"When reduced to 0 HP, drop to 1 instead (1/Long Rest).",
+otherworldly_presence,tiefling,base,Otherworldly Presence,1,none,You know Thaumaturgy.,thaumaturgy
+abyssal_legacy_1,tiefling,abyssal,Abyssal Legacy,1,none,You know Poison Spray.,poison_spray
+abyssal_legacy_3,tiefling,abyssal,Abyssal Legacy,3,none,Cast Ray of Sickness 1/Long Rest.,ray_of_sickness
+abyssal_legacy_5,tiefling,abyssal,Abyssal Legacy,5,none,Cast Hold Person 1/Long Rest.,hold_person
+chthonic_legacy_1,tiefling,chthonic,Chthonic Legacy,1,none,You know Chill Touch.,chill_touch
+chthonic_legacy_3,tiefling,chthonic,Chthonic Legacy,3,none,Cast False Life 1/Long Rest.,false_life
+chthonic_legacy_5,tiefling,chthonic,Chthonic Legacy,5,none,Cast Ray of Enfeeblement 1/Long Rest.,ray_of_enfeeblement
+infernal_legacy_1,tiefling,infernal,Infernal Legacy,1,none,You know Fire Bolt.,fire_bolt
+infernal_legacy_3,tiefling,infernal,Infernal Legacy,3,none,Cast Hellish Rebuke 1/Long Rest.,hellish_rebuke
+infernal_legacy_5,tiefling,infernal,Infernal Legacy,5,none,Cast Darkness 1/Long Rest.,darkness

@@ -1,0 +1,40 @@
+weapon_id,weapon_name,category,weapon_type,damage_dice,damage_type,mastery_trait,master_details
+club,Club,simple,melee,1d4,bludgeoning,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+dagger,Dagger,simple,melee,1d4,piercing,Nick,When you make a Light weapon extra attack this turn you can include this attack as part of the same action instead of using a Bonus Action.
+greatclub,Greatclub,simple,melee,1d8,bludgeoning,Push,On a hit you can push the target up to 10 feet directly away from you if it is no more than one size larger.
+handaxe,Handaxe,simple,melee,1d6,slashing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+javelin,Javelin,simple,melee,1d6,piercing,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+light_hammer,Light Hammer,simple,melee,1d4,bludgeoning,Nick,When you make a Light weapon extra attack this turn you can include this attack as part of the same action instead of using a Bonus Action.
+mace,Mace,simple,melee,1d6,bludgeoning,Sap,On a hit the target has Disadvantage on its next attack roll before the start of your next turn.
+quarterstaff,Quarterstaff,simple,melee,1d6,bludgeoning,Topple,On a hit you can force the target to make a Constitution save or be knocked Prone.
+sickle,Sickle,simple,melee,1d4,slashing,Nick,When you make a Light weapon extra attack this turn you can include this attack as part of the same action instead of using a Bonus Action.
+spear,Spear,simple,melee,1d6,piercing,Sap,On a hit the target has Disadvantage on its next attack roll before the start of your next turn.
+crossbow_light,Light Crossbow,simple,ranged,1d8,piercing,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+dart,Dart,simple,ranged,1d4,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+shortbow,Shortbow,simple,ranged,1d6,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+sling,Sling,simple,ranged,1d4,bludgeoning,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+battleaxe,Battleaxe,martial,melee,1d8,slashing,Topple,On a hit you can force the target to make a Constitution save or be knocked Prone.
+flail,Flail,martial,melee,1d8,bludgeoning,Sap,On a hit the target has Disadvantage on its next attack roll before the start of your next turn.
+glaive,Glaive,martial,melee,1d10,slashing,Graze,If you miss a creature with this attack it still takes damage equal to your ability modifier used for the attack.
+greataxe,Greataxe,martial,melee,1d12,slashing,Cleave,When you hit a creature you can deal your ability modifier in damage to a second creature within 5 feet of the first.
+greatsword,Greatsword,martial,melee,2d6,slashing,Graze,If you miss a creature with this attack it still takes damage equal to your ability modifier used for the attack.
+halberd,Halberd,martial,melee,1d10,slashing,Cleave,When you hit a creature you can deal your ability modifier in damage to a second creature within 5 feet of the first.
+lance,Lance,martial,melee,1d12,piercing,Topple,On a hit you can force the target to make a Constitution save or be knocked Prone.
+longsword,Longsword,martial,melee,1d8,slashing,Sap,On a hit the target has Disadvantage on its next attack roll before the start of your next turn.
+maul,Maul,martial,melee,2d6,bludgeoning,Topple,On a hit you can force the target to make a Constitution save or be knocked Prone.
+morningstar,Morningstar,martial,melee,1d8,piercing,Sap,On a hit the target has Disadvantage on its next attack roll before the start of your next turn.
+pike,Pike,martial,melee,1d10,piercing,Push,On a hit you can push the target up to 10 feet directly away from you if it is no more than one size larger.
+rapier,Rapier,martial,melee,1d8,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+scimitar,Scimitar,martial,melee,1d6,slashing,Nick,When you make a Light weapon extra attack this turn you can include this attack as part of the same action instead of using a Bonus Action.
+shortsword,Shortsword,martial,melee,1d6,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+trident,Trident,martial,melee,1d6,piercing,Topple,On a hit you can force the target to make a Constitution save or be knocked Prone.
+war_pick,War Pick,martial,melee,1d8,piercing,Push,On a hit you can push the target up to 10 feet directly away from you if it is no more than one size larger.
+warhammer,Warhammer,martial,melee,1d8,bludgeoning,Sap,On a hit the target has Disadvantage on its next attack roll before the start of your next turn.
+whip,Whip,martial,melee,1d4,slashing,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+blowgun,Blowgun,martial,ranged,1,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+crossbow_hand,Hand Crossbow,martial,ranged,1d6,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+crossbow_heavy,Heavy Crossbow,martial,ranged,1d10,piercing,Push,On a hit you can push the target up to 10 feet directly away from you if it is no more than one size larger.
+longbow,Longbow,martial,ranged,1d8,piercing,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+musket,Musket,martial,ranged,1d12,piercing,Slow,On a hit the target’s Speed is reduced by 10 feet until the start of your next turn.
+pistol,Pistol,martial,ranged,1d10,piercing,Vex,If you hit a creature you gain Advantage on your next attack roll against that creature before the end of your next turn.
+```

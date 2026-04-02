@@ -1,0 +1,525 @@
+{
+  "class_id": "paladin",
+  "features": [
+    {
+      "id": "lay_on_hands",
+      "name": "Lay on Hands",
+      "description": "You have a healing pool equal to 5 × your Paladin level. As a Bonus Action, you can touch a creature and restore any number of HP from the pool (up to remaining pool). You can also expend 5 HP from the pool to cure one disease or neutralize one poison affecting the target. The pool replenishes when you finish a Long Rest.",
+      "level": 1,
+      "type": "resource",
+      "resource": {
+        "kind": "healing_pool",
+        "pool_value": {
+          "multiply": [
+            { "class_level": "paladin" },
+            5
+          ]
+        },
+        "recovery": "long_rest"
+      }
+    },
+    {
+      "id": "weapon_mastery",
+      "name": "Weapon Mastery",
+      "description": "Passive; you can use the mastery properties of two kinds of weapons with which you have proficiency. Whenever you finish a Long Rest, you can change the kinds of weapons you chose.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "weapon_mastery",
+        "count": 2,
+        "pool": "proficient_weapon_kinds",
+        "reselection": "change_one_on_long_rest"
+      },
+      "feature_stack": "paladin_weapon_mastery",
+      "stack_role": "base"
+    },
+    {
+      "id": "fighting_style",
+      "name": "Fighting Style",
+      "description": "Passive; you gain a Fighting Style feat of your choice.",
+      "level": 2,
+      "type": "choice",
+      "choice": {
+        "kind": "feat",
+        "count": 1,
+        "pool": "fighting_style_feats"
+      }
+    },
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "description": "You can prepare and cast Paladin spells. Charisma is your spellcasting ability for Paladin spells.",
+      "level": 2,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "value": {
+              "formula": "ability_modifier_plus_level",
+              "ability": "cha"
+            }
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "value": {
+              "formula": "ability_modifier_plus_level",
+              "ability": "cha"
+            }
+          },
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Spell Slots",
+            "scaling": [
+              { "level": 2, "value": "2" },
+              { "level": 3, "value": "3" },
+              { "level": 5, "value": "4|2" },
+              { "level": 9, "value": "4|3|2" },
+              { "level": 13, "value": "4|3|3|2" },
+              { "level": 17, "value": "4|3|3|3|2" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "paladins_smite",
+      "name": "Paladin's Smite",
+      "description": "You always have the Divine Smite spell prepared. You can cast it without expending a spell slot, but you must finish a Long Rest before you can cast it this way again.",
+      "level": 2,
+      "type": "paper"
+    },
+    {
+      "id": "channel_divinity",
+      "name": "Channel Divinity",
+      "description": "You can channel divine energy directly from the Outer Planes to fuel magical effects. You start with one such effect: Divine Sense. Other Paladin features give additional Channel Divinity effect options. Each time you use this class’s Channel Divinity, you choose which effect to create. You can use this feature twice. You regain one expended use when you finish a Short Rest, and you regain all expended uses when you finish a Long Rest. You gain an additional use when you reach Paladin level 11.",
+      "level": 3,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": {
+          "base": 2,
+          "scaling": [
+            { "level": 11, "value": 3 }
+          ]
+        },
+        "recovery": {
+          "short_rest": 1,
+          "long_rest": "all"
+        }
+      },
+      "derived_effects": {
+        "secondary_values": {
+          "class_ability_dc": {
+            "key": "paladin_channel_divinity_dc",
+            "formula": [8, { "proficiency_bonus": true }, { "ability_modifier": "cha" }]
+          }
+        }
+      }
+    },
+    {
+      "id": "divine_sense_option",
+      "name": "Divine Sense",
+      "description": "As a Bonus Action, you can open your awareness to detect Celestials, Fiends, and Undead. For 10 minutes or until you have the Incapacitated condition, you know the location of any creature of those types within 60 feet of yourself, and you know its creature type. You also detect the presence of any place or object within that range that has been consecrated or desecrated.",
+      "level": 3,
+      "type": "paper",
+      "feature_stack": "channel_divinity",
+      "stack_role": "option"
+    },
+    {
+      "id": "paladin_subclass",
+      "name": "Paladin Subclass",
+      "description": "Passive; choose a Sacred Oath. You gain oath features at Paladin levels 3, 7, 15, and 20.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "paladin_subclasses"
+      }
+    },
+    {
+      "id": "extra_attack",
+      "name": "Extra Attack",
+      "description": "Passive; when you take the Attack action on your turn, you can make two attacks instead of one.",
+      "level": 5,
+      "type": "paper"
+    },
+    {
+      "id": "faithful_steed",
+      "name": "Faithful Steed",
+      "description": "You always have the Find Steed spell prepared. You can also cast the spell once without expending a spell slot, and you regain your ability to do so when you finish a Long Rest.",
+      "level": 5,
+      "type": "paper"
+    },
+    {
+      "id": "aura_of_protection",
+      "name": "Aura of Protection",
+      "description": "Passive; while you are conscious, you and friendly creatures within 10 ft of you add your Charisma modifier (minimum +1) to all saving throws. Range increases to 30 ft at Paladin 18.",
+      "level": 6,
+      "type": "paper"
+    },
+    {
+      "id": "abjure_foes",
+      "name": "Abjure Foes",
+      "description": "As a Magic action, you can expend one use of your Channel Divinity to overwhelm foes with awe. Choose a number of creatures equal to your Charisma modifier (minimum of one creature) within 60 feet of yourself. Each target must succeed on a Wisdom saving throw or have the Frightened condition for 1 minute or until it takes any damage. While Frightened in this way, a target can only move, take an action, or take a Bonus Action on its turns.",
+      "level": 9,
+      "type": "paper",
+      "feature_stack": "channel_divinity",
+      "stack_role": "option"
+    },
+    {
+      "id": "aura_of_courage",
+      "name": "Aura of Courage",
+      "description": "You and your allies have Immunity to the Frightened condition while in your Aura of Protection. If a Frightened ally enters the aura, that condition has no effect on that ally while there.",
+      "level": 10,
+      "type": "paper"
+    },
+    {
+      "id": "radiant_strikes",
+      "name": "Radiant Strikes",
+      "description": "When you hit a target with an attack roll using a Melee weapon or an Unarmed Strike, the target takes an extra 1d8 Radiant damage.",
+      "level": 11,
+      "type": "paper"
+    },
+    {
+      "id": "restoring_touch",
+      "name": "Restoring Touch",
+      "description": "When you use Lay On Hands on a creature, you can also remove one or more of the following conditions from the creature: Blinded, Charmed, Deafened, Frightened, Paralyzed, or Stunned. You must expend 5 Hit Points from the healing pool of Lay On Hands for each of these conditions you remove.",
+      "level": 14,
+      "type": "paper"
+    },
+    {
+      "id": "aura_expansion",
+      "name": "Aura Expansion",
+      "description": "Your Aura of Protection is now a 30-foot Emanation.",
+      "level": 18,
+      "type": "paper"
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify.",
+      "level": 19,
+      "type": "paper"
+    }
+  ],
+  "subclasses": {
+    "oath_of_devotion": {
+      "features": [
+        {
+          "id": "oath_of_devotion_spells",
+          "name": "Oath of Devotion Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["protection_from_evil_and_good", "shield_of_faith"] },
+              { "kind": "fixed", "spells": ["aid", "zone_of_truth"] },
+              { "kind": "fixed", "spells": ["beacon_of_hope", "dispel_magic"] },
+              { "kind": "fixed", "spells": ["freedom_of_movement", "guardian_of_faith"] },
+              { "kind": "fixed", "spells": ["commune", "flame_strike"] }
+            ]
+          }
+        },
+        {
+          "id": "sacred_weapon",
+          "name": "Sacred Weapon",
+          "description": "When you take the Attack action, you can expend one use of your Channel Divinity to imbue one Melee weapon that you are holding with positive energy. For 10 minutes or until you use this feature again, you add your Charisma modifier to attack rolls you make with that weapon (minimum bonus of +1), and each time you hit with it, you cause it to deal its normal damage type or Radiant damage. The weapon also emits Bright Light in a 20-foot radius and Dim Light 20 feet beyond that. You can end this effect early (no action required). This effect also ends if you aren’t carrying the weapon.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "turn_the_unholy",
+          "name": "Turn the Unholy",
+          "description": "As a Magic action, you can expend one use of your Channel Divinity to force each Fiend or Undead of your choice in a 30-foot Emanation originating from you to make a Wisdom saving throw against your spell save DC. On a failed save, a creature has the Frightened condition for 1 minute. A Frightened creature repeats the save at the end of each of its turns, ending the effect on itself on a success.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "aura_of_devotion",
+          "name": "Aura of Devotion",
+          "description": "You and your allies have Immunity to the Charmed condition while in your Aura of Protection. If a Charmed ally enters the aura, that condition has no effect on that ally while there.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "smite_of_protection",
+          "name": "Smite of Protection",
+          "description": "Your magical smite now radiates protective energy. Whenever you cast Divine Smite, you and your allies have Half Cover while in your Aura of Protection. The aura has this benefit until the start of your next turn.",
+          "level": 15,
+          "type": "paper"
+        },
+        {
+          "id": "holy_nimbus",
+          "name": "Holy Nimbus",
+          "description": "As a Bonus Action, you can imbue your Aura of Protection with holy power, granting the following benefits for 10 minutes or until you end them (no action required). Holy Ward: you have Advantage on any saving throw you are forced to make by a Fiend or an Undead. Radiant Damage: whenever an enemy starts its turn in the aura, that creature takes Radiant damage equal to your Charisma modifier plus your Proficiency Bonus. Sunlight: the aura is filled with Bright Light that is sunlight. Once you use this feature, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending a level 5 spell slot (no action required).",
+          "level": 20,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          }
+        }
+      ]
+    },
+    "oath_of_vengeance": {
+      "features": [
+        {
+          "id": "oath_of_vengeance_spells",
+          "name": "Oath of Vengeance Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["bane", "hunters_mark"] },
+              { "kind": "fixed", "spells": ["hold_person", "misty_step"] },
+              { "kind": "fixed", "spells": ["haste", "protection_from_energy"] },
+              { "kind": "fixed", "spells": ["banishment", "dimension_door"] },
+              { "kind": "fixed", "spells": ["hold_monster", "scrying"] }
+            ]
+          }
+        },
+        {
+          "id": "vow_of_enmity",
+          "name": "Vow of Enmity",
+          "description": "When you take the Attack action, you can expend one use of your Channel Divinity to utter a vow of enmity against a creature you can see within 30 feet of yourself. You have Advantage on attack rolls against the creature for 1 minute or until you use this feature again. If the creature drops to 0 Hit Points before the vow ends, you can transfer the vow to a different creature within 30 feet of yourself (no action required).",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "relentless_avenger",
+          "name": "Relentless Avenger",
+          "description": "Your supernatural focus helps you close off a foe’s retreat. When you hit a creature with an Opportunity Attack, you can reduce the creature’s Speed to 0 until the end of the current turn. You can then move up to half your Speed as part of the same Reaction. This movement doesn’t provoke Opportunity Attacks.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "soul_of_vengeance",
+          "name": "Soul of Vengeance",
+          "description": "Immediately after a creature under the effect of your Vow of Enmity hits or misses with an attack roll, you can take a Reaction to make a melee attack against that creature if it’s within range.",
+          "level": 15,
+          "type": "paper"
+        },
+        {
+          "id": "avenging_angel",
+          "name": "Avenging Angel",
+          "description": "As a Bonus Action, you gain the following benefits for 10 minutes or until you end them (no action required). Flight: you sprout spectral wings on your back and have a Fly Speed of 60 feet, and can hover. Frightful Aura: whenever an enemy starts its turn in your Aura of Protection, that creature must succeed on a Wisdom saving throw or have the Frightened condition for 1 minute or until it takes any damage. Attack rolls against the Frightened creature have Advantage. Once you use this feature, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending a level 5 spell slot (no action required).",
+          "level": 20,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          }
+        }
+      ]
+    },
+    "oath_of_the_ancients": {
+      "features": [
+        {
+          "id": "oath_of_the_ancients_spells",
+          "name": "Oath of the Ancients Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["ensnaring_strike", "speak_with_animals"] },
+              { "kind": "fixed", "spells": ["misty_step", "moonbeam"] },
+              { "kind": "fixed", "spells": ["plant_growth", "protection_from_energy"] },
+              { "kind": "fixed", "spells": ["ice_storm", "stoneskin"] },
+              { "kind": "fixed", "spells": ["commune_with_nature", "tree_stride"] }
+            ]
+          }
+        },
+        {
+          "id": "natures_wrath",
+          "name": "Nature’s Wrath",
+          "description": "As a Magic action, you can expend one use of your Channel Divinity to conjure spectral vines around nearby creatures. Each creature of your choice that you can see within 15 feet of yourself must succeed on a Strength saving throw or have the Restrained condition for 1 minute. A Restrained creature repeats the save at the end of each of its turns, ending the effect on a success.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "turn_the_faithless",
+          "name": "Turn the Faithless",
+          "description": "Magic Action; expend 1 use of Channel Divinity; 30 ft emanation. Each Fey or Fiend of your choice makes a Wisdom saving throw against your spell save DC; on a failure, Frightened for 1 minute (repeat saving throw at end of turns).",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "aura_of_warding",
+          "name": "Aura of Warding",
+          "description": "Ancient magic lies so heavily upon you that it forms an eldritch ward; you and your allies have Resistance to Necrotic, Psychic, and Radiant damage while in your Aura of Protection.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "undying_sentinel",
+          "name": "Undying Sentinel",
+          "description": "When you are reduced to 0 Hit Points and not killed outright, you can drop to 1 Hit Point instead, and regain a number of Hit Points equal to three times your Paladin level. Once you use this feature, you can’t do so again until you finish a Long Rest. Additionally, you can’t be aged magically, and you cease visibly aging.",
+          "level": 15,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          }
+        },
+        {
+          "id": "elder_champion",
+          "name": "Elder Champion",
+          "description": "As a Bonus Action, you can imbue your Aura of Protection with primal power for 1 minute or until you end it (no action required). Diminish Defiance: enemies in the aura have Disadvantage on saving throws against your spells and Channel Divinity options. Regeneration: at the start of each of your turns, you regain 10 Hit Points. Swift Spells: whenever you cast a spell that has a casting time of an action, you can cast it using a Bonus Action instead. Once you use this feature, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending a level 5 spell slot (no action required).",
+          "level": 20,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          }
+        }
+      ]
+    },
+    "oath_of_glory": {
+      "features": [
+        {
+          "id": "oath_of_glory_spells",
+          "name": "Oath of Glory Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["guiding_bolt", "heroism"] },
+              { "kind": "fixed", "spells": ["enhance_ability", "magic_weapon"] },
+              { "kind": "fixed", "spells": ["haste", "protection_from_energy"] },
+              { "kind": "fixed", "spells": ["compulsion", "freedom_of_movement"] },
+              { "kind": "fixed", "spells": ["legend_lore", "yolandes_regal_presence"] }
+            ]
+          }
+        },
+        {
+          "id": "peerless_athlete",
+          "name": "Peerless Athlete",
+          "description": "As a Bonus Action, you can expend one use of your Channel Divinity to augment your athleticism. For 1 hour, you have Advantage on Strength (Athletics) and Dexterity (Acrobatics) checks, and the distance of your Long and High Jumps increases by 10 feet (this extra distance costs movement as normal).",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "inspiring_smite",
+          "name": "Inspiring Smite",
+          "description": "Bonus Action; immediately after you deal damage with Divine Smite, expend 1 use of Channel Divinity. Distribute Temporary HP equal to 2d8 + your Paladin level among creatures of your choice within 30 ft.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "aura_of_alacrity",
+          "name": "Aura of Alacrity",
+          "description": "Your Speed increases by 10 feet. In addition, whenever an ally enters your Aura of Protection for the first time on a turn or starts their turn there, the ally’s Speed increases by 10 feet until the end of their next turn.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "glorious_defense",
+          "name": "Glorious Defense",
+          "description": "When you or another creature you can see within 10 feet of you is hit by an attack roll, you can take a Reaction to grant a bonus to the target’s AC against that attack, potentially causing it to miss. The bonus equals your Charisma modifier (minimum of +1). If the attack misses, you can make one attack with a weapon against the attacker as part of this Reaction if the attacker is within your weapon’s range. You can use this feature a number of times equal to your Charisma modifier (minimum of once), and you regain all expended uses when you finish a Long Rest.",
+          "level": 15,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "max": 1,
+              "ability_modifier": "cha"
+            },
+            "recovery": "long_rest"
+          }
+        },
+        {
+          "id": "living_legend",
+          "name": "Living Legend",
+          "description": "As a Bonus Action, you gain the following benefits for 10 minutes. Charismatic: you have Advantage on all Charisma checks. Saving Throw Reroll: if you fail a saving throw, you can take a Reaction to reroll it. You must use the new roll. Unerring Strike: once on each of your turns when you make an attack roll with a weapon and miss, you can cause that attack to hit instead. Once you use this feature, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending a level 5 spell slot (no action required).",
+          "level": 20,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          }
+        }
+      ]
+    },
+    "oathbreaker": {
+      "features": [
+        {
+          "id": "oathbreaker_spells",
+          "name": "Oathbreaker Spells",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["hellish_rebuke", "witch_bolt"] },
+              { "kind": "fixed", "spells": ["crown_of_madness", "darkness"] },
+              { "kind": "fixed", "spells": ["fear", "summon_undead"] },
+              { "kind": "fixed", "spells": ["blight", "phantasmal_killer"] },
+              { "kind": "fixed", "spells": ["contagion", "steel_wind_strike"] }
+            ]
+          }
+        },
+        {
+          "id": "conjure_undead",
+          "name": "Conjure Undead",
+          "description": "As a Bonus Action, you can expend one use of your Channel Divinity to summon a number of Undead equal to half your Charisma modifier (round up; minimum of one Undead summoned). Each Undead appears in an unoccupied space you can see within 30 feet of you and is a type of your choice: Skeleton or Zombie. The Undead are under your control for 1 minute, after which they dissolve into ash. Each Undead is an ally to you and your allies. In combat, the Undead shares your Initiative count, but it takes its turn immediately after yours. It obeys your verbal commands (no action required by you). If you don’t issue any, it takes the Dodge action and uses its movement to avoid danger.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "dreadful_aspect",
+          "name": "Dreadful Aspect",
+          "description": "Immediately after you cast Divine Smite, you can expend one use of your Channel Divinity to channel a burst of magical menace. Each creature of your choice in a 30-foot Emanation originating from you must succeed on a Wisdom saving throw or have the Frightened condition for 1 minute. A Frightened creature repeats the save at the end of each of its turns, ending the effect on itself on a success.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "aura_of_hate",
+          "name": "Aura of Hate",
+          "description": "When you, as well as any Fiend or Undead in your Aura of Protection that is an ally, hit a creature with a melee attack, that attack deals extra Necrotic damage equal to your Charisma modifier.",
+          "level": 7,
+          "type": "paper"
+        },
+        {
+          "id": "supernatural_resistance",
+          "name": "Supernatural Resistance",
+          "description": "You gain Resistance to Bludgeoning, Piercing, and Slashing damage.",
+          "level": 15,
+          "type": "paper"
+        },
+        {
+          "id": "dread_lord",
+          "name": "Dread Lord",
+          "description": "As a Bonus Action, you can imbue your Aura of Protection with unholy gloom, granting the following benefits for 10 minutes or until you end them (no action required). Darkness: Magical Darkness fills your Aura of Protection, and you and allies in your Aura of Protection can see within this magical Darkness. Fear: whenever a creature with the Frightened condition starts its turn in your Aura of Protection, that creature takes 4d10 Psychic damage. Shadow Strike: as a Bonus Action, you can make a melee spell attack, shaping the gloom exuding from you into a blade that targets one creature in your Aura of Protection. On a hit, the attack deals Necrotic damage equal to 3d10 plus your Charisma modifier. Once you use this feature, you can’t use it again until you finish a Long Rest. You can also restore your use of it by expending a level 5 spell slot (no action required).",
+          "level": 20,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": "long_rest"
+          }
+        }
+      ]
+    }
+  }
+}

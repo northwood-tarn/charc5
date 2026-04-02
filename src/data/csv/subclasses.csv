@@ -1,0 +1,49 @@
+class_id,subclass_id,subclass_name,description
+barbarian,berserker,Path of the Berserker,A frenzied combatant who sacrifices control for raw damage output
+barbarian,wild_heart,Path of the Wild Heart,A spiritual warrior who draws on animalistic or ancestral instincts
+barbarian,world_tree,Path of the World Tree,A cosmic champion tied to the World Tree, blending offense and support
+barbarian,zealot,Path of the Zealot,A divine fanatic who fights with unrelenting zeal and refuses death
+bard,dance,College of Dance,A rhythmic combatant who blends movement and magic into flowing battle
+bard,glamour,College of Glamour,A fey-inspired enchanter who manipulates emotions and captivates audiences
+bard,lore,College of Lore,A scholar of secrets who wields knowledge and magic with precision
+bard,valor,College of Valor,A heroic skald who combines martial prowess with inspiring magic
+cleric,life,Life Domain,A healer devoted to sustaining life and restoring vitality
+cleric,light,Light Domain,A radiant agent who wields light and fire against darkness
+cleric,trickery,Trickery Domain,A deceptive agent of the gods who uses illusion and misdirection
+cleric,war,War Domain,A battle priest who empowers allies and dominates the battlefield
+druid,land,Circle of the Land,A terrain specialist who draws magic from specific environments
+druid,moon,Circle of the Moon,A shapeshifter who excels in powerful beast transformations
+druid,sea,Circle of the Sea,An oceanic mystic who commands water and storm energies
+druid,stars,Circle of the Stars,A cosmic druid who channels constellations and celestial power
+fighter,battle_master,Battle Master,A tactical expert who uses maneuvers to control combat
+fighter,champion,Champion,A straightforward warrior who excels through physical excellence and critical hits
+fighter,eldritch_knight,Eldritch Knight,A martial caster who blends weapon combat with arcane magic
+fighter,psi_warrior,Psi Warrior,A psionic warrior who augments combat with mental शक्ति
+monk,open_hand,Warrior of the Open Hand,A master of pure martial technique focused on control and precision
+monk,shadow,Warrior of Shadow,A stealthy warrior who uses darkness and illusion
+monk,elements,Warrior of the Elements,An elemental adept who channels the forces of nature through ki
+monk,mercy,Warrior of Mercy,A healer-warrior who blends martial arts with restorative and harmful touch
+paladin,devotion,Oath of Devotion,A paragon of virtue who upholds justice and righteousness
+paladin,glory,Oath of Glory,A heroic champion driven by personal greatness and legend
+paladin,vengeance,Oath of Vengeance,An avenger who relentlessly hunts down sworn enemies
+paladin,ancients,Oath of the Ancients,A guardian of nature and light who resists darkness and decay
+ranger,beast_master,Beast Master,A companion-based warrior who fights alongside a bonded beast
+ranger,fey_wanderer,Fey Wanderer,A fey-touched wanderer with charm and teleportation abilities
+ranger,gloom_stalker,Gloom Stalker,A shadow hunter who excels in darkness and ambush
+ranger,hunter,Hunter,A versatile slayer specialized in defeating chosen foes
+rogue,thief,Thief,A nimble burglar skilled in infiltration and object interaction
+rogue,assassin,Assassin,A deadly killer who excels at ambush and disguise
+rogue,arcane_trickster,Arcane Trickster,A trickster who augments stealth with arcane magic
+rogue,soulknife,Soulknife,A psionic infiltrator who manifests blades of psychic energy
+sorcerer,draconic,Draconic Sorcery,A dragon-blooded mage with enhanced resilience and elemental affinity
+sorcerer,wild_magic,Wild Magic Sorcery,A chaotic caster whose magic produces unpredictable effects
+sorcerer,aberrant,Aberrant Sorcery,A psionic sorcerer touched by alien or aberrant influence
+sorcerer,clockwork,Clockwork Sorcery,A lawful mage aligned with cosmic order and balance
+warlock,archfey,Archfey Patron,A fey-aligned warlock who manipulates charm and illusion
+warlock,fiend,Fiend Patron,A fiendish pact bearer who wields fire and dark resilience
+warlock,great_old_one,Great Old One Patron,A mind-bending caster tied to incomprehensible entities
+warlock,celestial,Celestial Patron,A radiant servant empowered by a celestial being
+wizard,abjuration,School of Abjuration,A protective mage who specializes in wards and magical defenses
+wizard,divination,School of Divination,A seer who manipulates fate and glimpses the future
+wizard,evocation,School of Evocation,A destructive caster focused on raw elemental power
+wizard,illusion,School of Illusion,A deceiver who shapes perception through illusion magic

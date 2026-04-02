@@ -1,0 +1,14 @@
+armor_id,armor_name,category,base_ac,dex_bonus_type,dex_cap,str_req,stealth_disadvantage
+padded,Padded,light,11,full,,0,true
+leather,Leather,light,11,full,,0,false
+studded_leather,Studded Leather,light,12,full,,0,false
+hide,Hide,medium,12,capped,2,0,false
+chain_shirt,Chain Shirt,medium,13,capped,2,0,false
+scale_mail,Scale Mail,medium,14,capped,2,0,true
+breastplate,Breastplate,medium,14,capped,2,0,false
+half_plate,Half Plate,medium,15,capped,2,0,true
+ring_mail,Ring Mail,heavy,14,none,,0,true
+chain_mail,Chain Mail,heavy,16,none,,13,true
+splint,Splint,heavy,17,none,,15,true
+plate,Plate,heavy,18,none,,15,true
+shield,Shield,shield,2,shield,,0,false

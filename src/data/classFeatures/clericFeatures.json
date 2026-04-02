@@ -1,0 +1,545 @@
+{
+  "class_id": "cleric",
+  "features": [
+    {
+      "id": "spellcasting",
+      "name": "Spellcasting",
+      "description": "You prepare Cleric spells and cast them using spell slots. Spellcasting ability: Wisdom (spell save DC and spell attack bonus). Cantrips: you know 3 Cleric cantrips at Cleric 1; whenever you gain a Cleric level, you may replace one known Cleric cantrip with another; you learn additional cantrips at higher Cleric levels per the class table. Prepared Spells (level 1+): at Cleric 1, prepare 4 level-1 Cleric spells; whenever your Prepared Spells number increases, add new Cleric spells of levels you have spell slots for; whenever you gain a Cleric level, you may replace one prepared spell with another Cleric spell you have slots for.",
+      "level": 1,
+      "type": "paper",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "cantrips",
+            "resource_name": "Cantrips",
+            "scaling": [
+              { "level": 1, "value": "3" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "3" },
+              { "level": 4, "value": "4" },
+              { "level": 5, "value": "4" },
+              { "level": 6, "value": "4" },
+              { "level": 7, "value": "4" },
+              { "level": 8, "value": "4" },
+              { "level": 9, "value": "4" },
+              { "level": 10, "value": "5" },
+              { "level": 11, "value": "5" },
+              { "level": 12, "value": "5" },
+              { "level": 13, "value": "5" },
+              { "level": 14, "value": "5" },
+              { "level": 15, "value": "5" },
+              { "level": 16, "value": "5" },
+              { "level": 17, "value": "5" },
+              { "level": 18, "value": "5" },
+              { "level": 19, "value": "5" },
+              { "level": 20, "value": "5" }
+            ]
+          },
+          {
+            "resource_id": "prepared_spells",
+            "resource_name": "Prepared Spells",
+            "scaling": [
+              { "level": 1, "value": "4" },
+              { "level": 2, "value": "5" },
+              { "level": 3, "value": "6" },
+              { "level": 4, "value": "7" },
+              { "level": 5, "value": "9" },
+              { "level": 6, "value": "10" },
+              { "level": 7, "value": "11" },
+              { "level": 8, "value": "12" },
+              { "level": 9, "value": "14" },
+              { "level": 10, "value": "15" },
+              { "level": 11, "value": "16" },
+              { "level": 12, "value": "16" },
+              { "level": 13, "value": "17" },
+              { "level": 14, "value": "17" },
+              { "level": 15, "value": "18" },
+              { "level": 16, "value": "18" },
+              { "level": 17, "value": "19" },
+              { "level": 18, "value": "20" },
+              { "level": 19, "value": "21" },
+              { "level": 20, "value": "22" }
+            ]
+          },
+          {
+            "resource_id": "spell_repertoire",
+            "resource_name": "Spell Repertoire",
+            "value": {
+              "formula": "ability_modifier_plus_level",
+              "ability": "wis"
+            }
+          },
+          {
+            "resource_id": "spell_slots",
+            "resource_name": "Spell Slots",
+            "scaling": [
+              { "level": 1, "value": "2" },
+              { "level": 2, "value": "3" },
+              { "level": 3, "value": "4|2" },
+              { "level": 4, "value": "4|3" },
+              { "level": 5, "value": "4|3|2" },
+              { "level": 6, "value": "4|3|3" },
+              { "level": 7, "value": "4|3|3|1" },
+              { "level": 8, "value": "4|3|3|2" },
+              { "level": 9, "value": "4|3|3|3|1" },
+              { "level": 10, "value": "4|3|3|3|2" },
+              { "level": 11, "value": "4|3|3|3|2|1" },
+              { "level": 12, "value": "4|3|3|3|2|1" },
+              { "level": 13, "value": "4|3|3|3|2|1|1" },
+              { "level": 14, "value": "4|3|3|3|2|1|1" },
+              { "level": 15, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 16, "value": "4|3|3|3|2|1|1|1" },
+              { "level": 17, "value": "4|3|3|3|2|1|1|1|1" },
+              { "level": 18, "value": "4|3|3|3|3|1|1|1|1" },
+              { "level": 19, "value": "4|3|3|3|3|2|1|1|1" },
+              { "level": 20, "value": "4|3|3|3|3|2|2|1|1" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ritual_casting",
+      "name": "Ritual Casting",
+      "description": "You can cast any prepared Cleric spell as a ritual if it has the Ritual tag (casting time increases by 10 minutes; no spell slot expended).",
+      "level": 1,
+      "type": "paper"
+    },
+    {
+      "id": "spellcasting_focus",
+      "name": "Spellcasting Focus",
+      "description": "You can use a Holy Symbol as a spellcasting focus for your Cleric spells (replaces material components with no gold cost and not consumed).",
+      "level": 1,
+      "type": "paper"
+    },
+    {
+      "id": "divine_order",
+      "name": "Divine Order",
+      "description": "Choose one: (1) Protector—gain proficiency with Martial weapons and training with Heavy armor; or (2) Thaumaturge—learn 1 extra Cleric cantrip, and add your Wisdom modifier (minimum +1) to Intelligence (Arcana) and Intelligence (Religion) checks.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "mode_choice",
+        "count": 1,
+        "options": [
+          {
+            "id": "protector",
+            "label": "Protector",
+            "derived_effects": {
+              "weapon_proficiencies": ["martial"],
+              "armor_training": ["heavy"]
+            }
+          },
+          {
+            "id": "thaumaturge",
+            "label": "Thaumaturge",
+            "derived_effects": {
+              "cantrips_known_bonus": {
+                "class_list": "cleric",
+                "count": 1
+              },
+              "skill_check_bonuses": [
+                {
+                  "skills": ["arcana", "religion"],
+                  "type": "ability_modifier",
+                  "ability": "wis",
+                  "minimum": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "channel_divinity",
+      "name": "Channel Divinity",
+      "description": "You can use Channel Divinity to fuel divine effects. Uses: 2; regain 1 expended use on a Short Rest and all on a Long Rest (more uses at higher Cleric levels per the class table). Channel Divinity save DC = your Cleric spell save DC.",
+      "level": 2,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "channel_divinity",
+            "resource_name": "Channel Divinity",
+            "scaling": [
+              { "level": 1, "value": "0" },
+              { "level": 2, "value": "1" },
+              { "level": 3, "value": "1" },
+              { "level": 4, "value": "1" },
+              { "level": 5, "value": "1" },
+              { "level": 6, "value": "2" },
+              { "level": 7, "value": "2" },
+              { "level": 8, "value": "2" },
+              { "level": 9, "value": "2" },
+              { "level": 10, "value": "2" },
+              { "level": 11, "value": "2" },
+              { "level": 12, "value": "2" },
+              { "level": 13, "value": "2" },
+              { "level": 14, "value": "2" },
+              { "level": 15, "value": "2" },
+              { "level": 16, "value": "2" },
+              { "level": 17, "value": "2" },
+              { "level": 18, "value": "3" },
+              { "level": 19, "value": "3" },
+              { "level": 20, "value": "3" }
+            ]
+          }
+        ],
+        "recovery": {
+          "short_rest": 1,
+          "long_rest": "all"
+        }
+      },
+      "feature_stack": "channel_divinity",
+      "stack_role": "base"
+    },
+    {
+      "id": "divine_spark",
+      "name": "Divine Spark",
+      "description": "Magic Action; 30 ft; choose one creature you can see. Roll 1d8 + your Wisdom modifier; choose: Heal—the target regains HP equal to the total; or Harm—the target makes a Constitution saving throw against your spell save DC; on a fail it takes Radiant or Necrotic damage (your choice) equal to the total, on a success it takes half damage (rounded down). Scaling: roll 2d8 at Cleric 7, 3d8 at Cleric 13, 4d8 at Cleric 18 (still add Wisdom modifier once).",
+      "level": 2,
+      "type": "paper",
+      "feature_stack": "channel_divinity",
+      "stack_role": "option"
+    },
+    {
+      "id": "turn_undead",
+      "name": "Turn Undead",
+      "description": "Magic Action; 30 ft emanation from you; each Undead of your choice in the area makes a Wisdom saving throw against your spell save DC. On a failure, it is Frightened and has the Incapacitated condition for 1 minute and must spend its turns trying to move as far from you as it can. Ends early if it takes any damage, if you become Incapacitated, or if you die.",
+      "level": 2,
+      "type": "paper",
+      "feature_stack": "channel_divinity",
+      "stack_role": "option"
+    },
+    {
+      "id": "cleric_subclass",
+      "name": "Cleric Subclass",
+      "description": "Passive; you choose a Cleric Domain. You gain that domain’s features at Cleric levels 3, 6, 10, and 17.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "cleric_subclasses"
+      }
+    },
+    {
+      "id": "sear_undead",
+      "name": "Sear Undead",
+      "description": "Passive; when you use Turn Undead, each Undead that fails its save also takes Radiant damage. Damage: roll a number of d8s equal to your Wisdom modifier (minimum 1d8) and total them; each failed-save Undead takes that total. This damage does not end the Turn Undead effect.",
+      "level": 5,
+      "type": "paper",
+      "feature_stack": "channel_divinity",
+      "stack_role": "modifier",
+      "modifies": ["turn_undead"]
+    },
+    {
+      "id": "blessed_strikes",
+      "name": "Blessed Strikes",
+      "description": "Passive; choose one option (you keep it unless you change it when you gain a Cleric level): (1) Divine Strike—once on each of your turns when you hit with a weapon attack roll, deal +1d8 extra Radiant or Necrotic damage (your choice); or (2) Potent Spellcasting—add your Wisdom modifier to the damage you deal with any Cleric cantrip.",
+      "level": 7,
+      "type": "choice",
+      "feature_stack": "blessed_strikes",
+      "stack_role": "base",
+      "choice": {
+        "kind": "mode_choice",
+        "count": 1,
+        "options": [
+          {
+            "id": "divine_strike",
+            "label": "Divine Strike",
+            "description": "Once on each of your turns when you hit with a weapon attack roll, deal +1d8 extra Radiant or Necrotic damage (your choice)."
+          },
+          {
+            "id": "potent_spellcasting",
+            "label": "Potent Spellcasting",
+            "description": "Add your Wisdom modifier to the damage you deal with any Cleric cantrip."
+          }
+        ]
+      }
+    },
+    {
+      "id": "divine_intervention",
+      "name": "Divine Intervention",
+      "description": "Magic action; choose any Cleric spell of 5th level or lower that doesn’t require a Reaction to cast. You cast it without expending a spell slot and without Material components. Uses: 1 per Long Rest.",
+      "level": 10,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": 1,
+        "recovery": {
+          "long_rest": "all"
+        }
+      }
+    },
+    {
+      "id": "improved_blessed_strikes",
+      "name": "Improved Blessed Strikes",
+      "description": "Passive; improves your Blessed Strikes choice: Divine Strike becomes +2d8 extra damage; Potent Spellcasting—when you deal damage with a Cleric cantrip, you can grant Temporary HP equal to 2 × your Wisdom modifier to you or one creature within 60 ft (no action).",
+      "level": 14,
+      "type": "paper",
+      "feature_stack": "blessed_strikes",
+      "stack_role": "modifier",
+      "modifies": ["blessed_strikes"],
+      "choice_option_upgrades": {
+        "divine_strike": {
+          "description": "Once on each of your turns when you hit with a weapon attack roll, deal +2d8 extra Radiant or Necrotic damage (your choice)."
+        },
+        "potent_spellcasting": {
+          "description": "When you deal damage with a Cleric cantrip, you can grant Temporary HP equal to 2 × your Wisdom modifier to you or one creature within 60 ft (no action)."
+        }
+      }
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of Fate is recommended.",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "greater_divine_intervention",
+      "name": "Greater Divine Intervention",
+      "description": "Passive; when you use Divine Intervention, you can choose Wish as the spell. If you do, you can’t use Divine Intervention again until you finish 2d4 Long Rests.",
+      "level": 20,
+      "type": "paper"
+    }
+  ],
+  "subclasses": {
+    "life_domain": {
+      "features": [
+        {
+          "id": "disciple_of_life",
+          "name": "Disciple of Life",
+          "description": "Passive; when a spell you cast using a spell slot restores HP to a creature, that creature regains extra HP on the same turn equal to 2 + the spell slot’s level.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "preserve_life",
+          "name": "Preserve Life",
+          "description": "Magic Action; expend 1 use of Channel Divinity; choose any number of Bloodied creatures within 30 ft (can include you). You have a healing pool equal to 5 × your Cleric level; divide those HP among the chosen creatures. A creature can’t be healed by this feature above half its HP maximum.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "life_domain_spells",
+          "name": "Life Domain Spells",
+          "description": "Always prepared once you reach the listed Cleric level: 3—Bless, Cure Wounds; 5—Lesser Restoration, Spiritual Weapon; 7—Beacon of Hope, Revivify; 9—Death Ward, Guardian of Faith.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["bless", "cure_wounds"] },
+              { "kind": "fixed", "spells": ["lesser_restoration", "spiritual_weapon"] },
+              { "kind": "fixed", "spells": ["beacon_of_hope", "revivify"] },
+              { "kind": "fixed", "spells": ["death_ward", "guardian_of_faith"] }
+            ]
+          }
+        },
+        {
+          "id": "blessed_healer",
+          "name": "Blessed Healer",
+          "description": "Passive; immediately after you cast a spell using a spell slot that restores HP to one or more creatures other than you, you regain HP equal to 2 + the spell slot’s level.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "supreme_healing",
+          "name": "Supreme Healing",
+          "description": "Passive; when you would roll dice to restore HP with a spell or Channel Divinity, you instead use the maximum value for each healing die (no rolling).",
+          "level": 17,
+          "type": "paper"
+        }
+      ]
+    },
+    "light_domain": {
+      "features": [
+        {
+          "id": "light_domain_spells",
+          "name": "Light Domain Spells",
+          "description": "Always prepared once you reach the listed Cleric level: 3—Burning Hands, Faerie Fire; 5—Flaming Sphere, Scorching Ray; 7—Daylight, Fireball; 9—Guardian of Faith, Wall of Fire.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["burning_hands", "faerie_fire"] },
+              { "kind": "fixed", "spells": ["flaming_sphere", "scorching_ray"] },
+              { "kind": "fixed", "spells": ["daylight", "fireball"] },
+              { "kind": "fixed", "spells": ["guardian_of_faith", "wall_of_fire"] }
+            ]
+          }
+        },
+        {
+          "id": "warding_flare",
+          "name": "Warding Flare",
+          "description": "Reaction; trigger: a creature you can see within 30 ft makes an attack roll. Effect: impose Disadvantage on that attack roll. Uses: a number of times equal to your Wisdom modifier (minimum 1) per Long Rest.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "improved_warding_flare",
+          "name": "Improved Warding Flare",
+          "description": "You regain all expended uses of your Warding Flare when you finish a Short or Long Rest. In addition, whenever you use Warding Flare, you can give the target of the triggering attack a number of Temporary Hit Points equal to 2d6 plus your Wisdom modifier.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "corona_of_light",
+          "name": "Corona of Light",
+          "description": "As a Magic action, you cause yourself to emit an aura of sunlight that lasts for 1 minute or until you dismiss it (no action required). You emit Bright Light in a 60-foot radius and Dim Light for an additional 30 feet. Your enemies in the Bright Light have Disadvantage on saving throws against your Radiance of the Dawn and any spell that deals Fire or Radiant damage. You can use this feature a number of times equal to your Wisdom modifier (minimum of once), and you regain all expended uses when you finish a Long Rest.",
+          "level": 17,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "radiance_of_the_dawn",
+          "name": "Radiance of the Dawn",
+          "description": "Magic Action; expend 1 use of Channel Divinity; 30 ft emanation from you. Dispel magical darkness in the area. Each hostile creature of your choice in the area makes a Constitution saving throw against your spell save DC; on a fail it takes Radiant damage equal to 2d10 + your Cleric level, on a success it takes half damage (rounded down). Creatures behind total cover aren’t affected.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        }
+      ]
+    },
+    "trickery_domain": {
+      "features": [
+        {
+          "id": "blessing_of_the_trickster",
+          "name": "Blessing of the Trickster",
+          "description": "As a Magic action, you can choose yourself or a willing creature within 30 feet of yourself to have Advantage on Dexterity (Stealth) checks. This blessing lasts until you finish a Long Rest or you use this feature again.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "trickery_domain_spells",
+          "name": "Trickery Domain Spells",
+          "description": "Always prepared once you reach the listed Cleric level: 3—Charm Person, Disguise Self; 5—Invisibility, Pass without Trace; 7—Hypnotic Pattern, Nondetection; 9—Confusion, Dimension Door.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["charm_person", "disguise_self"] },
+              { "kind": "fixed", "spells": ["invisibility", "pass_without_trace"] },
+              { "kind": "fixed", "spells": ["hypnotic_pattern", "nondetection"] },
+              { "kind": "fixed", "spells": ["confusion", "dimension_door"] }
+            ]
+          }
+        },
+        {
+          "id": "invoke_duplicity",
+          "name": "Invoke Duplicity",
+          "description": "Magic Action; expend 1 use of Channel Divinity; create a perfect illusion of yourself that lasts for 1 minute or until you lose concentration (as if concentrating on a spell). The illusion appears within 30 ft, and you can move it up to 30 ft as a bonus action. You can cast Cleric spells as if you were in the illusion's space.",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "tricksters_transposition",
+          "name": "Trickster’s Transposition",
+          "description": "Whenever you take the Bonus Action to create or move the illusion of your Invoke Duplicity, you can teleport, swapping places with the illusion.",
+          "level": 6,
+          "type": "paper"
+        },
+        {
+          "id": "improved_duplicity",
+          "name": "Improved Duplicity",
+          "description": "The illusion of your Invoke Duplicity has grown more powerful. Shared Distraction: when you and your allies make attack rolls against a creature within 5 feet of the illusion, the attack rolls have Advantage. Healing Illusion: when the illusion ends, you or a creature of your choice within 5 feet of it regains a number of Hit Points equal to your Cleric level.",
+          "level": 17,
+          "type": "paper",
+          "feature_stack": "invoke_duplicity",
+          "stack_role": "modifier",
+          "modifies": ["invoke_duplicity"]
+        }
+      ]
+    },
+    "war_domain": {
+      "features": [
+        {
+          "id": "war_domain_spells",
+          "name": "War Domain Spells",
+          "description": "Always prepared once you reach the listed Cleric level: 3—Divine Favor, Shield of Faith; 5—Magic Weapon, Spiritual Weapon; 7—Crusader's Mantle, Spirit Guardians; 9—Fire Shield, Stoneskin.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["divine_favor", "shield_of_faith"] },
+              { "kind": "fixed", "spells": ["magic_weapon", "spiritual_weapon"] },
+              { "kind": "fixed", "spells": ["crusaders_mantle", "spirit_guardians"] },
+              { "kind": "fixed", "spells": ["fire_shield", "stoneskin"] }
+            ]
+          }
+        },
+        {
+          "id": "war_priest",
+          "name": "War Priest",
+          "description": "As a Bonus Action, you can make one attack with a weapon or an Unarmed Strike. You can use this Bonus Action a number of times equal to your Wisdom modifier (minimum of once). You regain all expended uses when you finish a Short or Long Rest.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": {
+              "formula": "wisdom_modifier",
+              "minimum": 1
+            },
+            "recovery": {
+              "short_rest": "all",
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "guided_strike",
+          "name": "Guided Strike",
+          "description": "When you make an attack roll, you can use Channel Divinity to gain a +10 bonus to the roll (before knowing the result).",
+          "level": 3,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "war_gods_blessing",
+          "name": "War God's Blessing",
+          "description": "When a creature within 30 ft makes an attack roll, you can use your reaction and Channel Divinity to grant a +10 bonus to the roll.",
+          "level": 6,
+          "type": "paper",
+          "feature_stack": "channel_divinity",
+          "stack_role": "option"
+        },
+        {
+          "id": "avatar_of_battle",
+          "name": "Avatar of Battle",
+          "description": "You gain Resistance to Bludgeoning, Piercing, and Slashing damage.",
+          "level": 17,
+          "type": "paper"
+        }
+      ]
+    }
+  }
+}

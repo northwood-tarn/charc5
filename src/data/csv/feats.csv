@@ -1,0 +1,77 @@
+feat_id,name,type,prerequisites,description
+boon_of_combat_prowess,Boon of Combat Prowess,Epic Boon,Level 19+,"You fight with near-supernatural precision. When you miss with an attack roll, you can turn it into a hit a limited number of times per long rest."
+boon_of_dimensional_travel,Boon of Dimensional Travel,Epic Boon,Level 19+,"Space bends at your command. As a bonus action, you can teleport up to 30 feet a limited number of times per long rest."
+boon_of_energy_resistance,Boon of Energy Resistance,Epic Boon,Level 19+,Elemental forces barely touch you. You gain resistance to one damage type of your choice and can further reduce damage of that type once per turn.
+boon_of_fate,Boon of Fate,Epic Boon,Level 19+,"You subtly twist destiny around you. When a creature within 60 feet makes a d20 roll, you can add or subtract a d10 from the result a limited number of times per long rest."
+boon_of_fortitude,Boon of Fortitude,Epic Boon,Level 19+,"Your vitality borders on mythic. Your maximum hit points increase, and once per long rest you can drop to 1 hit point instead of 0."
+boon_of_irresistible_offense,Boon of Irresistible Offense,Epic Boon,Level 19+,Your attacks ignore mortal limits. Your attacks bypass resistance to their damage type and treat immunity as resistance.
+boon_of_luck,Boon of Luck,Epic Boon,Level 19+,"Fortune clings to you. When you fail a d20 test, you can reroll it a limited number of times per long rest."
+boon_of_recovery,Boon of Recovery,Epic Boon,Level 19+,"You rebound from harm with astonishing speed. As a bonus action, you can regain a substantial number of hit points once per long rest."
+boon_of_skill,Boon of Skill,Epic Boon,Level 19+,Your expertise is peerless. You gain proficiency in all skills and add a bonus die to ability checks.
+boon_of_speed,Boon of Speed,Epic Boon,Level 19+,You move with lightning swiftness. Your walking speed increases significantly and opportunity attacks against you have disadvantage.
+boon_of_spell_recall,Boon of Spell Recall,Epic Boon,"Level 19+, Spellcasting Feature","Magic returns to your mind effortlessly. Once per long rest, you can regain a spent spell slot of mid level or lower without resting."
+boon_of_truesight,Boon of Truesight,Epic Boon,Level 19+,"Your senses pierce illusion and shadow. You gain truesight out to a significant range (commonly 60 feet), letting you see invisible creatures and see through illusions and magical darkness."
+boon_of_the_night_spirit,Boon of the Night Spirit,Epic Boon,Level 19+,Darkness empowers and conceals you. You gain enhanced darkvision and can become invisible in dim light or darkness a limited number of times per long rest.
+archery,Archery,Fighting Style,Fighting Style Feature,Gain a +2 bonus to attack rolls made with Ranged weapons
+blind_fighting,Blind Fighting,Fighting Style,Fighting Style Feature,Gain Blindsight with a range of 10 ft
+defense,Defense,Fighting Style,Fighting Style Feature,"While wearing Light, Medium, or Heavy armor, gain a +1 bonus to AC"
+dueling,Dueling,Fighting Style,Fighting Style Feature,"When holding a Melee weapon in one hand and no other weapons, gain a +2 bonus to damage rolls with that weapon"
+great_weapon_fighting,Great Weapon Fighting,Fighting Style,Fighting Style Feature,"When rolling damage for a Two-Handed/Versatile Melee weapon, treat any 1 or 2 on a damage die as a 3"
+interception,Interception,Fighting Style,Fighting Style Feature,"When ally within 5 ft is hit, Reaction to reduce damage dealt by 1d10 plus your Proficiency Bonus (Shield or Weapon)"
+protection,Protection,Fighting Style,Fighting Style Feature,Interpose shield to impose Disadvantage on all attack rolls against an ally within 5 ft until your next turn
+thrown_weapon_fighting,Thrown Weapon Fighting,Fighting Style,Fighting Style Feature,Gain a +2 bonus to the damage roll when hitting with a ranged attack using a weapon with the Thrown property
+two_weapon_fighting,Two-Weapon Fighting,Fighting Style,Fighting Style Feature,"When making the extra attack using a Light weapon, add your ability modifier to the damage roll"
+unarmed_fighting,Unarmed Fighting,Fighting Style,Fighting Style Feature,Unarmed Strike damage 1d6 + Str mod (1d8 if hands free). Deal 1d4 Bludgeoning damage to one Grappled creature (1/turn)
+ability_score_improvement,Ability Score Improvement,General,Level 4+,"Increase one ability score by 2, or two scores by 1 (max 20)"
+actor,Actor,General,"Level 4+, Charisma 13+",+1 Cha. Advantage on Deception/Performance while disguised. Mimicry must pass Wisdom (Insight) check to be seen as faked
+athlete,Athlete,General,"Level 4+, Strength or Dexterity 13+",+1 Str or Dex. Gain Climb Speed. Stand up with 5 ft movement. Make running Jumps after moving 5 ft
+charger,Charger,General,"Level 4+, Strength or Dexterity 13+",+1 Str or Dex. Your Dash movement distance increases by 10 ft. If you move 10+ ft in a straight line immediately before a melee hit, the hit deals +1d8 damage or pushes the target 10 ft (1/turn)
+chef,Chef,General,Level 4+,+1 Con or Wis. Gain proficiency with Cook's Utensils. During a Short or Long Rest, you can cook for up to 4 creatures plus your Proficiency Bonus; each creature that eats the food regains an extra 1d8 HP in addition to any Hit Dice spent. You can also prepare bolstering treats that grant Temporary HP equal to your Proficiency Bonus
+crossbow_expert,Crossbow Expert,General,"Level 4+, Dexterity 13+",+1 Dex. Ignore the Loading property of crossbows. You do not have Disadvantage on attacks with crossbows while in melee. When you make the extra attack with a crossbow, you add your ability modifier to the extra attack's damage
+crusher,Crusher,General,Level 4+,+1 Str or Con. Bludgeoning hit pushes target 5 ft (1/turn). Critical Bludgeoning hit grants Advantage on attacks vs target
+defensive_duelist,Defensive Duelist,General,"Level 4+, Dexterity 13+","+1 Dex. Holding Finesse weapon, use Reaction when hit by melee attack to add Proficiency Bonus to AC, possibly causing a miss"
+dual_wielder,Dual Wielder,General,"Level 4+, Strength or Dexterity 13+",+1 Str or Dex. Extra attack works with any non-Two-Handed melee weapon. You can draw/stow two weapons
+durable,Durable,General,Level 4+,+1 Con. You have Advantage on Death Saves. Once per turn, you can take a Bonus Action to spend a Hit Die and regain HP equal to the result
+elemental_adept,Elemental Adept,General,"Level 4+, Spellcasting or Pact Magic Feature","+1 Int, Wis, or Cha. Choose one damage type: acid, cold, fire, lightning, or thunder. Your spells ignore Resistance to the chosen type, and damage dice for spells of that type treat 1s as 2s"
+fey_touched,Fey-Touched,General,Level 4+,"+1 Int, Wis, or Cha. Misty Step and one 1st-level Divination/Enchantment spell prepared. Cast each for free 1/Long Rest"
+grappler,Grappler,General,"Level 4+, Strength or Dexterity 13+",+1 Str or Dex. Once per turn, when you hit with an Unarmed Strike as a melee attack, you can both deal damage and Grapple the target. You have Advantage on attacks against a Grappled target, and you can move a Grappled target with you
+great_weapon_master,Great Weapon Master,General,"Level 4+, Strength 13+",+1 Str. Every hit you make with a Heavy weapon deals extra damage equal to your Proficiency Bonus. When you score a Critical Hit or reduce a creature to 0 HP with a Heavy weapon, you can make one attack as a Bonus Action
+heavily_armored,Heavily Armored,General,"Level 4+, Medium Armor Training",+1 Str or Con. Gain proficiency with Heavy armor
+heavy_armor_master,Heavy Armor Master,General,"Level 4+, Heavy Armor Training","+1 Str or Con. While wearing Heavy armor, reduce Bludgeoning, Piercing, and Slashing damage taken by Proficiency Bonus"
+inspiring_leader,Inspiring Leader,General,"Level 4+, Wisdom or Charisma 13+","+1 Wis or Cha. After a Short or Long Rest, you can take an Action to inspire up to six creatures. Each target gains Temporary HP equal to your character level plus your Wisdom or Charisma modifier, using the modifier of the ability increased by this feat"
+keen_mind,Keen Mind,General,"Level 4+, Intelligence 13+","+1 Int. Choose Arcana, History, Investigation, Nature, or Religion. You gain proficiency in the chosen skill, or Expertise in it if you are already proficient. You can take the Study Action as a Bonus Action"
+lightly_armored,Lightly Armored,General,Level 4+,+1 Str or Dex. Gain proficiency with Light armor and Shields
+mage_slayer,Mage Slayer,General,Level 4+,+1 Str or Dex. When you damage a creature that is concentrating, that creature has Disadvantage on its Concentration save. Once per Rest, you can turn a failed Int, Wis, or Cha save into a success
+martial_weapon_training,Martial Weapon Training,General,Level 4+,+1 Str or Dex. Gain proficiency with Martial weapons
+medium_armor_master,Medium Armor Master,General,"Level 4+, Medium Armor Training","+1 Str or Dex. While wearing Medium armor, add 3 to AC (instead of 2) if Dexterity score is 16 or higher"
+moderately_armored,Moderately Armored,General,"Level 4+, Light Armor Training",+1 Str or Dex. Gain proficiency with Medium armor
+mounted_combatant,Mounted Combatant,General,Level 4+,"+1 Str, Dex, or Wis. You have Advantage on attacks against smaller unmounted creatures. When you are riding a mount and you are the target of an effect that allows a Dexterity save, your mount takes only half damage on a failed save"
+observant,Observant,General,"Level 4+, Intelligence or Wisdom 13+","+1 Int or Wis. Choose Insight, Investigation, or Perception. You gain proficiency in the chosen skill, or Expertise in it if you are already proficient. You can take the Search Action as a Bonus Action"
+piercer,Piercer,General,Level 4+,+1 Str or Dex. Piercing hit to reroll one damage die (1/turn). Critical Piercing hit rolls one additional damage die
+poisoner,Poisoner,General,Level 4+,+1 Dex or Int. Your Poison damage ignores Resistance. After a Long Rest, you can brew one poison dose worth 50 GP that deals 2d8 Poison damage
+polearm_master,Polearm Master,General,"Level 4+, Strength or Dexterity 13+",+1 Str or Dex. Bonus Action to extra attack (d4) with polearm end. Reaction to attack a creature entering your weapon reach
+resilient,Resilient,General,Level 4+,+1 to one ability score lacking save proficiency. Gain Saving Throw Proficiency with that chosen ability
+ritual_caster,Ritual Caster,General,"Level 4+, Intelligence, Wisdom, or Charisma 13+","+1 Int, Wis, or Cha. A number of level 1 Ritual spells equal to your Proficiency Bonus are always prepared for you. You can cast those spells with any spell slots you have. You can also cast one prepared Ritual quickly for free once per Long Rest"
+sentinel,Sentinel,General,"Level 4+, Strength or Dexterity 13+",+1 Str or Dex. OA vs creature that Disengages/hits ally. OA hit reduces target's Speed to 0 for the rest of the turn
+shadow_touched,Shadow-Touched,General,Level 4+,"+1 Int, Wis, or Cha. Invisibility and one 1st-level Illusion/Necromancy spell prepared. Cast each for free 1/Long Rest"
+sharpshooter,Sharpshooter,General,"Level 4+, Dexterity 13+",+1 Dex. Ranged attacks ignore Half/Three-Quarters Cover. No Disadvantage in melee or when attacking at long range
+shield_master,Shield Master,General,"Level 4+, Shield Training",+1 Str. Shield Bash to push 5 ft or Prone (1/turn). Reaction to take no damage on successful Dexterity save
+skill_expert,Skill Expert,General,Level 4+,+1 one Ability. Gain proficiency in one skill. Gain Expertise in one skill you are already proficient in
+skulker,Skulker,General,"Level 4+, Dexterity 13+",+1 Dex. You gain Blindsight with a range of 10 ft. You have Advantage on any Stealth check made as part of the Hide Action during combat. Missing an attack while Hidden doesn't reveal your location
+slasher,Slasher,General,Level 4+,+1 Str or Dex. Slashing hit reduces Speed by 10 ft (1/turn). Critical Slashing hit imposes Disadvantage on target's attack
+speedy,Speedy,General,"Level 4+, Dexterity or Constitution 13+",+1 Dex or Con. Speed +10 ft. Dash ignores Difficult Terrain. Opportunity Attacks against you have Disadvantage
+spell_sniper,Spell Sniper,General,"Level 4+, Spellcasting or Pact Magic Feature","+1 Int, Wis, or Cha. Spell attacks ignore Cover. No Disadvantage in melee. Increase attack spell range (10+ ft) by 60 ft"
+telekinetic,Telekinetic,General,Level 4+,"+1 Int, Wis, or Cha. You learn Mage Hand; it is invisible, and its range increases by 30 ft. As a Bonus Action, you can force a target to make a Strength save against your spell save DC or be shoved 5 ft"
+telepathic,Telepathic,General,Level 4+,"+1 Int, Wis, or Cha. You can speak telepathically to one creature within 60 ft that shares a language with you. Detect Thoughts is prepared for you, and you can cast it for free once per Long Rest"
+war_caster,War Caster,General,"Level 4+, Spellcasting or Pact Magic Feature","+1 Int, Wis, or Cha. Advantage on Concentration saves. Reaction to cast spell instead of OA. Somatic with hands busy"
+weapon_master,Weapon Master,General,Level 4+,+1 Str or Dex. Choose one weapon type with which you are proficient. You can use that weapon type's Mastery property, and you can change the chosen weapon type after a Long Rest
+alert,Alert,Origin,,Add Proficiency Bonus to Initiative roll. Swap Initiative with one willing ally immediately after rolling
+crafter,Crafter,Origin,,Proficiency with 3 Artisan's Tools. 20% discount on nonmagical items. Craft one piece of temporary gear after a Long Rest
+healer,Healer,Origin,,Ally spends one Hit Die and gains HP = roll + your Proficiency Bonus. Reroll 1s when determining HP restored
+lucky,Lucky,Origin,,Spend 1 Luck Point for Advantage on a D20 Test or to impose Disadvantage on an attack against you
+magic_initiate,Magic Initiate,Origin,,"Learn 2 cantrips and 1 1st-level spell (Cleric, Druid, or Wizard). Cast the 1st-level spell for free 1/Long Rest"
+musician,Musician,Origin,,"Proficiency with 3 Musical Instruments. Finish a Rest, grant Heroic Inspiration to allies (number equals Proficiency Bonus)"
+savage_attacker,Savage Attacker,Origin,,"When hitting with a weapon, roll the weapon's damage dice twice and use either roll against the target (1/turn)"
+skilled,Skilled,Origin,,Gain proficiency in any combination of three skills or tools of your choice
+tavern_brawler,Tavern Brawler,Origin,,Unarmed Strike deals 1d4 + Str mod (reroll 1s). Prof with improvised weapons. Unarmed Strike hit allows 5 ft push (1/turn)
+tough,Tough,Origin,,"Max HP increases by double your current level, plus 2 HP every time you gain a level thereafter"

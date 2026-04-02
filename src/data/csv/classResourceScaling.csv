@@ -1,0 +1,1011 @@
+class_id,class_name,subclass_id,subclass,class_resource_id,class_resource_name,level,value
+,,,,,,,
+,,,,,,,
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,1,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,10,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,11,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,12,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,13,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,14,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,15,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,16,3
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,17,4
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,18,4
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,19,4
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,2,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,20,4
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,3,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,4,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,5,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,6,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,7,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,8,2
+barbarian,Barbarian,core,Core,rage_damage_bonus,Rage Damage Bonus,9,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,1,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,10,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,11,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,12,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,13,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,14,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,15,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,16,3
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,17,4
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,18,4
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,19,4
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,2,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,20,4
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,3,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,4,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,5,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,6,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,7,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,8,2
+barbarian,Barbarian,core,Core,rage_damage,Rage Damage,9,3
+barbarian,Barbarian,core,Core,rage,Rage,1,2
+barbarian,Barbarian,core,Core,rage,Rage,10,4
+barbarian,Barbarian,core,Core,rage,Rage,11,4
+barbarian,Barbarian,core,Core,rage,Rage,12,5
+barbarian,Barbarian,core,Core,rage,Rage,13,5
+barbarian,Barbarian,core,Core,rage,Rage,14,5
+barbarian,Barbarian,core,Core,rage,Rage,15,5
+barbarian,Barbarian,core,Core,rage,Rage,16,5
+barbarian,Barbarian,core,Core,rage,Rage,17,6
+barbarian,Barbarian,core,Core,rage,Rage,18,6
+barbarian,Barbarian,core,Core,rage,Rage,19,6
+barbarian,Barbarian,core,Core,rage,Rage,2,2
+barbarian,Barbarian,core,Core,rage,Rage,20,6
+barbarian,Barbarian,core,Core,rage,Rage,3,3
+barbarian,Barbarian,core,Core,rage,Rage,4,3
+barbarian,Barbarian,core,Core,rage,Rage,5,3
+barbarian,Barbarian,core,Core,rage,Rage,6,4
+barbarian,Barbarian,core,Core,rage,Rage,7,4
+barbarian,Barbarian,core,Core,rage,Rage,8,4
+barbarian,Barbarian,core,Core,rage,Rage,9,4
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,1,4
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,10,5
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,11,5
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,12,6
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,13,6
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,14,6
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,15,6
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,16,6
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,17,7
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,18,7
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,19,7
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,2,4
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,20,7
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,3,4
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,4,4
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,5,4
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,6,5
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,7,5
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,8,5
+barbarian,Barbarian,zealot,Path of the Zealot,warrior_of_the_gods_dice,Warrior of the Gods Dice,9,5
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,1,d6
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,10,d10
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,11,d10
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,12,d10
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,13,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,14,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,15,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,16,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,17,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,18,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,19,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,2,d6
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,20,d12
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,3,d6
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,4,d6
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,5,d8
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,6,d8
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,7,d8
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,8,d8
+bard,Bard,core,Core,bardic_inspiration_die,Bardic Inspiration Die,9,d10
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,1,2
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,10,4
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,11,5
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,12,5
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,13,5
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,14,5
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,15,5
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,16,5
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,17,6
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,18,6
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,19,6
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,2,2
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,20,6
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,3,3
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,4,3
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,5,3
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,6,4
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,7,4
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,8,4
+bard,Bard,core,Core,bardic_inspiration,Bardic Inspiration,9,4
+bard,Bard,core,Core,cantrips,Cantrips,1,2
+bard,Bard,core,Core,cantrips,Cantrips,10,4
+bard,Bard,core,Core,cantrips,Cantrips,11,4
+bard,Bard,core,Core,cantrips,Cantrips,12,4
+bard,Bard,core,Core,cantrips,Cantrips,13,4
+bard,Bard,core,Core,cantrips,Cantrips,14,4
+bard,Bard,core,Core,cantrips,Cantrips,15,4
+bard,Bard,core,Core,cantrips,Cantrips,16,4
+bard,Bard,core,Core,cantrips,Cantrips,17,4
+bard,Bard,core,Core,cantrips,Cantrips,18,4
+bard,Bard,core,Core,cantrips,Cantrips,19,4
+bard,Bard,core,Core,cantrips,Cantrips,2,2
+bard,Bard,core,Core,cantrips,Cantrips,20,4
+bard,Bard,core,Core,cantrips,Cantrips,3,2
+bard,Bard,core,Core,cantrips,Cantrips,4,3
+bard,Bard,core,Core,cantrips,Cantrips,5,3
+bard,Bard,core,Core,cantrips,Cantrips,6,3
+bard,Bard,core,Core,cantrips,Cantrips,7,3
+bard,Bard,core,Core,cantrips,Cantrips,8,3
+bard,Bard,core,Core,cantrips,Cantrips,9,3
+bard,Bard,core,Core,prepared_spells,Prepared Spells,1,4
+bard,Bard,core,Core,prepared_spells,Prepared Spells,10,15
+bard,Bard,core,Core,prepared_spells,Prepared Spells,11,16
+bard,Bard,core,Core,prepared_spells,Prepared Spells,12,16
+bard,Bard,core,Core,prepared_spells,Prepared Spells,13,17
+bard,Bard,core,Core,prepared_spells,Prepared Spells,14,17
+bard,Bard,core,Core,prepared_spells,Prepared Spells,15,18
+bard,Bard,core,Core,prepared_spells,Prepared Spells,16,18
+bard,Bard,core,Core,prepared_spells,Prepared Spells,17,19
+bard,Bard,core,Core,prepared_spells,Prepared Spells,18,20
+bard,Bard,core,Core,prepared_spells,Prepared Spells,19,21
+bard,Bard,core,Core,prepared_spells,Prepared Spells,2,5
+bard,Bard,core,Core,prepared_spells,Prepared Spells,20,22
+bard,Bard,core,Core,prepared_spells,Prepared Spells,3,6
+bard,Bard,core,Core,prepared_spells,Prepared Spells,4,7
+bard,Bard,core,Core,prepared_spells,Prepared Spells,5,9
+bard,Bard,core,Core,prepared_spells,Prepared Spells,6,10
+bard,Bard,core,Core,prepared_spells,Prepared Spells,7,11
+bard,Bard,core,Core,prepared_spells,Prepared Spells,8,12
+bard,Bard,core,Core,prepared_spells,Prepared Spells,9,14
+bard,Bard,core,Core,spell_slots,Spell Slots,1,2
+bard,Bard,core,Core,spell_slots,Spell Slots,10,4|3|3|3|2
+bard,Bard,core,Core,spell_slots,Spell Slots,11,4|3|3|3|2|1
+bard,Bard,core,Core,spell_slots,Spell Slots,12,4|3|3|3|2|1
+bard,Bard,core,Core,spell_slots,Spell Slots,13,4|3|3|3|2|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,14,4|3|3|3|2|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,15,4|3|3|3|2|1|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,16,4|3|3|3|2|1|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,17,4|3|3|3|2|1|1|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,18,4|3|3|3|3|1|1|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,19,4|3|3|3|3|2|1|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,2,3
+bard,Bard,core,Core,spell_slots,Spell Slots,20,4|3|3|3|3|2|2|1|1
+bard,Bard,core,Core,spell_slots,Spell Slots,3,4|2
+bard,Bard,core,Core,spell_slots,Spell Slots,4,4|3
+bard,Bard,core,Core,spell_slots,Spell Slots,5,4|3|2
+bard,Bard,core,Core,spell_slots,Spell Slots,6,4|3|3
+bard,Bard,core,Core,spell_slots,Spell Slots,7,4|3|3|1
+bard,Bard,core,Core,spell_slots,Spell Slots,8,4|3|3|2
+bard,Bard,core,Core,spell_slots,Spell Slots,9,4|3|3|3|1
+cleric,Cleric,core,Core,cantrips,Cantrips,1,3
+cleric,Cleric,core,Core,cantrips,Cantrips,10,5
+cleric,Cleric,core,Core,cantrips,Cantrips,11,5
+cleric,Cleric,core,Core,cantrips,Cantrips,12,5
+cleric,Cleric,core,Core,cantrips,Cantrips,13,5
+cleric,Cleric,core,Core,cantrips,Cantrips,14,5
+cleric,Cleric,core,Core,cantrips,Cantrips,15,5
+cleric,Cleric,core,Core,cantrips,Cantrips,16,5
+cleric,Cleric,core,Core,cantrips,Cantrips,17,5
+cleric,Cleric,core,Core,cantrips,Cantrips,18,5
+cleric,Cleric,core,Core,cantrips,Cantrips,19,5
+cleric,Cleric,core,Core,cantrips,Cantrips,2,3
+cleric,Cleric,core,Core,cantrips,Cantrips,20,5
+cleric,Cleric,core,Core,cantrips,Cantrips,3,3
+cleric,Cleric,core,Core,cantrips,Cantrips,4,4
+cleric,Cleric,core,Core,cantrips,Cantrips,5,4
+cleric,Cleric,core,Core,cantrips,Cantrips,6,4
+cleric,Cleric,core,Core,cantrips,Cantrips,7,4
+cleric,Cleric,core,Core,cantrips,Cantrips,8,4
+cleric,Cleric,core,Core,cantrips,Cantrips,9,4
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,1,0
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,10,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,11,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,12,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,13,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,14,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,15,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,16,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,17,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,18,3
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,19,3
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,2,1
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,20,3
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,3,1
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,4,1
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,5,1
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,6,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,7,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,8,2
+cleric,Cleric,core,Core,channel_divinity,Channel Divinity,9,2
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,1,4
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,10,15
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,11,16
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,12,16
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,13,17
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,14,17
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,15,18
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,16,18
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,17,19
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,18,20
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,19,21
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,2,5
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,20,22
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,3,6
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,4,7
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,5,9
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,6,10
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,7,11
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,8,12
+cleric,Cleric,core,Core,prepared_spells,Prepared Spells,9,14
+cleric,Cleric,core,Core,spell_slots,Spell Slots,1,2
+cleric,Cleric,core,Core,spell_slots,Spell Slots,10,4|3|3|3|2
+cleric,Cleric,core,Core,spell_slots,Spell Slots,11,4|3|3|3|2|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,12,4|3|3|3|2|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,13,4|3|3|3|2|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,14,4|3|3|3|2|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,15,4|3|3|3|2|1|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,16,4|3|3|3|2|1|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,17,4|3|3|3|2|1|1|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,18,4|3|3|3|3|1|1|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,19,4|3|3|3|3|2|1|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,2,3
+cleric,Cleric,core,Core,spell_slots,Spell Slots,20,4|3|3|3|3|2|2|1|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,3,4|2
+cleric,Cleric,core,Core,spell_slots,Spell Slots,4,4|3
+cleric,Cleric,core,Core,spell_slots,Spell Slots,5,4|3|2
+cleric,Cleric,core,Core,spell_slots,Spell Slots,6,4|3|3
+cleric,Cleric,core,Core,spell_slots,Spell Slots,7,4|3|3|1
+cleric,Cleric,core,Core,spell_slots,Spell Slots,8,4|3|3|2
+cleric,Cleric,core,Core,spell_slots,Spell Slots,9,4|3|3|3|1
+druid,Druid,core,Core,cantrips,Cantrips,1,2
+druid,Druid,core,Core,cantrips,Cantrips,10,4
+druid,Druid,core,Core,cantrips,Cantrips,11,4
+druid,Druid,core,Core,cantrips,Cantrips,12,4
+druid,Druid,core,Core,cantrips,Cantrips,13,4
+druid,Druid,core,Core,cantrips,Cantrips,14,4
+druid,Druid,core,Core,cantrips,Cantrips,15,4
+druid,Druid,core,Core,cantrips,Cantrips,16,4
+druid,Druid,core,Core,cantrips,Cantrips,17,4
+druid,Druid,core,Core,cantrips,Cantrips,18,4
+druid,Druid,core,Core,cantrips,Cantrips,19,4
+druid,Druid,core,Core,cantrips,Cantrips,2,2
+druid,Druid,core,Core,cantrips,Cantrips,20,4
+druid,Druid,core,Core,cantrips,Cantrips,3,2
+druid,Druid,core,Core,cantrips,Cantrips,4,3
+druid,Druid,core,Core,cantrips,Cantrips,5,3
+druid,Druid,core,Core,cantrips,Cantrips,6,3
+druid,Druid,core,Core,cantrips,Cantrips,7,3
+druid,Druid,core,Core,cantrips,Cantrips,8,3
+druid,Druid,core,Core,cantrips,Cantrips,9,3
+druid,Druid,core,Core,prepared_spells,Prepared Spells,1,4
+druid,Druid,core,Core,prepared_spells,Prepared Spells,10,15
+druid,Druid,core,Core,prepared_spells,Prepared Spells,11,16
+druid,Druid,core,Core,prepared_spells,Prepared Spells,12,16
+druid,Druid,core,Core,prepared_spells,Prepared Spells,13,17
+druid,Druid,core,Core,prepared_spells,Prepared Spells,14,17
+druid,Druid,core,Core,prepared_spells,Prepared Spells,15,18
+druid,Druid,core,Core,prepared_spells,Prepared Spells,16,18
+druid,Druid,core,Core,prepared_spells,Prepared Spells,17,19
+druid,Druid,core,Core,prepared_spells,Prepared Spells,18,20
+druid,Druid,core,Core,prepared_spells,Prepared Spells,19,21
+druid,Druid,core,Core,prepared_spells,Prepared Spells,2,5
+druid,Druid,core,Core,prepared_spells,Prepared Spells,20,22
+druid,Druid,core,Core,prepared_spells,Prepared Spells,3,6
+druid,Druid,core,Core,prepared_spells,Prepared Spells,4,7
+druid,Druid,core,Core,prepared_spells,Prepared Spells,5,9
+druid,Druid,core,Core,prepared_spells,Prepared Spells,6,10
+druid,Druid,core,Core,prepared_spells,Prepared Spells,7,11
+druid,Druid,core,Core,prepared_spells,Prepared Spells,8,12
+druid,Druid,core,Core,prepared_spells,Prepared Spells,9,14
+druid,Druid,core,Core,spell_slots,Spell Slots,1,2
+druid,Druid,core,Core,spell_slots,Spell Slots,10,4|3|3|3|2
+druid,Druid,core,Core,spell_slots,Spell Slots,11,4|3|3|3|2|1
+druid,Druid,core,Core,spell_slots,Spell Slots,12,4|3|3|3|2|1
+druid,Druid,core,Core,spell_slots,Spell Slots,13,4|3|3|3|2|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,14,4|3|3|3|2|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,15,4|3|3|3|2|1|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,16,4|3|3|3|2|1|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,17,4|3|3|3|2|1|1|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,18,4|3|3|3|3|1|1|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,19,4|3|3|3|3|2|1|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,2,3
+druid,Druid,core,Core,spell_slots,Spell Slots,20,4|3|3|3|3|2|2|1|1
+druid,Druid,core,Core,spell_slots,Spell Slots,3,4|2
+druid,Druid,core,Core,spell_slots,Spell Slots,4,4|3
+druid,Druid,core,Core,spell_slots,Spell Slots,5,4|3|2
+druid,Druid,core,Core,spell_slots,Spell Slots,6,4|3|3
+druid,Druid,core,Core,spell_slots,Spell Slots,7,4|3|3|1
+druid,Druid,core,Core,spell_slots,Spell Slots,8,4|3|3|2
+druid,Druid,core,Core,spell_slots,Spell Slots,9,4|3|3|3|1
+druid,Druid,core,Core,wild_shape,Wild Shape,1,0
+druid,Druid,core,Core,wild_shape,Wild Shape,10,2
+druid,Druid,core,Core,wild_shape,Wild Shape,11,2
+druid,Druid,core,Core,wild_shape,Wild Shape,12,2
+druid,Druid,core,Core,wild_shape,Wild Shape,13,2
+druid,Druid,core,Core,wild_shape,Wild Shape,14,2
+druid,Druid,core,Core,wild_shape,Wild Shape,15,2
+druid,Druid,core,Core,wild_shape,Wild Shape,16,2
+druid,Druid,core,Core,wild_shape,Wild Shape,17,2
+druid,Druid,core,Core,wild_shape,Wild Shape,18,2
+druid,Druid,core,Core,wild_shape,Wild Shape,19,2
+druid,Druid,core,Core,wild_shape,Wild Shape,2,2
+druid,Druid,core,Core,wild_shape,Wild Shape,20,2
+druid,Druid,core,Core,wild_shape,Wild Shape,3,2
+druid,Druid,core,Core,wild_shape,Wild Shape,4,2
+druid,Druid,core,Core,wild_shape,Wild Shape,5,2
+druid,Druid,core,Core,wild_shape,Wild Shape,6,2
+druid,Druid,core,Core,wild_shape,Wild Shape,7,2
+druid,Druid,core,Core,wild_shape,Wild Shape,8,2
+druid,Druid,core,Core,wild_shape,Wild Shape,9,2
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,1,0
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,10,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,11,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,12,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,13,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,14,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,15,6
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,16,6
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,17,6
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,18,6
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,19,6
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,2,0
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,20,6
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,3,4
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,4,4
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,5,4
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,6,4
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,7,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,8,5
+fighter,Fighter,battle_master,Battle Master,superiority_dice,Superiority Dice,9,5
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,1,0
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,10,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,11,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,12,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,13,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,14,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,15,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,16,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,17,d10
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,18,d12
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,19,d12
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,2,0
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,20,d12
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,3,d8
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,4,d8
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,5,d8
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,6,d8
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,7,d8
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,8,d8
+fighter,Fighter,battle_master,Battle Master,superiority_die,Superiority Die,9,d8
+fighter,Fighter,core,Core,action_surge,Action Surge,1,0
+fighter,Fighter,core,Core,action_surge,Action Surge,10,1
+fighter,Fighter,core,Core,action_surge,Action Surge,11,1
+fighter,Fighter,core,Core,action_surge,Action Surge,12,1
+fighter,Fighter,core,Core,action_surge,Action Surge,13,1
+fighter,Fighter,core,Core,action_surge,Action Surge,14,1
+fighter,Fighter,core,Core,action_surge,Action Surge,15,1
+fighter,Fighter,core,Core,action_surge,Action Surge,16,1
+fighter,Fighter,core,Core,action_surge,Action Surge,17,2
+fighter,Fighter,core,Core,action_surge,Action Surge,18,2
+fighter,Fighter,core,Core,action_surge,Action Surge,19,2
+fighter,Fighter,core,Core,action_surge,Action Surge,2,1
+fighter,Fighter,core,Core,action_surge,Action Surge,20,2
+fighter,Fighter,core,Core,action_surge,Action Surge,3,1
+fighter,Fighter,core,Core,action_surge,Action Surge,4,1
+fighter,Fighter,core,Core,action_surge,Action Surge,5,1
+fighter,Fighter,core,Core,action_surge,Action Surge,6,1
+fighter,Fighter,core,Core,action_surge,Action Surge,7,1
+fighter,Fighter,core,Core,action_surge,Action Surge,8,1
+fighter,Fighter,core,Core,action_surge,Action Surge,9,1
+fighter,Fighter,core,Core,attacks,Attacks,1,1
+fighter,Fighter,core,Core,attacks,Attacks,11,3
+fighter,Fighter,core,Core,attacks,Attacks,20,4
+fighter,Fighter,core,Core,attacks,Attacks,5,2
+fighter,Fighter,core,Core,indomitable,Indomitable,1,0
+fighter,Fighter,core,Core,indomitable,Indomitable,10,1
+fighter,Fighter,core,Core,indomitable,Indomitable,11,1
+fighter,Fighter,core,Core,indomitable,Indomitable,12,1
+fighter,Fighter,core,Core,indomitable,Indomitable,13,2
+fighter,Fighter,core,Core,indomitable,Indomitable,14,2
+fighter,Fighter,core,Core,indomitable,Indomitable,15,2
+fighter,Fighter,core,Core,indomitable,Indomitable,16,2
+fighter,Fighter,core,Core,indomitable,Indomitable,17,3
+fighter,Fighter,core,Core,indomitable,Indomitable,18,3
+fighter,Fighter,core,Core,indomitable,Indomitable,19,3
+fighter,Fighter,core,Core,indomitable,Indomitable,2,0
+fighter,Fighter,core,Core,indomitable,Indomitable,20,3
+fighter,Fighter,core,Core,indomitable,Indomitable,3,0
+fighter,Fighter,core,Core,indomitable,Indomitable,4,0
+fighter,Fighter,core,Core,indomitable,Indomitable,5,0
+fighter,Fighter,core,Core,indomitable,Indomitable,6,0
+fighter,Fighter,core,Core,indomitable,Indomitable,7,0
+fighter,Fighter,core,Core,indomitable,Indomitable,8,0
+fighter,Fighter,core,Core,indomitable,Indomitable,9,1
+fighter,Fighter,core,Core,second_wind,Second Wind,1,1
+fighter,Fighter,core,Core,second_wind,Second Wind,10,1
+fighter,Fighter,core,Core,second_wind,Second Wind,11,1
+fighter,Fighter,core,Core,second_wind,Second Wind,12,1
+fighter,Fighter,core,Core,second_wind,Second Wind,13,1
+fighter,Fighter,core,Core,second_wind,Second Wind,14,1
+fighter,Fighter,core,Core,second_wind,Second Wind,15,1
+fighter,Fighter,core,Core,second_wind,Second Wind,16,1
+fighter,Fighter,core,Core,second_wind,Second Wind,17,1
+fighter,Fighter,core,Core,second_wind,Second Wind,18,1
+fighter,Fighter,core,Core,second_wind,Second Wind,19,1
+fighter,Fighter,core,Core,second_wind,Second Wind,2,1
+fighter,Fighter,core,Core,second_wind,Second Wind,20,1
+fighter,Fighter,core,Core,second_wind,Second Wind,3,1
+fighter,Fighter,core,Core,second_wind,Second Wind,4,1
+fighter,Fighter,core,Core,second_wind,Second Wind,5,1
+fighter,Fighter,core,Core,second_wind,Second Wind,6,1
+fighter,Fighter,core,Core,second_wind,Second Wind,7,1
+fighter,Fighter,core,Core,second_wind,Second Wind,8,1
+fighter,Fighter,core,Core,second_wind,Second Wind,9,1
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,1,3
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,10,5
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,11,5
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,12,5
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,13,5
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,14,5
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,15,5
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,16,6
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,17,6
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,18,6
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,19,6
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,2,3
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,20,6
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,3,3
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,4,4
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,5,4
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,6,4
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,7,4
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,8,4
+fighter,Fighter,core,Core,weapon_mastery_count,Weapon Mastery Count,9,4
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,1,0
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,10,4|2
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,11,4|3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,12,4|3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,13,4|3|2
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,14,4|3|2
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,15,4|3|3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,16,4|3|3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,17,4|3|3|1
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,18,4|3|3|1
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,19,4|3|3|2
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,2,0
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,20,4|3|3|2
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,3,2
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,4,3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,5,3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,6,3
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,7,4
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,8,4
+fighter,Fighter,eldritch_knight,Eldritch Knight,spell_slots,Spell Slots,9,4|2
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,1,0
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,10,4
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,11,4
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,12,4
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,13,5
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,14,5
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,15,5
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,16,5
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,17,6
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,18,6
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,19,6
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,2,0
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,20,6
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,3,2
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,4,2
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,5,3
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,6,3
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,7,3
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,8,3
+fighter,Fighter,psi_warrior,Psi Warrior,psi_dice,Psi Dice,9,4
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,1,0
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,10,d8
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,11,d10
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,12,d10
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,13,d10
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,14,d10
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,15,d10
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,16,d10
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,17,d12
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,18,d12
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,19,d12
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,2,0
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,20,d12
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,3,d6
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,4,d6
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,5,d8
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,6,d8
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,7,d8
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,8,d8
+fighter,Fighter,psi_warrior,Psi Warrior,psi_die,Psi Die,9,d8
+monk,Monk,core,Core,focus_points,Focus Points,1,0
+monk,Monk,core,Core,focus_points,Focus Points,10,10
+monk,Monk,core,Core,focus_points,Focus Points,11,11
+monk,Monk,core,Core,focus_points,Focus Points,12,12
+monk,Monk,core,Core,focus_points,Focus Points,13,13
+monk,Monk,core,Core,focus_points,Focus Points,14,14
+monk,Monk,core,Core,focus_points,Focus Points,15,15
+monk,Monk,core,Core,focus_points,Focus Points,16,16
+monk,Monk,core,Core,focus_points,Focus Points,17,17
+monk,Monk,core,Core,focus_points,Focus Points,18,18
+monk,Monk,core,Core,focus_points,Focus Points,19,19
+monk,Monk,core,Core,focus_points,Focus Points,2,2
+monk,Monk,core,Core,focus_points,Focus Points,20,20
+monk,Monk,core,Core,focus_points,Focus Points,3,3
+monk,Monk,core,Core,focus_points,Focus Points,4,4
+monk,Monk,core,Core,focus_points,Focus Points,5,5
+monk,Monk,core,Core,focus_points,Focus Points,6,6
+monk,Monk,core,Core,focus_points,Focus Points,7,7
+monk,Monk,core,Core,focus_points,Focus Points,8,8
+monk,Monk,core,Core,focus_points,Focus Points,9,9
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,1,d6
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,10,d10
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,11,d10
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,12,d10
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,13,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,14,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,15,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,16,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,17,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,18,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,19,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,2,d6
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,20,d12
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,3,d6
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,4,d6
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,5,d8
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,6,d8
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,7,d8
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,8,d8
+monk,Monk,core,Core,martial_arts_die,Martial Arts Die,9,d10
+monk,Monk,core,Core,movement,Unarmed Movement,1,0
+monk,Monk,core,Core,movement,Unarmed Movement,10,20
+monk,Monk,core,Core,movement,Unarmed Movement,11,20
+monk,Monk,core,Core,movement,Unarmed Movement,12,20
+monk,Monk,core,Core,movement,Unarmed Movement,13,20
+monk,Monk,core,Core,movement,Unarmed Movement,14,25
+monk,Monk,core,Core,movement,Unarmed Movement,15,25
+monk,Monk,core,Core,movement,Unarmed Movement,16,25
+monk,Monk,core,Core,movement,Unarmed Movement,17,25
+monk,Monk,core,Core,movement,Unarmed Movement,18,30
+monk,Monk,core,Core,movement,Unarmed Movement,19,30
+monk,Monk,core,Core,movement,Unarmed Movement,2,10
+monk,Monk,core,Core,movement,Unarmed Movement,20,30
+monk,Monk,core,Core,movement,Unarmed Movement,3,10
+monk,Monk,core,Core,movement,Unarmed Movement,4,10
+monk,Monk,core,Core,movement,Unarmed Movement,5,10
+monk,Monk,core,Core,movement,Unarmed Movement,6,15
+monk,Monk,core,Core,movement,Unarmed Movement,7,15
+monk,Monk,core,Core,movement,Unarmed Movement,8,15
+monk,Monk,core,Core,movement,Unarmed Movement,9,15
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,1,0
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,10,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,11,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,12,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,13,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,14,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,15,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,16,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,17,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,18,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,19,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,2,0
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,20,3
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,3,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,4,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,5,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,6,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,7,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,8,2
+paladin,Paladin,core,Core,channel_divinity,Channel Divinity,9,2
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,1,5
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,10,50
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,11,55
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,12,60
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,13,65
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,14,70
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,15,75
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,16,80
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,17,85
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,18,90
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,19,95
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,2,10
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,20,100
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,3,15
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,4,20
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,5,25
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,6,30
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,7,35
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,8,40
+paladin,Paladin,core,Core,lay_on_hands,Lay on Hands,9,45
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,1,2
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,10,9
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,11,10
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,12,10
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,13,11
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,14,11
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,15,12
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,16,12
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,17,14
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,18,14
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,19,15
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,2,3
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,20,15
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,3,4
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,4,5
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,5,6
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,6,6
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,7,7
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,8,7
+paladin,Paladin,core,Core,prepared_spells,Prepared Spells,9,9
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,1,2
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,10,9
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,11,10
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,12,10
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,13,11
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,14,11
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,15,12
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,16,12
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,17,14
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,18,14
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,19,15
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,2,3
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,20,15
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,3,4
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,4,5
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,5,6
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,6,6
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,7,7
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,8,7
+ranger,Ranger,core,Core,prepared_spells,Prepared Spells,9,9
+ranger,Ranger,core,Core,spell_slots,Spell Slots,1,0
+ranger,Ranger,core,Core,spell_slots,Spell Slots,10,4|3|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,11,4|3|3
+ranger,Ranger,core,Core,spell_slots,Spell Slots,12,4|3|3
+ranger,Ranger,core,Core,spell_slots,Spell Slots,13,4|3|3|1
+ranger,Ranger,core,Core,spell_slots,Spell Slots,14,4|3|3|1
+ranger,Ranger,core,Core,spell_slots,Spell Slots,15,4|3|3|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,16,4|3|3|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,17,4|3|3|3|1
+ranger,Ranger,core,Core,spell_slots,Spell Slots,18,4|3|3|3|1
+ranger,Ranger,core,Core,spell_slots,Spell Slots,19,4|3|3|3|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,2,2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,20,4|3|3|3|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,3,3
+ranger,Ranger,core,Core,spell_slots,Spell Slots,4,3
+ranger,Ranger,core,Core,spell_slots,Spell Slots,5,4|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,6,4|2
+ranger,Ranger,core,Core,spell_slots,Spell Slots,7,4|3
+ranger,Ranger,core,Core,spell_slots,Spell Slots,8,4|3
+ranger,Ranger,core,Core,spell_slots,Spell Slots,9,4|3|2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,1,0
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,10,4|2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,11,4|3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,12,4|3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,13,4|3|2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,14,4|3|2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,15,4|3|3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,16,4|3|3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,17,4|3|3|1
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,18,4|3|3|1
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,19,4|3|3|2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,2,0
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,20,4|3|3|2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,3,2
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,4,3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,5,3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,6,3
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,7,4
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,8,4
+rogue,Rogue,arcane_trickster,Arcane Trickster,spell_slots,Spell Slots,9,4|2
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,1,1d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,10,5d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,11,6d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,12,6d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,13,7d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,14,7d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,15,8d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,16,8d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,17,9d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,18,9d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,19,10d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,2,1d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,20,10d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,3,2d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,4,2d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,5,3d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,6,3d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,7,4d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,8,4d6
+rogue,Rogue,core,Core,sneak_attack,Sneak Attack,9,5d6
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,1,0
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,10,8
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,11,8
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,12,8
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,13,10
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,14,10
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,15,10
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,16,10
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,17,12
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,18,12
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,19,12
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,2,0
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,20,12
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,3,4
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,4,4
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,5,6
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,6,6
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,7,6
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,8,6
+rogue,Rogue,soulknife,Soulknife,psi_dice,Psi Dice,9,8
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,1,0
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,10,d8
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,11,d8
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,12,d8
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,13,d10
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,14,d10
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,15,d10
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,16,d10
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,17,d12
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,18,d12
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,19,d12
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,2,0
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,20,d12
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,3,d6
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,4,d6
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,5,d6
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,6,d6
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,7,d6
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,8,d6
+rogue,Rogue,soulknife,Soulknife,psi_die,Psi Die,9,d8
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,1,4
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,10,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,11,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,12,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,13,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,14,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,15,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,16,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,17,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,18,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,19,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,2,4
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,20,6
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,3,4
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,4,5
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,5,5
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,6,5
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,7,5
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,8,5
+sorcerer,Sorcerer,core,Core,cantrips,Cantrips,9,5
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,1,2
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,10,15
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,11,16
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,12,16
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,13,17
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,14,17
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,15,18
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,16,18
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,17,19
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,18,20
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,19,21
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,2,4
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,20,22
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,3,6
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,4,7
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,5,9
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,6,10
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,7,11
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,8,12
+sorcerer,Sorcerer,core,Core,prepared_spells,Prepared Spells,9,14
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,1,0
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,10,10
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,11,11
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,12,12
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,13,13
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,14,14
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,15,15
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,16,16
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,17,17
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,18,18
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,19,19
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,2,2
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,20,20
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,3,3
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,4,4
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,5,5
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,6,6
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,7,7
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,8,8
+sorcerer,Sorcerer,core,Core,sorcery_points,Sorcery Points,9,9
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,1,2
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,10,4|3|3|3|2
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,11,4|3|3|3|2|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,12,4|3|3|3|2|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,13,4|3|3|3|2|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,14,4|3|3|3|2|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,15,4|3|3|3|2|1|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,16,4|3|3|3|2|1|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,17,4|3|3|3|2|1|1|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,18,4|3|3|3|3|1|1|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,19,4|3|3|3|3|2|1|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,2,3
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,20,4|3|3|3|3|2|2|1|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,3,4|2
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,4,4|3
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,5,4|3|2
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,6,4|3|3
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,7,4|3|3|1
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,8,4|3|3|2
+sorcerer,Sorcerer,core,Core,spell_slots,Spell Slots,9,4|3|3|3|1
+warlock,Warlock,core,Core,invocation_scaling,Invocations,1,1
+warlock,Warlock,core,Core,invocation_scaling,Invocations,10,7
+warlock,Warlock,core,Core,invocation_scaling,Invocations,11,7
+warlock,Warlock,core,Core,invocation_scaling,Invocations,12,8
+warlock,Warlock,core,Core,invocation_scaling,Invocations,13,8
+warlock,Warlock,core,Core,invocation_scaling,Invocations,14,8
+warlock,Warlock,core,Core,invocation_scaling,Invocations,15,9
+warlock,Warlock,core,Core,invocation_scaling,Invocations,16,9
+warlock,Warlock,core,Core,invocation_scaling,Invocations,17,9
+warlock,Warlock,core,Core,invocation_scaling,Invocations,18,10
+warlock,Warlock,core,Core,invocation_scaling,Invocations,19,10
+warlock,Warlock,core,Core,invocation_scaling,Invocations,2,3
+warlock,Warlock,core,Core,invocation_scaling,Invocations,20,10
+warlock,Warlock,core,Core,invocation_scaling,Invocations,3,3
+warlock,Warlock,core,Core,invocation_scaling,Invocations,4,3
+warlock,Warlock,core,Core,invocation_scaling,Invocations,5,5
+warlock,Warlock,core,Core,invocation_scaling,Invocations,6,5
+warlock,Warlock,core,Core,invocation_scaling,Invocations,7,6
+warlock,Warlock,core,Core,invocation_scaling,Invocations,8,6
+warlock,Warlock,core,Core,invocation_scaling,Invocations,9,7
+warlock,Warlock,core,Core,mystic_arcanum,Mystic Arcanum (6th),11,1
+warlock,Warlock,core,Core,mystic_arcanum,Mystic Arcanum (7th),13,1
+warlock,Warlock,core,Core,mystic_arcanum,Mystic Arcanum (8th),15,1
+warlock,Warlock,core,Core,mystic_arcanum,Mystic Arcanum (9th),17,1
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,1,1
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,10,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,11,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,12,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,13,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,14,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,15,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,16,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,17,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,18,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,19,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,2,1
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,20,5
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,3,2
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,4,2
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,5,3
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,6,3
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,7,4
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,8,4
+warlock,Warlock,core,Core,pact_slot_level,Pact Slot Level,9,5
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,1,2
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,10,15
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,11,16
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,12,16
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,13,17
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,14,17
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,15,18
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,16,18
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,17,19
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,18,20
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,19,21
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,2,4
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,20,22
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,3,6
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,4,7
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,5,9
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,6,10
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,7,11
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,8,12
+warlock,Warlock,core,Core,prepared_spells,Prepared Spells,9,14
+warlock,Warlock,core,Core,spell_slots,Pact Slot,1,1
+warlock,Warlock,core,Core,spell_slots,Pact Slot,10,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,11,3
+warlock,Warlock,core,Core,spell_slots,Pact Slot,12,3
+warlock,Warlock,core,Core,spell_slots,Pact Slot,13,3
+warlock,Warlock,core,Core,spell_slots,Pact Slot,14,3
+warlock,Warlock,core,Core,spell_slots,Pact Slot,15,3
+warlock,Warlock,core,Core,spell_slots,Pact Slot,16,3
+warlock,Warlock,core,Core,spell_slots,Pact Slot,17,4
+warlock,Warlock,core,Core,spell_slots,Pact Slot,18,4
+warlock,Warlock,core,Core,spell_slots,Pact Slot,19,4
+warlock,Warlock,core,Core,spell_slots,Pact Slot,2,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,20,4
+warlock,Warlock,core,Core,spell_slots,Pact Slot,3,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,4,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,5,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,6,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,7,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,8,2
+warlock,Warlock,core,Core,spell_slots,Pact Slot,9,2
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,1,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,10,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,11,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,12,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,13,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,14,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,15,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,16,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,17,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,18,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,19,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,2,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,20,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,3,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,4,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,5,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,6,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,7,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,8,1
+wizard,Wizard,core,Core,arcane_recovery,Arcane Recovery,9,1
+wizard,Wizard,core,Core,cantrips,Cantrips,1,3
+wizard,Wizard,core,Core,cantrips,Cantrips,10,5
+wizard,Wizard,core,Core,cantrips,Cantrips,11,5
+wizard,Wizard,core,Core,cantrips,Cantrips,12,5
+wizard,Wizard,core,Core,cantrips,Cantrips,13,5
+wizard,Wizard,core,Core,cantrips,Cantrips,14,5
+wizard,Wizard,core,Core,cantrips,Cantrips,15,5
+wizard,Wizard,core,Core,cantrips,Cantrips,16,5
+wizard,Wizard,core,Core,cantrips,Cantrips,17,5
+wizard,Wizard,core,Core,cantrips,Cantrips,18,5
+wizard,Wizard,core,Core,cantrips,Cantrips,19,5
+wizard,Wizard,core,Core,cantrips,Cantrips,2,3
+wizard,Wizard,core,Core,cantrips,Cantrips,20,5
+wizard,Wizard,core,Core,cantrips,Cantrips,3,3
+wizard,Wizard,core,Core,cantrips,Cantrips,4,4
+wizard,Wizard,core,Core,cantrips,Cantrips,5,4
+wizard,Wizard,core,Core,cantrips,Cantrips,6,4
+wizard,Wizard,core,Core,cantrips,Cantrips,7,4
+wizard,Wizard,core,Core,cantrips,Cantrips,8,4
+wizard,Wizard,core,Core,cantrips,Cantrips,9,4
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,1,4
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,10,15
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,11,16
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,12,16
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,13,17
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,14,17
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,15,18
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,16,18
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,17,19
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,18,20
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,19,21
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,2,5
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,20,22
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,3,6
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,4,7
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,5,9
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,6,10
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,7,11
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,8,12
+wizard,Wizard,core,Core,prepared_spells,Prepared Spells,9,14
+wizard,Wizard,core,Core,spell_slots,Spell Slots,1,2
+wizard,Wizard,core,Core,spell_slots,Spell Slots,10,4|3|3|3|2
+wizard,Wizard,core,Core,spell_slots,Spell Slots,11,4|3|3|3|2|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,12,4|3|3|3|2|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,13,4|3|3|3|2|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,14,4|3|3|3|2|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,15,4|3|3|3|2|1|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,16,4|3|3|3|2|1|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,17,4|3|3|3|2|1|1|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,18,4|3|3|3|3|1|1|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,19,4|3|3|3|3|2|1|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,2,3
+wizard,Wizard,core,Core,spell_slots,Spell Slots,20,4|3|3|3|3|2|2|1|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,3,4|2
+wizard,Wizard,core,Core,spell_slots,Spell Slots,4,4|3
+wizard,Wizard,core,Core,spell_slots,Spell Slots,5,4|3|2
+wizard,Wizard,core,Core,spell_slots,Spell Slots,6,4|3|3
+wizard,Wizard,core,Core,spell_slots,Spell Slots,7,4|3|3|1
+wizard,Wizard,core,Core,spell_slots,Spell Slots,8,4|3|3|2
+wizard,Wizard,core,Core,spell_slots,Spell Slots,9,4|3|3|3|1

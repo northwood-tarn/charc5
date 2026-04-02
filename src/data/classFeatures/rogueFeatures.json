@@ -1,0 +1,581 @@
+{
+  "class_id": "rogue",
+  "features": [
+    {
+      "id": "expertise",
+      "name": "Expertise",
+      "description": "Choose 2 of your skill proficiencies. Your Proficiency Bonus is doubled for any ability check you make that uses either chosen proficiency.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "skill_expertise",
+        "count": 2,
+        "pool": "owned_skill_proficiencies_without_expertise"
+      },
+      "feature_stack": "rogue_expertise",
+      "stack_role": "base"
+    },
+    {
+      "id": "sneak_attack",
+      "name": "Sneak Attack",
+      "description": "Once per turn, when you hit a creature with a weapon attack using a Finesse or Ranged weapon, you deal extra damage if you either have Advantage on the attack roll, or an ally of yours is within 5 ft of the target, that ally does not have the Incapacitated condition, and you don’t have Disadvantage on the roll. The extra damage is 1d6 at Rogue 1 and increases by Rogue level (see class table).",
+      "level": 1,
+      "type": "resource",
+      "resource": {
+        "kind": "class_resources",
+        "resources": [
+          {
+            "resource_id": "sneak_attack",
+            "resource_name": "Sneak Attack",
+            "scaling": [
+              { "level": 1, "value": "1d6" },
+              { "level": 2, "value": "1d6" },
+              { "level": 3, "value": "2d6" },
+              { "level": 4, "value": "2d6" },
+              { "level": 5, "value": "3d6" },
+              { "level": 6, "value": "3d6" },
+              { "level": 7, "value": "4d6" },
+              { "level": 8, "value": "4d6" },
+              { "level": 9, "value": "5d6" },
+              { "level": 10, "value": "5d6" },
+              { "level": 11, "value": "6d6" },
+              { "level": 12, "value": "6d6" },
+              { "level": 13, "value": "7d6" },
+              { "level": 14, "value": "7d6" },
+              { "level": 15, "value": "8d6" },
+              { "level": 16, "value": "8d6" },
+              { "level": 17, "value": "9d6" },
+              { "level": 18, "value": "9d6" },
+              { "level": 19, "value": "10d6" },
+              { "level": 20, "value": "10d6" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "thieves_cant",
+      "name": "Thieves’ Cant",
+      "description": "You know Thieves’ Cant, a secret mix of jargon, signs, and code that only thieves understand. You also learn one additional language of your choice.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "compound",
+        "components": [
+          {
+            "kind": "language",
+            "count": 1,
+            "pool": "languages"
+          }
+        ]
+      }
+    },
+    {
+      "id": "weapon_mastery",
+      "name": "Weapon Mastery",
+      "description": "Passive; you can use the mastery properties of two kinds of weapons you choose that you’re proficient with. Whenever you finish a Long Rest, you can change one of those chosen weapon kinds.",
+      "level": 1,
+      "type": "choice",
+      "choice": {
+        "kind": "weapon_mastery",
+        "count": 2,
+        "pool": "proficient_weapon_kinds",
+        "reselection": "change_one_on_long_rest"
+      }
+    },
+    {
+      "id": "cunning_action",
+      "name": "Cunning Action",
+      "description": "Bonus Action; you can take the Dash, Disengage, or Hide action.",
+      "level": 2,
+      "type": "paper"
+    },
+    {
+      "id": "rogue_subclass",
+      "name": "Rogue Subclass",
+      "description": "Passive; choose a Rogue subclass. You gain that subclass’s features at Rogue levels 3, 9, 13, and 17.",
+      "level": 3,
+      "type": "choice",
+      "choice": {
+        "kind": "subclass",
+        "count": 1,
+        "pool": "rogue_subclasses"
+      }
+    },
+    {
+      "id": "steady_aim",
+      "name": "Steady Aim",
+      "description": "Bonus Action; if you haven’t moved during this turn, you give yourself Advantage on your next attack roll this turn. After you use this feature, your Speed is 0 until the end of the current turn.",
+      "level": 3,
+      "type": "paper"
+    },
+    {
+      "id": "cunning_strike",
+      "name": "Cunning Strike",
+      "description": "When you deal Sneak Attack damage, you can forgo Sneak Attack dice to add one Cunning Strike effect; remove the die(s) before rolling Sneak Attack damage. Save DC (if any) = 8 + your Dexterity modifier + Proficiency Bonus. Options: Poison (Cost 1d6)—Con save or Poisoned for 1 minute (repeat save at end of each of its turns; requires you to have a Poisoner’s Kit on your person). Trip (Cost 1d6)—Large or smaller Dex save or Prone. Withdraw (Cost 1d6)—after the attack, you move up to half your Speed without provoking Opportunity Attacks.",
+      "level": 5,
+      "type": "paper",
+      "feature_stack": "rogue_cunning_strike",
+      "stack_role": "base"
+    },
+    {
+      "id": "uncanny_dodge",
+      "name": "Uncanny Dodge",
+      "description": "Reaction; trigger: an attacker you can see hits you with an attack roll. Effect: halve the attack’s damage against you (rounded down).",
+      "level": 5,
+      "type": "paper"
+    },
+    {
+      "id": "expertise_6",
+      "name": "Additional Expertise",
+      "description": "Choose 2 more of your skill proficiencies. Your Proficiency Bonus is doubled for any ability check you make that uses either chosen proficiency.",
+      "level": 6,
+      "type": "choice",
+      "choice": {
+        "kind": "skill_expertise",
+        "count": 2,
+        "pool": "owned_skill_proficiencies_without_expertise"
+      },
+      "feature_stack": "rogue_expertise",
+      "stack_role": "modifier",
+      "modifies": ["expertise"]
+    },
+    {
+      "id": "evasion",
+      "name": "Evasion",
+      "description": "Passive; when an effect allows a Dexterity saving throw for half damage, you take no damage on a success and half damage on a failure. You can’t use Evasion if you have the Incapacitated condition.",
+      "level": 7,
+      "type": "paper"
+    },
+    {
+      "id": "reliable_talent",
+      "name": "Reliable Talent",
+      "description": "Passive; whenever you make an ability check that uses a skill or tool proficiency, treat any d20 roll of 9 or lower as a 10.",
+      "level": 7,
+      "type": "paper"
+    },
+    {
+      "id": "improved_cunning_strike",
+      "name": "Improved Cunning Strike",
+      "description": "Passive; when you deal Sneak Attack damage, you can apply up to two different Cunning Strike effects to that Sneak Attack, paying the die cost for each.",
+      "level": 11,
+      "type": "paper",
+      "feature_stack": "rogue_cunning_strike",
+      "stack_role": "modifier",
+      "modifies": ["cunning_strike"]
+    },
+    {
+      "id": "devious_strikes",
+      "name": "Devious Strikes",
+      "description": "Passive; you add new Cunning Strike options: Daze (Cost 2d6)—Con save or, on its next turn, the target can do only one of: move, take an Action, or take a Bonus Action. Obscure (Cost 3d6)—Dex save or Blinded until the end of its next turn. Knock Out (Cost 6d6)—Con save or Unconscious for 1 minute or until it takes any damage (repeat save at end of each of its turns; ends on a success).",
+      "level": 14,
+      "type": "paper",
+      "feature_stack": "rogue_cunning_strike",
+      "stack_role": "modifier",
+      "modifies": ["cunning_strike"]
+    },
+    {
+      "id": "slippery_mind",
+      "name": "Slippery Mind",
+      "description": "Passive; you gain proficiency in Wisdom and Charisma saving throws.",
+      "level": 15,
+      "type": "derived_output",
+      "derived_effects": {
+        "saving_throw_proficiencies": ["wis", "cha"]
+      }
+    },
+    {
+      "id": "elusive",
+      "name": "Elusive",
+      "description": "Passive; no attack roll can have Advantage against you unless you have the Incapacitated condition.",
+      "level": 18,
+      "type": "paper"
+    },
+    {
+      "id": "epic_boon",
+      "name": "Epic Boon",
+      "description": "You gain an Epic Boon feat or another feat of your choice for which you qualify. Boon of the Night Spirit is recommended.",
+      "level": 19,
+      "type": "paper"
+    },
+    {
+      "id": "stroke_of_luck",
+      "name": "Stroke of Luck",
+      "description": "No action; when you fail a d20 Test (attack roll, ability check, or saving throw), you can turn the roll into a 20. Once you use this feature, you can’t use it again until you finish a Short or Long Rest.",
+      "level": 20,
+      "type": "resource",
+      "resource": {
+        "kind": "uses",
+        "value": 1,
+        "recovery": {
+          "short_rest": "all",
+          "long_rest": "all"
+        }
+      }
+    }
+  ],
+  "subclasses": {
+    "arcane_trickster": {
+      "features": [
+        {
+          "id": "spellcasting",
+          "name": "Spellcasting",
+          "description": "You have learned to cast spells as an Arcane Trickster. You know three cantrips: Mage Hand and two other Wizard cantrips of your choice. Whenever you gain a Rogue level, you can replace one of your cantrips, except Mage Hand, with another Wizard cantrip of your choice. When you reach Rogue level 10, you learn another Wizard cantrip of your choice. You prepare Wizard spells, using Intelligence as your spellcasting ability, and you can use an Arcane Focus as a Spellcasting Focus.",
+          "level": 3,
+          "type": "paper",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "cantrips",
+                "resource_name": "Cantrips",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "3" },
+                  { "level": 4, "value": "3" },
+                  { "level": 5, "value": "3" },
+                  { "level": 6, "value": "3" },
+                  { "level": 7, "value": "3" },
+                  { "level": 8, "value": "3" },
+                  { "level": 9, "value": "3" },
+                  { "level": 10, "value": "4" },
+                  { "level": 11, "value": "4" },
+                  { "level": 12, "value": "4" },
+                  { "level": 13, "value": "4" },
+                  { "level": 14, "value": "4" },
+                  { "level": 15, "value": "4" },
+                  { "level": 16, "value": "4" },
+                  { "level": 17, "value": "4" },
+                  { "level": 18, "value": "4" },
+                  { "level": 19, "value": "4" },
+                  { "level": 20, "value": "4" }
+                ]
+              },
+              {
+                "resource_id": "prepared_spells",
+                "resource_name": "Prepared Spells",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "3" },
+                  { "level": 4, "value": "4" },
+                  { "level": 5, "value": "4" },
+                  { "level": 6, "value": "4" },
+                  { "level": 7, "value": "5" },
+                  { "level": 8, "value": "6" },
+                  { "level": 9, "value": "6" },
+                  { "level": 10, "value": "7" },
+                  { "level": 11, "value": "8" },
+                  { "level": 12, "value": "8" },
+                  { "level": 13, "value": "9" },
+                  { "level": 14, "value": "10" },
+                  { "level": 15, "value": "10" },
+                  { "level": 16, "value": "11" },
+                  { "level": 17, "value": "11" },
+                  { "level": 18, "value": "11" },
+                  { "level": 19, "value": "12" },
+                  { "level": 20, "value": "13" }
+                ]
+              },
+              {
+                "resource_id": "spell_repertoire",
+                "resource_name": "Spell Repertoire",
+                "scaling": [
+                  { "level": 3, "value": "3" },
+                  { "level": 4, "value": "4" },
+                  { "level": 5, "value": "4" },
+                  { "level": 6, "value": "4" },
+                  { "level": 7, "value": "5" },
+                  { "level": 8, "value": "6" },
+                  { "level": 9, "value": "6" },
+                  { "level": 10, "value": "7" },
+                  { "level": 11, "value": "7" },
+                  { "level": 12, "value": "7" },
+                  { "level": 13, "value": "9" },
+                  { "level": 14, "value": "10" },
+                  { "level": 15, "value": "10" },
+                  { "level": 16, "value": "11" },
+                  { "level": 17, "value": "11" },
+                  { "level": 18, "value": "11" },
+                  { "level": 19, "value": "12" },
+                  { "level": 20, "value": "13" }
+                ]
+              },
+              {
+                "resource_id": "spell_slots",
+                "resource_name": "Spell Slots",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "2" },
+                  { "level": 4, "value": "3" },
+                  { "level": 5, "value": "3" },
+                  { "level": 6, "value": "3" },
+                  { "level": 7, "value": "4|2" },
+                  { "level": 8, "value": "4|2" },
+                  { "level": 9, "value": "4|2" },
+                  { "level": 10, "value": "4|3" },
+                  { "level": 11, "value": "4|3" },
+                  { "level": 12, "value": "4|3" },
+                  { "level": 13, "value": "4|3|2" },
+                  { "level": 14, "value": "4|3|2" },
+                  { "level": 15, "value": "4|3|2" },
+                  { "level": 16, "value": "4|3|3" },
+                  { "level": 17, "value": "4|3|3" },
+                  { "level": 18, "value": "4|3|3" },
+                  { "level": 19, "value": "4|3|3|1" },
+                  { "level": 20, "value": "4|3|3|1" }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "mage_hand_legerdemain",
+          "name": "Mage Hand Legerdemain",
+          "description": "When you cast Mage Hand, you can cast it as a Bonus Action, and you can make the spectral hand Invisible. You can control the hand as a Bonus Action, and through it, you can make Dexterity (Sleight of Hand) checks.",
+          "level": 3,
+          "type": "paper",
+          "effects": {
+            "spell_grants": [
+              { "kind": "fixed", "spells": ["mage_hand"] }
+            ]
+          }
+        },
+        {
+          "id": "magical_ambush",
+          "name": "Magical Ambush",
+          "description": "If you have the Invisible condition when you cast a spell on a creature, it has Disadvantage on any saving throw it makes against the spell on the same turn.",
+          "level": 9,
+          "type": "paper"
+        },
+        {
+          "id": "versatile_trickster",
+          "name": "Versatile Trickster",
+          "description": "You gain the ability to distract targets with your Mage Hand. When you use the Trip option of your Cunning Strike on a creature, you can also use that option on another creature within 5 feet of the spectral hand.",
+          "level": 13,
+          "type": "paper",
+          "feature_stack": "rogue_cunning_strike",
+          "stack_role": "modifier",
+          "modifies": ["cunning_strike"]
+        },
+        {
+          "id": "spell_thief",
+          "name": "Spell Thief",
+          "description": "Immediately after a creature casts a spell that targets you or includes you in its area of effect, you can take a Reaction to force the creature to make an Intelligence saving throw against your spell save DC. On a failed save, you negate the spell’s effect against you, and you steal the knowledge of the spell if it is at least level 1 and of a level you can cast. For the next 8 hours, you have the spell prepared. The creature can’t cast it until 8 hours have passed. Once you steal a spell with this feature, you can’t use this feature again until you finish a Long Rest.",
+          "level": 17,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        }
+      ]
+    },
+    "assassin": {
+      "features": [
+        {
+          "id": "assassins_tools",
+          "name": "Assassin's Tools",
+          "description": "You gain a Disguise Kit and a Poisoner’s Kit, and you have proficiency with them.",
+          "level": 3,
+          "type": "derived_output",
+          "derived_effects": {
+            "tool_proficiencies": ["disguise_kit", "poisoners_kit"]
+          }
+        },
+        {
+          "id": "assassinate",
+          "name": "Assassinate",
+          "description": "You’re adept at ambushing a target. Initiative: you have Advantage on Initiative rolls. Surprising Strikes: during the first round of each combat, you have Advantage on attack rolls against any creature that hasn’t taken a turn. If your Sneak Attack hits any target during that round, the target takes extra damage of the weapon’s type equal to your Rogue level.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "infiltration_expertise",
+          "name": "Infiltration Expertise",
+          "description": "You are an expert at the following techniques that aid your infiltrations. Masterful Mimicry: you can unerringly mimic another person’s speech, handwriting, or both if you have spent at least 1 hour studying them. Roving Aim: your Speed isn’t reduced to 0 by using Steady Aim.",
+          "level": 9,
+          "type": "paper"
+        },
+        {
+          "id": "envenom_weapons",
+          "name": "Envenom Weapons",
+          "description": "When you use the Poison option of your Cunning Strike, the target also takes 2d6 Poison damage whenever it fails the saving throw. This damage ignores Resistance to Poison damage.",
+          "level": 13,
+          "type": "paper",
+          "feature_stack": "rogue_cunning_strike",
+          "stack_role": "modifier",
+          "modifies": ["cunning_strike"]
+        },
+        {
+          "id": "death_strike",
+          "name": "Death Strike",
+          "description": "When you hit with your Sneak Attack on the first round of a combat, the target must succeed on a Constitution saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus), or the attack’s damage is doubled against the target.",
+          "level": 17,
+          "type": "paper"
+        }
+      ]
+    },
+    "soulknife": {
+      "features": [
+        {
+          "id": "psionic_power",
+          "name": "Psionic Power",
+          "description": "You harbor a wellspring of psionic energy within yourself. It is represented by your Psionic Energy Dice, which fuel certain powers you have from this subclass. Psi-Bolstered Knack: if you fail an ability check using a skill or tool with which you have proficiency, you can roll one Psionic Energy Die and add the number rolled to the check, potentially turning failure into success. The die is expended only if the roll then succeeds. Psychic Whispers: as a Magic action, choose one or more creatures you can see, up to a number of creatures equal to your Proficiency Bonus, and then roll one Psionic Energy Die. For a number of hours equal to the number rolled, the chosen creatures can speak telepathically to you, and you can speak telepathically with them while within 1 mile of each other.",
+          "level": 3,
+          "type": "resource",
+          "resource": {
+            "kind": "class_resources",
+            "resources": [
+              {
+                "resource_id": "psi_dice",
+                "resource_name": "Psi Dice",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "4" },
+                  { "level": 4, "value": "4" },
+                  { "level": 5, "value": "6" },
+                  { "level": 6, "value": "6" },
+                  { "level": 7, "value": "6" },
+                  { "level": 8, "value": "6" },
+                  { "level": 9, "value": "8" },
+                  { "level": 10, "value": "8" },
+                  { "level": 11, "value": "8" },
+                  { "level": 12, "value": "8" },
+                  { "level": 13, "value": "10" },
+                  { "level": 14, "value": "10" },
+                  { "level": 15, "value": "10" },
+                  { "level": 16, "value": "10" },
+                  { "level": 17, "value": "12" },
+                  { "level": 18, "value": "12" },
+                  { "level": 19, "value": "12" },
+                  { "level": 20, "value": "12" }
+                ]
+              },
+              {
+                "resource_id": "psi_die",
+                "resource_name": "Psi Die",
+                "scaling": [
+                  { "level": 1, "value": "0" },
+                  { "level": 2, "value": "0" },
+                  { "level": 3, "value": "d6" },
+                  { "level": 4, "value": "d6" },
+                  { "level": 5, "value": "d8" },
+                  { "level": 6, "value": "d8" },
+                  { "level": 7, "value": "d8" },
+                  { "level": 8, "value": "d8" },
+                  { "level": 9, "value": "d8" },
+                  { "level": 10, "value": "d8" },
+                  { "level": 11, "value": "d10" },
+                  { "level": 12, "value": "d10" },
+                  { "level": 13, "value": "d10" },
+                  { "level": 14, "value": "d10" },
+                  { "level": 15, "value": "d10" },
+                  { "level": 16, "value": "d10" },
+                  { "level": 17, "value": "d12" },
+                  { "level": 18, "value": "d12" },
+                  { "level": 19, "value": "d12" },
+                  { "level": 20, "value": "d12" }
+                ]
+              }
+            ],
+            "recovery": {
+              "short_rest": 1,
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "psychic_blades",
+          "name": "Psychic Blades",
+          "description": "When you take the Attack action or make an Opportunity Attack, you can manifest a psychic blade in a free hand and attack with it (Simple melee weapon; 1d6 Psychic damage; Finesse; Thrown 60/120; Mastery: Vex). The blade vanishes after it hits or misses and leaves no mark. After you attack with the blade on your turn, you can make one attack with a second psychic blade as a Bonus Action if your other hand is free; that bonus blade deals 1d4 Psychic damage.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "soul_blades",
+          "name": "Soul Blades",
+          "description": "You gain: Homing Strikes—when you miss with a Psychic Blade attack, roll a Psionic Energy Die and add it to the attack roll; the die is expended only if it turns the miss into a hit. Psychic Teleportation—Bonus Action: manifest a blade, expend and roll a Psionic Energy Die, throw it to an unoccupied space you can see up to 10 × the roll feet away, then teleport to that space.",
+          "level": 9,
+          "type": "paper"
+        },
+        {
+          "id": "psychic_veil",
+          "name": "Psychic Veil",
+          "description": "Magic Action; you gain the Invisible condition for 1 hour (or until you dismiss it). This ends early immediately after you deal damage to a creature or force a creature to make a saving throw. Uses: 1 per Long Rest; you can restore the use by expending 1 Psionic Energy Die (no action).",
+          "level": 13,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        },
+        {
+          "id": "rend_mind",
+          "name": "Rend Mind",
+          "description": "When you use Psychic Blades to deal Sneak Attack damage to a creature, you can force it to make a Wisdom save (DC = 8 + your Dexterity modifier + Proficiency Bonus). On a failure, it has the Stunned condition for 1 minute (repeat save at end of each of its turns; ends on a success). Uses: 1 per Long Rest; you can restore the use by expending 3 Psionic Energy Dice (no action).",
+          "level": 17,
+          "type": "resource",
+          "resource": {
+            "kind": "uses",
+            "value": 1,
+            "recovery": {
+              "long_rest": "all"
+            }
+          }
+        }
+      ]
+    },
+    "thief": {
+      "features": [
+        {
+          "id": "fast_hands",
+          "name": "Fast Hands",
+          "description": "As a Bonus Action, you can do one of the following. Sleight of Hand: make a Dexterity (Sleight of Hand) check to pick a lock or disarm a trap with Thieves’ Tools or to pick a pocket. Use an Object: take the Utilize action, or take the Magic action to use a magic item that requires an action.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "second_story_work",
+          "name": "Second-Story Work",
+          "description": "You’ve trained to get into especially hard-to-reach places. Climber: you gain a Climb Speed equal to your Speed. Jumper: you can determine your jump distance using your Dexterity rather than your Strength.",
+          "level": 3,
+          "type": "paper"
+        },
+        {
+          "id": "supreme_sneak",
+          "name": "Supreme Sneak",
+          "description": "You gain the following Cunning Strike option. Stealth Attack (Cost: 1d6): if you have the Hide action’s Invisible condition, this attack doesn’t end that condition on you if you end the turn behind Three-Quarters Cover or Total Cover.",
+          "level": 9,
+          "type": "paper",
+          "feature_stack": "rogue_cunning_strike",
+          "stack_role": "modifier",
+          "modifies": ["cunning_strike"]
+        },
+        {
+          "id": "use_magic_device",
+          "name": "Use Magic Device",
+          "description": "You’ve learned how to maximize use of magic items. Attunement: you can attune to up to four magic items at once. Charges: whenever you use a magic item property that expends charges, roll 1d6; on a 6, you use the property without expending the charges. Scrolls: you can use any Spell Scroll, using Intelligence as your spellcasting ability for the spell. If the spell is a cantrip or a level 1 spell, you can cast it reliably. If the scroll contains a higher-level spell, you must first succeed on an Intelligence (Arcana) check (DC 10 plus the spell’s level); on a success, you cast the spell, and on a failure, the scroll disintegrates.",
+          "level": 13,
+          "type": "paper"
+        },
+        {
+          "id": "thiefs_reflexes",
+          "name": "Thief's Reflexes",
+          "description": "You can take two turns during the first round of any combat: one at your normal Initiative and a second at your Initiative minus 10.",
+          "level": 17,
+          "type": "paper"
+        }
+      ]
+    }
+  }
+}
