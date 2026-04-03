@@ -24,6 +24,8 @@ export interface ClassFeatureRow {
   name: string;
   description: string;
   grants_spell_id: string;
+  grants_spell_ids?: string;
+  granted_spell_ids?: string;
   attack_bonus_ability: string;
   attack_bonus_formula: string;
   save_dc_ability: string;
@@ -57,8 +59,8 @@ function splitPipeDelimited(value: string | null | undefined): string[] {
   }
 
   return value
-    .split("|")
-    .map((entry) => entry.trim())
+    .split(/[\|,;]/) // support pipe, comma, and semicolon delimiters
+    .map((entry) => entry.trim().toLowerCase())
     .filter(Boolean);
 }
 
@@ -141,6 +143,12 @@ const classFeatures: ClassFeatureRecord[] = classFeatureRows.map((row) => {
   const sourceId = getSourceId(row.subclass_id, row.class_id);
   const sourceName = getSourceName(row.subclass, row.class);
 
+  const rawGranted =
+    (row as any).grants_spell_id ??
+    (row as any).grants_spell_ids ??
+    (row as any).granted_spell_ids ??
+    "";
+
   return {
     featureId: `${row.class_id}:${row.subclass_id}:${level}:${normalizeLookupKey(row.name)}`,
     classId: row.class_id,
@@ -153,7 +161,7 @@ const classFeatures: ClassFeatureRecord[] = classFeatureRows.map((row) => {
     level,
     name: row.name,
     description: row.description,
-    grantedSpellIds: splitPipeDelimited(row.grants_spell_id),
+    grantedSpellIds: splitPipeDelimited(rawGranted),
     attackBonusAbility: normalizeAbility(row.attack_bonus_ability),
     attackBonusFormula: normalizeFormula(row.attack_bonus_formula),
     saveDcAbility: normalizeAbility(row.save_dc_ability),

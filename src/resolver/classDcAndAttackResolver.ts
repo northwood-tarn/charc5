@@ -205,22 +205,40 @@ function createSaveDcDerivation(
   ];
 }
 
+function normalizeFeatureNameForKind(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
 function getFeatureEntryKind(
   feature: LoadedClassFeatureRecord
 ): "spellcasting" | "focus" | "maneuver" | "psionic" | "feature" {
-  if (feature.name === "Spellcasting") {
-    return "spellcasting";
+  const normalizedName = normalizeFeatureNameForKind(feature.name);
+
+  // EXPLICITLY EXCLUDE core spellcasting classes from this system
+  if (normalizedName === "spellcasting") {
+    return "feature";
   }
 
-  if (feature.name === "Monk’s Focus") {
+  if (
+    normalizedName === "monks focus" ||
+    normalizedName === "monk focus"
+  ) {
     return "focus";
   }
 
-  if (feature.name === "Combat Superiority") {
+  if (normalizedName === "combat superiority") {
     return "maneuver";
   }
 
-  if (feature.name === "Psionic Power") {
+  if (
+    normalizedName === "psionic power" ||
+    normalizedName === "psychic power"
+  ) {
     return "psionic";
   }
 
@@ -289,7 +307,12 @@ export function resolveClassDcAndAttack(
 
   const applicableFeatures = getApplicableClassFeatures(draft);
 
-  const attackBonuses = applicableFeatures.flatMap((feature) => {
+  const filteredFeatures = applicableFeatures.filter((feature) => {
+    const normalizedName = normalizeFeatureNameForKind(feature.name);
+    return normalizedName !== "spellcasting";
+  });
+
+  const attackBonuses = filteredFeatures.flatMap((feature) => {
     const resolvedAbility = resolveFeatureAbility(
       feature.attackBonusAbility,
       draft,
@@ -328,7 +351,7 @@ export function resolveClassDcAndAttack(
     ];
   });
 
-  const saveDcs = applicableFeatures.flatMap((feature) => {
+  const saveDcs = filteredFeatures.flatMap((feature) => {
     const resolvedAbility = resolveFeatureAbility(
       feature.saveDcAbility,
       draft,

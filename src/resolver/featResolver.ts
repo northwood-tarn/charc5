@@ -68,8 +68,23 @@ type DraftWithOptionalFeats = CharacterDraft & {
   featIds?: string[];
   selectedFeatIds?: string[];
   feats?: Array<string | { featId?: string; feat_id?: string; id?: string }>;
-  featSelections?: Record<string, string | null | undefined>;
+  featSelections?: Record<string, string | string[] | null | undefined>;
 };
+function getSelectedFeatIdFromSlotValue(value: unknown): string | null {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed.length > 0 ? trimmed : null;
+  }
+
+  if (Array.isArray(value)) {
+    const firstString = value.find(
+      (entry): entry is string => typeof entry === "string" && entry.trim().length > 0
+    );
+    return firstString?.trim() ?? null;
+  }
+
+  return null;
+}
 
 type DraftWithFeatureSelections = CharacterDraft & {
   featureSelections?: Record<string, string[] | undefined>;
@@ -336,6 +351,7 @@ function getAbilityChoiceOptions(options: string[] | undefined): ChoiceOption[] 
   }));
 }
 
+
 function getExistingSavingThrowProficiencies(draft: CharacterDraft): Set<string> {
   const classRecord = getClassById(draft.classId);
   const savingThrows = classRecord?.savingThrowProficiencies ?? [];
@@ -345,6 +361,188 @@ function getExistingSavingThrowProficiencies(draft: CharacterDraft): Set<string>
       .filter((entry) => entry.length > 0)
   );
 }
+
+function normalizeFeatureToken(value: string | undefined): string {
+  return (value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[_\s]+/g, "");
+}
+
+function getDraftFeatureRequirementSet(draft: CharacterDraft): Set<string> {
+  const features = new Set<string>();
+  const classRecord = getClassById(draft.classId);
+
+  const add = (value: string | undefined) => {
+    const normalized = normalizeFeatureToken(value);
+    if (!normalized) {
+      return;
+    }
+    features.add(normalized);
+  };
+
+  const armorProficiencies = classRecord?.armorProficiencies ?? [];
+  armorProficiencies.forEach((entry) => {
+    const normalized = normalizeFeatureToken(entry);
+
+    if (normalized === "light" || normalized === "lightarmor") {
+      add("light_armor_training");
+    }
+
+    if (normalized === "medium" || normalized === "mediumarmor") {
+      add("medium_armor_training");
+      add("light_armor_training");
+    }
+
+    if (normalized === "heavy" || normalized === "heavyarmor") {
+      add("heavy_armor_training");
+      add("medium_armor_training");
+      add("light_armor_training");
+    }
+
+    if (normalized === "shield" || normalized === "shields") {
+      add("shield_training");
+    }
+  });
+
+  if (classRecord?.spellcastingAbility) {
+    add("spellcasting_stub");
+    add("spellcasting");
+  }
+
+  const selectedEntries = extractSelectedFeatEntries(draft);
+  selectedEntries.forEach((entry) => {
+    const feat = getFeatDefinitionById(entry.featId);
+    if (!feat) {
+      return;
+    }
+
+    const effects = getFeatEffects(feat);
+    const armorTrainingGrants =
+      (effects.armorTrainingGrants ?? effects.armor_training_grants) as string[] | undefined;
+    const weaponTrainingGrants =
+      (effects.weaponTrainingGrants ?? effects.weapon_training_grants) as string[] | undefined;
+    const grantedSpellcasting =
+      effects.grantedSpellcasting ?? effects.granted_spellcasting;
+
+    (armorTrainingGrants ?? []).forEach((grant) => {
+      const normalized = normalizeFeatureToken(grant);
+
+      if (normalized === "lightarmor") {
+        add("light_armor_training");
+      }
+
+      if (normalized === "mediumarmor") {
+        add("medium_armor_training");
+        add("light_armor_training");
+      }
+
+      if (normalized === "heavyarmor") {
+        add("heavy_armor_training");
+        add("medium_armor_training");
+        add("light_armor_training");
+      }
+
+      if (normalized === "shield" || normalized === "shields") {
+        add("shield_training");
+      }
+    });
+
+    (weaponTrainingGrants ?? []).forEach((grant) => {
+      add(grant);
+    });
+
+    if (grantedSpellcasting) {
+      add("spellcasting_stub");
+      add("spellcasting");
+    }
+  });
+
+  return features;
+}
+
+function parseAbilityRequirement(value: string | undefined): {
+  abilities: string[];
+  minimum: number;
+} | null {
+  if (!value) {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  const [left, right] = trimmed.split(":");
+  const minimum = Number(right);
+
+  if (!left || !Number.isFinite(minimum)) {
+    return null;
+  }
+
+  const abilities = left
+    .split("|")
+    .map((entry) => normalizeAbilityChoiceId(entry))
+    .filter((entry) => entry.length > 0);
+
+  if (abilities.length === 0) {
+    return null;
+  }
+
+  return {
+    abilities,
+    minimum,
+  };
+}
+
+function getDraftAbilityScoreById(draft: CharacterDraft, abilityId: string): number | null {
+  const abilities = (draft.abilities ?? {}) as Record<string, number | null | undefined>;
+
+  const direct = abilities[abilityId];
+  if (typeof direct === "number") {
+    return direct;
+  }
+
+  const map: Record<string, keyof typeof abilities> = {
+    str: "strength",
+    dex: "dexterity",
+    con: "constitution",
+    int: "intelligence",
+    wis: "wisdom",
+    cha: "charisma",
+  } as const;
+
+  const mappedKey = map[abilityId];
+  const mapped = mappedKey ? abilities[mappedKey] : null;
+  return typeof mapped === "number" ? mapped : null;
+}
+
+function meetsFeatRequirements(feat: NormalizedFeat, draft: CharacterDraft): boolean {
+  const requirements = (feat.requirements ?? {}) as Record<string, unknown>;
+
+  const requiredFeature =
+    typeof requirements.feature === "string" ? requirements.feature : undefined;
+  if (requiredFeature) {
+    const featureSet = getDraftFeatureRequirementSet(draft);
+    if (!featureSet.has(normalizeFeatureToken(requiredFeature))) {
+      return false;
+    }
+  }
+
+  const abilityRequirement =
+    typeof requirements.ability === "string" ? requirements.ability : undefined;
+  const parsedAbilityRequirement = parseAbilityRequirement(abilityRequirement);
+  if (parsedAbilityRequirement) {
+    const qualifies = parsedAbilityRequirement.abilities.some((abilityId) => {
+      const score = getDraftAbilityScoreById(draft, abilityId);
+      return score !== null && score >= parsedAbilityRequirement.minimum;
+    });
+
+    if (!qualifies) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 
 function filterSavingThrowChoiceOptions(
   draft: CharacterDraft,
@@ -848,9 +1046,11 @@ function extractSelectedFeatEntries(draft: CharacterDraft): FeatSelectionEntry[]
   const entries: FeatSelectionEntry[] = [];
 
   for (const slot of slots) {
-    const selectedFeatId = typedDraft.featSelections?.[slot.slotId] ?? null;
+    const selectedFeatId = getSelectedFeatIdFromSlotValue(
+      typedDraft.featSelections?.[slot.slotId] ?? null
+    );
 
-    if (!selectedFeatId || typeof selectedFeatId !== "string") {
+    if (!selectedFeatId) {
       continue;
     }
 
@@ -872,6 +1072,354 @@ function extractSelectedFeatEntries(draft: CharacterDraft): FeatSelectionEntry[]
 
   return entries;
 }
+function getFeatSelectionAliasMatches(
+  draft: CharacterDraft,
+  feature: {
+    featureId: string;
+    sourceId: string;
+    choiceKind: string | null;
+  }
+): string[] {
+  const featureSelections = (draft as DraftWithFeatureSelections).featureSelections ?? {};
+  const sourceId = feature.sourceId.toLowerCase();
+
+  const aliasChecks: Array<(key: string) => boolean> = [];
+
+  if (feature.choiceKind === "ability_score_choice") {
+    aliasChecks.push((key) =>
+      key.startsWith(`${sourceId}__`) && key.includes("ability") && key.includes("choice")
+    );
+  }
+
+  if (feature.choiceKind === "skill_proficiency" || feature.choiceKind === "proficiency_choice") {
+    aliasChecks.push((key) =>
+      key.startsWith(`${sourceId}__`) && key.includes("skill") && key.includes("proficiency")
+    );
+  }
+
+  if (feature.choiceKind === "expertise_choice") {
+    aliasChecks.push((key) =>
+      key.startsWith(`${sourceId}__`) && key.includes("expertise")
+    );
+  }
+
+  if (feature.choiceKind === "spell_choice") {
+    aliasChecks.push((key) =>
+      key.startsWith(`${sourceId}__`) && key.includes("spell") && key.includes("choice")
+    );
+  }
+
+  if (feature.choiceKind === "feat_choice") {
+    aliasChecks.push((key) =>
+      key.startsWith(`${sourceId}__`) && key.includes("feat") && key.includes("choice")
+    );
+  }
+
+  for (const [draftKey, value] of Object.entries(featureSelections)) {
+    if (!Array.isArray(value) || value.length === 0) {
+      continue;
+    }
+
+    const normalizedKey = draftKey.toLowerCase();
+    if (aliasChecks.some((check) => check(normalizedKey))) {
+      return value;
+    }
+  }
+
+  return [];
+}
+
+function getResolvedFeatSelections(
+  draft: CharacterDraft,
+  feature: {
+    selectionKey: string | null;
+    featureId: string;
+    parentFeatureId: string | null;
+    sourceId: string;
+  }
+): string[] {
+  const featureSelections = (draft as DraftWithFeatureSelections).featureSelections ?? {};
+
+  const candidateKeys = Array.from(
+    new Set(
+      [
+        feature.selectionKey,
+        feature.featureId,
+        feature.parentFeatureId,
+        feature.sourceId,
+      ].filter((value): value is string => typeof value === "string" && value.length > 0)
+    )
+  );
+
+  for (const key of candidateKeys) {
+    const direct = featureSelections[key];
+    if (Array.isArray(direct) && direct.length > 0) {
+      return direct;
+    }
+  }
+
+  const normalizedCandidates = new Set(
+    candidateKeys.map((key) => key.toLowerCase().replace(/[^a-z0-9]+/g, ""))
+  );
+
+  for (const [draftKey, value] of Object.entries(featureSelections)) {
+    if (!Array.isArray(value) || value.length === 0) {
+      continue;
+    }
+
+    const normalizedDraftKey = draftKey.toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (normalizedCandidates.has(normalizedDraftKey)) {
+      return value;
+    }
+  }
+
+  return [];
+}
+
+function resolveSelectedFeatChoiceOptions(
+  choiceOptions: Array<{ id: string; label: string }>,
+  selections: string[]
+): Array<{ id: string; label: string }> {
+  if (choiceOptions.length === 0 || selections.length === 0) {
+    return [];
+  }
+
+  const selectionSet = new Set(selections);
+  return choiceOptions.filter((option) => selectionSet.has(option.id));
+}
+
+function mergeFeatEffectPayloads(
+  base: unknown,
+  additions: unknown[]
+): unknown {
+  const payloads = [base, ...additions].filter(
+    (value): value is Record<string, unknown> =>
+      !!value && typeof value === "object" && !Array.isArray(value)
+  );
+
+  if (payloads.length === 0) {
+    return base ?? null;
+  }
+
+  return payloads.reduce<Record<string, unknown>>((acc, payload) => {
+    return {
+      ...acc,
+      ...payload,
+    };
+  }, {});
+}
+
+function buildInferredFeatDerivedEffects(
+  choiceKind: string | null,
+  selections: string[]
+): Record<string, unknown> | null {
+  if (selections.length === 0) {
+    return null;
+  }
+
+  if (choiceKind === "skill_proficiency" || choiceKind === "proficiency_choice") {
+    return {
+      skillProficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "tool_proficiency") {
+    return {
+      toolProficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "expertise_choice") {
+    return {
+      skillExpertise: selections,
+    };
+  }
+
+  if (choiceKind === "saving_throw_proficiency") {
+    return {
+      savingThrowProficiencies: selections,
+    };
+  }
+
+  return null;
+}
+
+
+function buildInferredFeatEffects(
+  choiceKind: string | null,
+  selections: string[]
+): Record<string, unknown> | null {
+  if (selections.length === 0) {
+    return null;
+  }
+
+  if (choiceKind === "skill_proficiency" || choiceKind === "proficiency_choice") {
+    return {
+      skill_proficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "tool_proficiency") {
+    return {
+      tool_proficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "expertise_choice") {
+    return {
+      skill_expertise: selections,
+    };
+  }
+
+  if (choiceKind === "saving_throw_proficiency") {
+    return {
+      saving_throw_proficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "spell_choice") {
+    return {
+      selected_spells: selections,
+    };
+  }
+
+  if (choiceKind === "feat_choice") {
+    return {
+      selected_feats: selections,
+    };
+  }
+
+  return null;
+}
+
+function humanizeToken(value: string): string {
+  return value
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function inferFeatChoiceKindFromKey(key: string): string | null {
+  const normalized = key.toLowerCase();
+
+  if (normalized.includes("spell") && normalized.includes("choice")) {
+    return "spell_choice";
+  }
+
+  if (normalized.includes("expertise")) {
+    return "expertise_choice";
+  }
+
+  if (normalized.includes("skill") && normalized.includes("proficiency")) {
+    return "skill_proficiency";
+  }
+
+  if (normalized.includes("tool")) {
+    return "tool_proficiency";
+  }
+
+  if (normalized.includes("ability") && normalized.includes("choice")) {
+    return "ability_score_choice";
+  }
+
+  if (normalized.includes("feat") && normalized.includes("choice")) {
+    return "feat_choice";
+  }
+
+  return null;
+}
+
+function buildSyntheticFeatOutputsFromDraft(
+  draft: CharacterDraft
+): ResolvedCharacterSheet["features"] {
+  const typedDraft = draft as DraftWithOptionalFeats;
+  const featureSelections = (draft as DraftWithFeatureSelections).featureSelections ?? {};
+  const slotMap = new Map(resolveFeatSlots(draft).map((slot) => [slot.slotId, slot]));
+  const outputs: ResolvedCharacterSheet["features"] = [];
+  const seen = new Set<string>();
+
+  for (const [slotId, rawValue] of Object.entries(typedDraft.featSelections ?? {})) {
+    const featId = getSelectedFeatIdFromSlotValue(rawValue);
+    if (!featId) {
+      continue;
+    }
+
+    const feat = getFeatDefinitionById(featId);
+    const sourceName = feat?.name ?? humanizeToken(featId);
+    const slot = slotMap.get(slotId);
+    const levelGained = slot?.levelGained ?? draft.level ?? 1;
+    const baseFeatureId = `${slotId}__${featId}__base`;
+
+    if (!seen.has(baseFeatureId)) {
+      seen.add(baseFeatureId);
+      outputs.push({
+        featureId: baseFeatureId,
+        featureName: sourceName,
+        sourceType: "feat",
+        sourceId: featId,
+        sourceName,
+        levelGained,
+        description: feat?.notes ?? "",
+        derivedEffects: feat?.effects ?? null,
+        effects: feat?.effects ?? null,
+        selectionKey: slotId,
+        choiceKind: null,
+        choiceCount: null,
+        choicePool: null,
+        choiceOptions: [],
+        selections: [featId],
+        selectedOptions: [],
+        featureStack: null,
+        stackRole: null,
+        parentFeatureId: null,
+      } as ResolvedFeatureOutput);
+    }
+
+    for (const [selectionKey, selections] of Object.entries(featureSelections)) {
+      if (!Array.isArray(selections) || selections.length === 0) {
+        continue;
+      }
+
+      if (!selectionKey.toLowerCase().startsWith(`${featId.toLowerCase()}__`)) {
+        continue;
+      }
+
+      if (seen.has(selectionKey)) {
+        continue;
+      }
+
+      const choiceKind = inferFeatChoiceKindFromKey(selectionKey);
+      const inferredDerivedEffects = buildInferredFeatDerivedEffects(choiceKind, selections);
+      const inferredEffects = buildInferredFeatEffects(choiceKind, selections);
+
+      seen.add(selectionKey);
+      outputs.push({
+        featureId: selectionKey,
+        featureName: `${sourceName} — ${humanizeToken(selectionKey.replace(`${featId}__`, ""))}`,
+        sourceType: "feat",
+        sourceId: featId,
+        sourceName,
+        levelGained,
+        description: feat?.notes ?? "",
+        derivedEffects: inferredDerivedEffects,
+        effects: inferredEffects,
+        selectionKey,
+        choiceKind,
+        choiceCount: selections.length,
+        choicePool: null,
+        choiceOptions: [],
+        selections,
+        selectedOptions: [],
+        featureStack: null,
+        stackRole: null,
+        parentFeatureId: baseFeatureId,
+      } as ResolvedFeatureOutput);
+    }
+  }
+
+  return outputs;
+}
 
 export function getAvailableFeatsForSlot(
   draft: CharacterDraft,
@@ -883,7 +1431,9 @@ export function getAvailableFeatsForSlot(
     return [];
   }
 
-  return featDefinitions.filter((feat) => isFeatTypeAllowed(feat, slot));
+  return featDefinitions.filter(
+    (feat) => isFeatTypeAllowed(feat, slot) && meetsFeatRequirements(feat, draft)
+  );
 }
 
 export function getFeatDefinitions(): NormalizedFeat[] {
@@ -899,15 +1449,33 @@ function applyDraftSelectionsToFeatOutputs(
   draft: CharacterDraft,
   features: ResolvedCharacterSheet["features"]
 ): ResolvedCharacterSheet["features"] {
-  const featureSelections = (draft as DraftWithFeatureSelections).featureSelections ?? {};
-
   return features.map((feature) => {
-    const selectionKey = feature.selectionKey ?? feature.featureId;
-    const selections = selectionKey ? featureSelections[selectionKey] ?? [] : [];
+    const directSelections = getResolvedFeatSelections(draft, {
+      selectionKey: feature.selectionKey,
+      featureId: feature.featureId,
+      parentFeatureId: feature.parentFeatureId,
+      sourceId: feature.sourceId,
+    });
+
+    const selections =
+      directSelections.length > 0
+        ? directSelections
+        : getFeatSelectionAliasMatches(draft, {
+            featureId: feature.featureId,
+            sourceId: feature.sourceId,
+            choiceKind: feature.choiceKind,
+          });
+
+    const selectedOptions = resolveSelectedFeatChoiceOptions(feature.choiceOptions ?? [], selections);
+    const inferredDerivedEffects = buildInferredFeatDerivedEffects(feature.choiceKind, selections);
+    const inferredEffects = buildInferredFeatEffects(feature.choiceKind, selections);
 
     return {
       ...feature,
+      derivedEffects: mergeFeatEffectPayloads(feature.derivedEffects, [inferredDerivedEffects]),
+      effects: mergeFeatEffectPayloads(feature.effects, [inferredEffects]),
       selections,
+      selectedOptions,
     };
   }) as ResolvedCharacterSheet["features"];
 }
@@ -943,8 +1511,10 @@ export function resolveFeatOutputs(
   const level = draft.level ?? 1;
   const selectedEntries = extractSelectedFeatEntries(draft);
 
+  let resolved: ResolvedCharacterSheet["features"] = [];
+
   if (selectedEntries.length > 0) {
-    const resolved = selectedEntries.flatMap((entry) => {
+    resolved = selectedEntries.flatMap((entry) => {
       const feat = getFeatDefinitionById(entry.featId);
 
       if (!feat) {
@@ -954,8 +1524,17 @@ export function resolveFeatOutputs(
       return [buildBaseFeatOutput(feat, level, entry), ...buildFeatChoiceOutputs(feat, level, entry, draft)];
     }) as ResolvedCharacterSheet["features"];
 
-    return applyDraftSelectionsToFeatOutputs(draft, resolved);
+    resolved = applyDraftSelectionsToFeatOutputs(draft, resolved);
   }
 
-  return resolveFeatOutputsFromIds([], draft);
+  const synthetic = buildSyntheticFeatOutputsFromDraft(draft);
+  const merged = new Map<string, ResolvedFeatureOutput>();
+
+  [...resolved, ...synthetic].forEach((feature) => {
+    if (!merged.has(feature.featureId)) {
+      merged.set(feature.featureId, feature as ResolvedFeatureOutput);
+    }
+  });
+
+  return Array.from(merged.values()) as ResolvedCharacterSheet["features"];
 }

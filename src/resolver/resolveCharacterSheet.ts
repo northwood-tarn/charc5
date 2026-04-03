@@ -8,6 +8,7 @@ import type {
 import spellsCsv from "../data/csv/spells.csv?raw";
 
 import { getBackgrounds } from "../data/loaders/backgroundsLoader";
+import { getLineageById, getSpeciesById } from "../data/loaders/speciesLoader";
 import { lineages } from "../data/lineages";
 import { species } from "../data/species";
 import { getClasses } from "../data/loaders/classLoader";
@@ -15,12 +16,15 @@ import { getSubclasses } from "../data/loaders/subclassLoader";
 import { getClassFeatures } from "../data/loaders/classFeaturesLoader";
 import { resolveFeatureOutputs } from "./featureResolver";
 import { resolveFeatOutputs } from "./featResolver";
+import { resolveSpeciesFeatureOutputs } from "./speciesFeatureResolver";
 import {
   resolveAbilities,
   resolveInitiative,
   resolveProficiencyBonus,
 } from "./abilitiesResolver";
 import { resolveDurabilityOutputs } from "./durabilityResolver";
+import { resolveGearOutputs } from "./gearResolver";
+import { resolveResources } from "./resourceResolver";
 import {
   applyDerivedEffectsToProficiencies,
   applyDraftProficienciesToSheet,
@@ -160,16 +164,39 @@ function resolveSpellListOutputs(args: {
     effects: feature.effects ?? undefined,
   }));
 
-  const csvFeatureSpellSources = csvClassFeatures.map((feature) => ({
-    sourceType: "feature" as const,
-    sourceId: feature.sourceId,
-    sourceName: feature.name,
-    grantedSpellIds: feature.grantedSpellIds,
-    isAlwaysPrepared: true,
-    countsAgainstLimit: false,
-  }));
+  const csvFeatureSpellSources = csvClassFeatures.flatMap((feature) => {
+    const base = [
+      {
+        sourceType: "feature" as const,
+        sourceId: feature.sourceId,
+        sourceName: feature.name,
+        grantedSpellIds: feature.grantedSpellIds,
+        isAlwaysPrepared: true,
+        countsAgainstLimit: false,
+      },
+    ];
 
-  const jsonFeatureSpellSources = getJsonFeatureSpellGrantSources(mappedFeatures);
+    // Include subclass spell grants if present (paladin oaths, etc.)
+    if (Array.isArray((feature as any).subclassGrantedSpellIds)) {
+      base.push({
+        sourceType: "feature" as const,
+        sourceId: feature.sourceId,
+        sourceName: feature.name,
+        grantedSpellIds: (feature as any).subclassGrantedSpellIds,
+        isAlwaysPrepared: true,
+        countsAgainstLimit: false,
+      });
+    }
+
+    return base;
+  });
+
+  const jsonFeatureSpellSources = [
+    ...getJsonFeatureSpellGrantSources(mappedFeatures),
+    ...getJsonFeatureSpellGrantSources(
+      mappedFeatures.filter((f) => f.sourceType === "species")
+    ),
+  ];
   const selectedOptionSpellSources = getSelectedOptionSpellGrantSources(mappedFeatures);
 
   return {
@@ -186,12 +213,14 @@ function resolveSpellListOutputs(args: {
 }
 
 function pushUniqueString(target: string[], value: string) {
-  if (!value) {
-    return;
-  }
+  if (!value) return;
 
-  if (!target.includes(value)) {
-    target.push(value);
+  const normalized = value.trim().toLowerCase();
+  if (!normalized) return;
+
+  const exists = target.some((entry) => entry.trim().toLowerCase() === normalized);
+  if (!exists) {
+    target.push(normalized);
   }
 }
 
@@ -226,6 +255,40 @@ function applyClassProficienciesToSheet(sheet: ResolvedCharacterSheet, draft: Ch
 
   classRecord.toolProficiencies.forEach((entry) => {
     pushUniqueString(sheet.proficiencies.tools, entry);
+  });
+}
+
+function applyBackgroundProficienciesToSheet(
+  sheet: ResolvedCharacterSheet,
+  draft: CharacterDraft
+) {
+  const backgroundRecord = backgrounds.find((entry) => entry.id === draft.backgroundId) as
+    | {
+        skillProficiencies?: string[];
+        toolProficiencies?: string[];
+        languages?: string[];
+      }
+    | undefined;
+
+  if (!backgroundRecord) {
+    return;
+  }
+
+  (backgroundRecord.skillProficiencies ?? []).forEach((entry) => {
+    pushUniqueString(sheet.proficiencies.skills, entry);
+  });
+
+  (backgroundRecord.toolProficiencies ?? []).forEach((entry) => {
+    pushUniqueString(sheet.proficiencies.tools, entry);
+  });
+
+  (backgroundRecord.languages ?? []).forEach((entry) => {
+    const trimmed = entry.trim();
+    if (!trimmed || trimmed.toLowerCase() === "choice") {
+      return;
+    }
+
+    pushUniqueString(sheet.languages, trimmed);
   });
 }
 
@@ -271,6 +334,34 @@ function applyInitiativeToSheet(sheet: ResolvedCharacterSheet) {
   };
 }
 
+function applySpellcastingCombatValuesToSheet(sheet: ResolvedCharacterSheet) {
+  const spellcastingAbility = sheet.spellcasting.spellcastingAbility;
+  const abilityKey = normalizeAbilityKey(spellcastingAbility);
+
+  if (!abilityKey) {
+    return;
+  }
+
+  const abilityModifier = sheet.abilities[abilityKey]?.modifier;
+  const proficiencyBonus = sheet.combatBasics.proficiencyBonus.value;
+
+  if (abilityModifier === null || abilityModifier === undefined) {
+    return;
+  }
+
+  if (proficiencyBonus === null || proficiencyBonus === undefined) {
+    return;
+  }
+
+  if (sheet.spellcasting.spellSaveDc == null) {
+    sheet.spellcasting.spellSaveDc = 8 + proficiencyBonus + abilityModifier;
+  }
+
+  if (sheet.spellcasting.spellAttackBonus == null) {
+    sheet.spellcasting.spellAttackBonus = proficiencyBonus + abilityModifier;
+  }
+}
+
 function applyPrimarySpeedToSheet(sheet: ResolvedCharacterSheet) {
   const combatBasics = sheet.combatBasics as ResolvedCharacterSheet["combatBasics"] & {
     speed?: {
@@ -303,6 +394,318 @@ function applyPrimarySpeedToSheet(sheet: ResolvedCharacterSheet) {
       },
     ],
   };
+}
+
+
+function applySpeciesSpeedToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
+  const lineageRecord = getLineageById(draft.speciesId, draft.lineageId);
+  const speciesRecord = getSpeciesById(draft.speciesId);
+  const speed = lineageRecord?.speed ?? speciesRecord?.speed ?? null;
+
+  if (speed === null) {
+    return;
+  }
+
+  const existingWalkSpeed = sheet.combatBasics.speeds.find((entry) => entry.type === "walk");
+
+  if (existingWalkSpeed) {
+    existingWalkSpeed.value = speed;
+    existingWalkSpeed.source = draft.lineageId ?? draft.speciesId ?? "species";
+    return;
+  }
+
+  sheet.combatBasics.speeds.push({
+    type: "walk",
+    value: speed,
+    source: draft.lineageId ?? draft.speciesId ?? "species",
+  });
+}
+
+function applySpeciesResistancesToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
+  const lineageRecord = getLineageById(draft.speciesId, draft.lineageId);
+  const speciesRecord = getSpeciesById(draft.speciesId);
+  const resistances = lineageRecord?.resistances ?? speciesRecord?.resistances ?? [];
+
+  resistances.forEach((resistance) => {
+    pushUniqueString(sheet.durability.defenses.resistances, resistance);
+  });
+}
+
+function applySpeciesLanguagesToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
+  const lineageRecord = getLineageById(draft.speciesId, draft.lineageId);
+  const speciesRecord = getSpeciesById(draft.speciesId);
+
+  const languageEntries = [
+    ...(lineageRecord?.languages ?? []),
+    ...(speciesRecord?.languages ?? []),
+  ];
+
+  languageEntries.forEach((language) => {
+    const trimmed = language.trim();
+    if (!trimmed || trimmed.toLowerCase() === "choice") {
+      return;
+    }
+
+    pushUniqueString(sheet.languages, trimmed);
+  });
+}
+
+function normalizeGearProficiencyToken(value: string): string {
+  return value.trim().toLowerCase().replace(/[_\s]+/g, "");
+}
+
+function hasArmorCategoryProficiency(
+  proficiencies: string[],
+  category: string
+): boolean {
+  const normalizedCategory = normalizeGearProficiencyToken(category);
+  const normalizedProficiencies = new Set(
+    proficiencies.map((entry) => normalizeGearProficiencyToken(entry))
+  );
+
+  if (normalizedCategory === "shield") {
+    return (
+      normalizedProficiencies.has("shield") ||
+      normalizedProficiencies.has("shields") ||
+      normalizedProficiencies.has("shieldtraining")
+    );
+  }
+
+  if (normalizedCategory === "light") {
+    return (
+      normalizedProficiencies.has("light") ||
+      normalizedProficiencies.has("lightarmor") ||
+      normalizedProficiencies.has("lightarmortraining")
+    );
+  }
+
+  if (normalizedCategory === "medium") {
+    return (
+      normalizedProficiencies.has("medium") ||
+      normalizedProficiencies.has("mediumarmor") ||
+      normalizedProficiencies.has("mediumarmortraining")
+    );
+  }
+
+  if (normalizedCategory === "heavy") {
+    return (
+      normalizedProficiencies.has("heavy") ||
+      normalizedProficiencies.has("heavyarmor") ||
+      normalizedProficiencies.has("heavyarmortraining")
+    );
+  }
+
+  return normalizedProficiencies.has(normalizedCategory);
+}
+
+function getUnarmoredArmorClassState(sheet: ResolvedCharacterSheet): {
+  value: number;
+  derivation: Array<{ label: string; value: number; source: string }>;
+} {
+  const dexModifier = sheet.abilities.dex.modifier ?? 0;
+  const classId = sheet.identity.classId ?? null;
+
+  if (classId === "barbarian") {
+    const conModifier = sheet.abilities.con.modifier ?? 0;
+    return {
+      value: 10 + dexModifier + conModifier,
+      derivation: [
+        {
+          label: "Base AC",
+          value: 10,
+          source: "unarmored",
+        },
+        {
+          label: "Dexterity modifier",
+          value: dexModifier,
+          source: "dex",
+        },
+        {
+          label: "Constitution modifier",
+          value: conModifier,
+          source: "barbarian_unarmored_defense",
+        },
+      ],
+    };
+  }
+
+  if (classId === "monk") {
+    const wisModifier = sheet.abilities.wis.modifier ?? 0;
+    return {
+      value: 10 + dexModifier + wisModifier,
+      derivation: [
+        {
+          label: "Base AC",
+          value: 10,
+          source: "unarmored",
+        },
+        {
+          label: "Dexterity modifier",
+          value: dexModifier,
+          source: "dex",
+        },
+        {
+          label: "Wisdom modifier",
+          value: wisModifier,
+          source: "monk_unarmored_defense",
+        },
+      ],
+    };
+  }
+
+  return {
+    value: 10 + dexModifier,
+    derivation: [
+      {
+        label: "Base AC",
+        value: 10,
+        source: "unarmored",
+      },
+      {
+        label: "Dexterity modifier",
+        value: dexModifier,
+        source: "dex",
+      },
+    ],
+  };
+}
+
+function applyGearToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
+  const gear = resolveGearOutputs(draft);
+
+  const equipmentItems: Array<Record<string, unknown>> = [];
+
+  gear.weapons.forEach((weapon) => {
+    equipmentItems.push({
+      type: "weapon",
+      id: weapon.id,
+      name: weapon.name,
+      category: weapon.category,
+      weaponType: weapon.weaponType,
+      damageDice: weapon.damageDice,
+      damageType: weapon.damageType,
+      masteryTrait: weapon.masteryTrait,
+      masteryDetails: weapon.masteryDetails,
+    });
+  });
+
+  if (gear.armor) {
+    equipmentItems.push({
+      type: "armor",
+      id: gear.armor.id,
+      name: gear.armor.name,
+      category: gear.armor.category,
+      baseAc: gear.armor.baseAc,
+      dexBonusType: gear.armor.dexBonusType,
+      dexCap: gear.armor.dexCap,
+      strengthRequirement: gear.armor.strengthRequirement,
+      stealthDisadvantage: gear.armor.stealthDisadvantage,
+    });
+  }
+
+  if (gear.shield) {
+    equipmentItems.push({
+      type: "shield",
+      id: gear.shield.id,
+      name: gear.shield.name,
+      acBonus: gear.shield.acBonus,
+    });
+  }
+
+  sheet.equipment.items = equipmentItems as ResolvedCharacterSheet["equipment"]["items"];
+
+  const armor = gear.armor;
+  const shield = gear.shield;
+
+  const armorProficiencies = sheet.proficiencies.armor ?? [];
+  const canUseArmor = !!armor;
+  const canUseShield = shield
+    ? hasArmorCategoryProficiency(armorProficiencies, "shield")
+    : false;
+
+  const unarmoredState = getUnarmoredArmorClassState(sheet);
+  let armorClassValue = unarmoredState.value;
+  const derivation: Array<{ label: string; value: number; source: string }> = [
+    ...unarmoredState.derivation,
+  ];
+
+  if (armor && canUseArmor) {
+    let armorDexBonus = 0;
+
+    if (armor.dexBonusType === "full") {
+      armorDexBonus = sheet.abilities.dex.modifier ?? 0;
+    } else if (armor.dexBonusType === "capped") {
+      armorDexBonus = Math.min(sheet.abilities.dex.modifier ?? 0, armor.dexCap ?? 0);
+    }
+
+    armorClassValue = (armor.baseAc ?? 10) + armorDexBonus;
+    derivation.splice(0, derivation.length,
+      {
+        label: `${armor.name} base AC`,
+        value: armor.baseAc ?? 10,
+        source: armor.id,
+      },
+      ...(armorDexBonus !== 0
+        ? [
+            {
+              label: "Dexterity modifier",
+              value: armorDexBonus,
+              source: "dex",
+            },
+          ]
+        : [])
+    );
+  }
+
+  if (shield && canUseShield) {
+    armorClassValue += shield.acBonus;
+    derivation.push({
+      label: `${shield.name} AC bonus`,
+      value: shield.acBonus,
+      source: shield.id,
+    });
+  }
+
+  sheet.combatBasics.armorClass = {
+    value: armorClassValue,
+    derivation,
+  };
+}
+
+function getWeaponAttackAbilityKey(
+  weaponType: string | null | undefined
+): keyof ResolvedCharacterSheet["abilities"] {
+  return weaponType === "ranged" ? "dex" : "str";
+}
+
+function applyWeaponAttacksToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
+  const gear = resolveGearOutputs(draft);
+  const proficiencyBonus = sheet.combatBasics.proficiencyBonus.value ?? 0;
+
+  const entries = gear.weapons.map((weapon) => {
+    const abilityKey = getWeaponAttackAbilityKey(weapon.weaponType);
+    const abilityModifier = sheet.abilities[abilityKey]?.modifier ?? 0;
+    const attackBonus = proficiencyBonus + abilityModifier;
+    const damageBonus = abilityModifier;
+    const damageBonusText = damageBonus === 0
+      ? ""
+      : damageBonus > 0
+        ? ` + ${damageBonus}`
+        : ` - ${Math.abs(damageBonus)}`;
+
+    return {
+      id: weapon.id,
+      name: weapon.name,
+      attackBonus,
+      damage: `${weapon.damageDice}${damageBonusText} ${weapon.damageType}`,
+      damageDice: weapon.damageDice,
+      damageType: weapon.damageType,
+      ability: abilityKey,
+      source: weapon.id,
+    };
+  });
+
+  sheet.attacks.entries = entries as ResolvedCharacterSheet["attacks"]["entries"];
 }
 
 function applySkillAdjustment(args: {
@@ -537,20 +940,25 @@ function applyAbilityScoreFeatAdjustments(sheet: ResolvedCharacterSheet) {
 
     const ability = sheet.abilities[abilityKey];
     const currentScore = ability.score ?? 0;
-    const nextScore = currentScore + bonus;
+    const uncappedNextScore = currentScore + bonus;
+    const nextScore = Math.min(uncappedNextScore, 20);
+    const appliedBonus = nextScore - currentScore;
     const nextModifier = Math.floor((nextScore - 10) / 2);
     const modifierDelta = nextModifier - (ability.modifier ?? 0);
 
     ability.score = nextScore;
     ability.modifier = nextModifier;
-    ability.scoreDerivation = [
-      ...(ability.scoreDerivation ?? []),
-      {
-        label: "Feat ability increase",
-        value: bonus,
-        source: (sources[abilityKey] ?? []).join(", "),
-      },
-    ];
+
+    if (appliedBonus > 0) {
+      ability.scoreDerivation = [
+        ...(ability.scoreDerivation ?? []),
+        {
+          label: "Feat ability increase",
+          value: appliedBonus,
+          source: (sources[abilityKey] ?? []).join(", "),
+        },
+      ];
+    }
 
     if (modifierDelta !== 0) {
       ability.modifierDerivation = [
@@ -611,6 +1019,56 @@ function normalizeAbilityKey(
   };
 
   return value ? abilityMap[value] ?? null : null;
+}
+
+function applyNonFeatHitPointBonusesToSheet(sheet: ResolvedCharacterSheet) {
+  const features = sheet.features as Array<{
+    sourceType: string;
+    sourceName: string;
+    effects?: Record<string, unknown> | null;
+    derivedEffects?: Record<string, unknown> | null;
+  }>;
+
+  const nonFeatFeatures = features.filter((feature) => feature.sourceType !== "feat");
+
+  nonFeatFeatures.forEach((feature) => {
+    const mergedEffects = {
+      ...((feature.derivedEffects ?? {}) as Record<string, unknown>),
+      ...((feature.effects ?? {}) as Record<string, unknown>),
+    };
+
+    const hitPointBonus =
+      (mergedEffects.hitPointBonus as { perLevel?: number } | undefined) ??
+      (mergedEffects.hit_point_bonus as { per_level?: number } | undefined);
+
+    const hitPointBonusPerLevel =
+      typeof hitPointBonus?.perLevel === "number"
+        ? hitPointBonus.perLevel
+        : typeof (hitPointBonus as { per_level?: number } | undefined)?.per_level === "number"
+          ? (hitPointBonus as { per_level?: number }).per_level
+          : undefined;
+
+    if (typeof hitPointBonusPerLevel !== "number" || hitPointBonusPerLevel <= 0) {
+      return;
+    }
+
+    const level = sheet.identity.level ?? 0;
+    const bonus = level * hitPointBonusPerLevel;
+
+    if (bonus <= 0) {
+      return;
+    }
+
+    sheet.durability.hpMax.value = (sheet.durability.hpMax.value ?? 0) + bonus;
+    sheet.durability.hpMax.derivation = [
+      ...sheet.durability.hpMax.derivation,
+      {
+        label: "Feature hit point bonus",
+        value: bonus,
+        source: feature.sourceName,
+      },
+    ];
+  });
 }
 
 function applyFeatEffectPayloads(sheet: ResolvedCharacterSheet) {
@@ -786,7 +1244,7 @@ function applyFeatEffectPayloads(sheet: ResolvedCharacterSheet) {
   });
 }
 
-function applyFeatCarryoverToSheet(sheet: ResolvedCharacterSheet) {
+function applyFeatCarryoverToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
   const features = sheet.features as Array<{
     featureId: string;
     sourceType: string;
@@ -799,6 +1257,61 @@ function applyFeatCarryoverToSheet(sheet: ResolvedCharacterSheet) {
   }>;
 
   const featFeatures = features.filter((feature) => feature.sourceType === "feat");
+
+  // --- Fallback using draft.featureSelections ---
+  const fallbackSpellEntries: any[] = [];
+  const fallbackSkillProficiencies: string[] = [];
+  const fallbackExpertise: string[] = [];
+
+  Object.entries(draft.featureSelections ?? {}).forEach(([key, selections]) => {
+    if (!Array.isArray(selections)) return;
+
+    if (key.includes("spell_choice")) {
+      selections.forEach((spellId: string) => {
+        fallbackSpellEntries.push({
+          spellId,
+          spellName: spellNameById[spellId] ?? spellId,
+          sourceType: "feat",
+          sourceId: key,
+          sourceName: "feat",
+          isAlwaysPrepared: true,
+          countsAgainstLimit: false,
+        });
+      });
+    }
+
+    if (key.includes("skill_proficiency")) {
+      fallbackSkillProficiencies.push(...selections);
+    }
+
+    if (key.includes("expertise_choice")) {
+      fallbackExpertise.push(...selections);
+    }
+  });
+
+  if (fallbackSpellEntries.length > 0) {
+    appendUniqueSpellEntries(sheet.spellcasting.knownSpells as unknown[], fallbackSpellEntries);
+    appendUniqueSpellEntries(sheet.spellcasting.preparedSpells as unknown[], fallbackSpellEntries);
+  }
+
+  fallbackSkillProficiencies.forEach((skillId) => {
+    applySkillAdjustment({
+      sheet,
+      skillId,
+      targetProficiency: "proficient",
+      sourceName: "feat",
+    });
+  });
+
+  fallbackExpertise.forEach((skillId) => {
+    applySkillAdjustment({
+      sheet,
+      skillId,
+      targetProficiency: "expertise",
+      sourceName: "feat",
+    });
+  });
+  // --- End fallback ---
 
   featFeatures.forEach((feature) => {
     const selections = Array.isArray(feature.selections) ? feature.selections : [];
@@ -1008,13 +1521,16 @@ export function resolveCharacterSheet(
 
   sheet.durability = resolveDurabilityOutputs(draft, sheet.abilities);
 
-  const classAndSpeciesFeatures = resolveFeatureOutputs(draft);
+  const classFeatures = resolveFeatureOutputs(draft);
+  const speciesFeatures = resolveSpeciesFeatureOutputs(draft);
   const featFeatures = resolveFeatOutputs(draft);
-  sheet.features = [...classAndSpeciesFeatures, ...featFeatures];
+  sheet.features = [...classFeatures, ...speciesFeatures, ...featFeatures];
+  sheet.resources = resolveResources(draft);
 
   applyDerivedEffectsToProficiencies(sheet);
   applyDraftProficienciesToSheet(sheet, draft);
   applyClassProficienciesToSheet(sheet, draft);
+  applyBackgroundProficienciesToSheet(sheet, draft);
 
   sheet.savingThrows = resolveSavingThrows(
     draft,
@@ -1063,6 +1579,54 @@ export function resolveCharacterSheet(
   sheet.spellcasting.knownSpells = spellListOutputs.knownSpells;
   sheet.spellcasting.preparedSpells = spellListOutputs.preparedSpells;
 
+  const guaranteedCsvPreparedSpellEntries = csvClassFeatures.flatMap((feature) => {
+    const spellIds = [
+      ...(feature.grantedSpellIds ?? []),
+      ...(((feature as unknown as { subclassGrantedSpellIds?: string[] }).subclassGrantedSpellIds) ?? []),
+    ];
+
+    return spellIds.map((spellId) => ({
+      spellId,
+      spellName: spellNameById[spellId] ?? spellId,
+      sourceType: "feature" as const,
+      sourceId: feature.sourceId,
+      sourceName: feature.name,
+      isAlwaysPrepared: true,
+      countsAgainstLimit: false,
+    }));
+  });
+
+  appendUniqueSpellEntries(
+    sheet.spellcasting.preparedSpells as unknown[],
+    guaranteedCsvPreparedSpellEntries
+  );
+
+  const guaranteedSpeciesSpellEntries = sheet.features
+    .filter((feature) => feature.sourceType === "species")
+    .flatMap((feature) => {
+      const mergedEffects = {
+        ...((feature.derivedEffects ?? {}) as Record<string, unknown>),
+        ...((feature.effects ?? {}) as Record<string, unknown>),
+      };
+
+      const grantedSpellIds = normalizeStringArray(mergedEffects.granted_spell_ids);
+
+      return grantedSpellIds.map((spellId) => ({
+        spellId,
+        spellName: spellNameById[spellId] ?? spellId,
+        sourceType: "feature" as const,
+        sourceId: feature.sourceId,
+        sourceName: feature.featureName,
+        isAlwaysPrepared: true,
+        countsAgainstLimit: false,
+      }));
+    });
+
+  appendUniqueSpellEntries(
+    sheet.spellcasting.knownSpells as unknown[],
+    guaranteedSpeciesSpellEntries
+  );
+
   Object.assign(sheet.spellcasting, {
     selectionState: resolveSpellSelectionState({
       draft,
@@ -1071,8 +1635,15 @@ export function resolveCharacterSheet(
   });
 
   applyAbilityScoreFeatAdjustments(sheet);
-  applyFeatCarryoverToSheet(sheet);
+  applyFeatCarryoverToSheet(sheet, draft);
+  applySpeciesSpeedToSheet(sheet, draft);
+  applySpeciesResistancesToSheet(sheet, draft);
+  applySpeciesLanguagesToSheet(sheet, draft);
+  applyNonFeatHitPointBonusesToSheet(sheet);
   applyFeatEffectPayloads(sheet);
+  applySpellcastingCombatValuesToSheet(sheet);
+  applyGearToSheet(sheet, draft);
+  applyWeaponAttacksToSheet(sheet, draft);
   applyInitiativeToSheet(sheet);
   applyPassivePerceptionToSheet(sheet);
   applyPrimarySpeedToSheet(sheet);

@@ -137,6 +137,16 @@ function getDraftToolProficiencies(draft: CharacterDraft): string[] {
   return asStringArray(maybeDraft.toolProficiencies).map((value) => value.trim()).filter(Boolean);
 }
 
+function getDraftLanguageSelections(draft: CharacterDraft): string[] {
+  const maybeDraft = draft as CharacterDraft & {
+    languageSelections?: string[];
+  };
+
+  return asStringArray(maybeDraft.languageSelections)
+    .map((value) => value.trim())
+    .filter((value) => value.length > 0 && value.toLowerCase() !== "choice");
+}
+
 export function applyDraftProficienciesToSheet(
   sheet: ResolvedCharacterSheet,
   draft: CharacterDraft
@@ -150,56 +160,119 @@ export function applyDraftProficienciesToSheet(
     sheet.proficiencies.tools,
     getDraftToolProficiencies(draft)
   );
+
+  sheet.languages = mergeUniqueStrings(
+    sheet.languages,
+    getDraftLanguageSelections(draft)
+  );
 }
 
 export function applyDerivedEffectsToProficiencies(
   sheet: ResolvedCharacterSheet
 ): void {
+  function extractArray(payload: unknown, key: string): string[] {
+    if (!payload || typeof payload !== "object") return [];
+
+    const record = payload as Record<string, unknown>;
+
+    // support both flattened payloads and .values shape
+    const direct = record[key];
+    if (Array.isArray(direct)) return asStringArray(direct);
+
+    const values = record["values"];
+    if (values && typeof values === "object") {
+      const nested = (values as Record<string, unknown>)[key];
+      if (Array.isArray(nested)) return asStringArray(nested);
+    }
+
+    return [];
+  }
+
   for (const feature of sheet.features) {
-    const featureDerivedValues = feature.derivedEffects?.values ?? {};
+    const sources = [feature.derivedEffects, feature.effects];
 
-    sheet.proficiencies.armor = mergeUniqueStrings(
-      sheet.proficiencies.armor,
-      asStringArray(featureDerivedValues["armor_proficiencies"])
-    );
-
-    sheet.proficiencies.weapons = mergeUniqueStrings(
-      sheet.proficiencies.weapons,
-      asStringArray(featureDerivedValues["weapon_proficiencies"])
-    );
-
-    sheet.proficiencies.tools = mergeUniqueStrings(
-      sheet.proficiencies.tools,
-      asStringArray(featureDerivedValues["tool_proficiencies"])
-    );
-
-    sheet.proficiencies.skills = mergeUniqueStrings(
-      sheet.proficiencies.skills,
-      asStringArray(featureDerivedValues["skill_proficiencies"])
-    );
-
-    for (const option of feature.selectedOptions ?? []) {
-      const optionDerivedEffects = option.derivedEffects?.values ?? {};
-
+    for (const source of sources) {
       sheet.proficiencies.armor = mergeUniqueStrings(
         sheet.proficiencies.armor,
-        asStringArray(optionDerivedEffects["armor_proficiencies"])
+        extractArray(source, "armor_proficiencies")
       );
 
       sheet.proficiencies.weapons = mergeUniqueStrings(
         sheet.proficiencies.weapons,
-        asStringArray(optionDerivedEffects["weapon_proficiencies"])
+        extractArray(source, "weapon_proficiencies")
       );
 
       sheet.proficiencies.tools = mergeUniqueStrings(
         sheet.proficiencies.tools,
-        asStringArray(optionDerivedEffects["tool_proficiencies"])
+        extractArray(source, "tool_proficiencies")
       );
 
       sheet.proficiencies.skills = mergeUniqueStrings(
         sheet.proficiencies.skills,
-        asStringArray(optionDerivedEffects["skill_proficiencies"])
+        extractArray(source, "skill_proficiencies")
       );
+
+      // handle expertise as well
+      const expertise = extractArray(source, "skill_expertise");
+      if (expertise.length > 0) {
+        sheet.proficiencies.skills = mergeUniqueStrings(
+          sheet.proficiencies.skills,
+          expertise
+        );
+
+        // mark expertise separately if your system supports it later
+        (sheet as any)._expertise = mergeUniqueStrings(
+          (sheet as any)._expertise ?? [],
+          expertise
+        );
+        (sheet.proficiencies as any)._expertise = mergeUniqueStrings(
+          (sheet.proficiencies as any)._expertise ?? [],
+          expertise
+        );
+      }
+    }
+
+    for (const option of feature.selectedOptions ?? []) {
+      const optionSources = [option.derivedEffects, option.effects];
+
+      for (const source of optionSources) {
+        sheet.proficiencies.armor = mergeUniqueStrings(
+          sheet.proficiencies.armor,
+          extractArray(source, "armor_proficiencies")
+        );
+
+        sheet.proficiencies.weapons = mergeUniqueStrings(
+          sheet.proficiencies.weapons,
+          extractArray(source, "weapon_proficiencies")
+        );
+
+        sheet.proficiencies.tools = mergeUniqueStrings(
+          sheet.proficiencies.tools,
+          extractArray(source, "tool_proficiencies")
+        );
+
+        sheet.proficiencies.skills = mergeUniqueStrings(
+          sheet.proficiencies.skills,
+          extractArray(source, "skill_proficiencies")
+        );
+
+        const expertise = extractArray(source, "skill_expertise");
+        if (expertise.length > 0) {
+          sheet.proficiencies.skills = mergeUniqueStrings(
+            sheet.proficiencies.skills,
+            expertise
+          );
+
+          (sheet as any)._expertise = mergeUniqueStrings(
+            (sheet as any)._expertise ?? [],
+            expertise
+          );
+          (sheet.proficiencies as any)._expertise = mergeUniqueStrings(
+            (sheet.proficiencies as any)._expertise ?? [],
+            expertise
+          );
+        }
+      }
     }
   }
 }
@@ -266,22 +339,38 @@ export function resolveSkills(
     ...classDefaultSkillIds,
     ...draftSkillIds,
   ]);
+  const expertiseSkills = new Set(
+    ((proficiencies as any)._expertise ?? []).map((s: string) =>
+      normalizeLookupKey(s)
+    )
+  );
 
   return Object.fromEntries(
     skillRows.map((skill) => {
       const skillId = skill.skill_id;
       const abilityId = toAbilityId(skill.ability_id) ?? "int";
       const abilityModifier = abilities[abilityId]?.modifier ?? null;
+      const normalizedSkillId = normalizeLookupKey(skillId);
       const isProficient = proficientSkills.has(skillId);
-      const proficiencyModifier =
-        isProficient && proficiencyBonus !== null ? proficiencyBonus : 0;
+      const isExpertise = expertiseSkills.has(normalizedSkillId);
+
+      let proficiencyModifier = 0;
+      let proficiencyLevel: "none" | "proficient" | "expertise" = "none";
+
+      if (isExpertise && proficiencyBonus !== null) {
+        proficiencyModifier = 2 * proficiencyBonus;
+        proficiencyLevel = "expertise";
+      } else if (isProficient && proficiencyBonus !== null) {
+        proficiencyModifier = proficiencyBonus;
+        proficiencyLevel = "proficient";
+      }
 
       return [
         skillId,
         {
           skill: skillId,
           ability: abilityId,
-          proficiency: isProficient ? "proficient" : "none",
+          proficiency: proficiencyLevel,
           totalModifier:
             abilityModifier === null
               ? null
@@ -295,7 +384,7 @@ export function resolveSkills(
                     value: abilityModifier,
                     source: abilityId,
                   },
-                  ...(isProficient && proficiencyBonus !== null
+                  ...(proficiencyLevel !== "none" && proficiencyBonus !== null
                     ? [
                         {
                           label: "Proficiency bonus",

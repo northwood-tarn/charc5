@@ -17,22 +17,28 @@ export interface CharacterDraft {
   lineageId: string | null;
   backgroundId: string | null;
 
-  // abilities
+  // core scores
   abilities: AbilityScoresDraft;
 
   // feature selections (all choice systems)
   featureSelections: Record<string, string[]>;
 
-  // skill proficiencies (future expansion)
+  // feat slot selections
+  featSelections: Record<string, string | null>;
+
+  // proficiencies and related picks
   skillProficiencies: string[];
-
-  // tool proficiencies (future expansion)
   toolProficiencies: string[];
+  languageSelections: string[];
 
-  // equipment placeholders
+  // gear selections
+  weaponIds: string[];
+  armorId: string | null;
+  hasShield: boolean;
   equipment: string[];
 
-  // spells (future expansion)
+  // spells and spell-adjacent selections
   knownSpells: string[];
   preparedSpells: string[];
+  spellSelections: Record<string, string[]>;
 }

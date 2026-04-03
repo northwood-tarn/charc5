@@ -10,6 +10,9 @@ stonecunning,dwarf,base,Stonecunning,1,none,Bonus Action: gain Truesense 60 ft f
 keen_senses,elf,base,Keen Senses,1,skill_choice,"Gain proficiency in Insight, Perception, or Survival (your choice).",
 fey_ancestry,elf,base,Fey Ancestry,1,none,Advantage on saving throws to avoid or end the Charmed condition.,
 trance,elf,base,Trance,1,none,You do not need sleep and complete a Long Rest in 4 hours.,
+high_elf_magic_1,elf,high,High Elf Magic,1,none,You know Prestidigitation.,prestidigitation
+high_elf_magic_3,elf,high,High Elf Magic,3,none,You can cast Detect Magic once per Long Rest.,detect_magic
+high_elf_magic_5,elf,high,High Elf Magic,5,none,You can cast Misty Step once per Long Rest.,misty_step
 gnomish_cunning,gnome,base,Gnomish Cunning,1,none,"Advantage on Intelligence, Wisdom, and Charisma saving throws.",
 forest_gnome_magic_1,gnome,forest,Forest Gnome Magic,1,none,You know Minor Illusion.,minor_illusion
 forest_gnome_magic_3,gnome,forest,Forest Gnome Magic,3,none,You can cast Disguise Self once per Long Rest.,disguise_self

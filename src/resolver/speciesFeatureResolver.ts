@@ -88,8 +88,16 @@ function buildBaseSpeciesFeature(row: SpeciesFeatureCsvRow): ResolvedFeatureOutp
           }
         : null,
     effects:
-      row.build_effect === "hp_bonus_per_level"
-        ? { hit_point_bonus: { per_level: 1 } }
+      row.build_effect === "hp_bonus_per_level" ||
+      (row.grants_spell_id && row.grants_spell_id.trim().length > 0)
+        ? {
+            ...(row.build_effect === "hp_bonus_per_level"
+              ? { hit_point_bonus: { per_level: 1 } }
+              : {}),
+            ...(row.grants_spell_id && row.grants_spell_id.trim().length > 0
+              ? { granted_spell_ids: [row.grants_spell_id.trim()] }
+              : {}),
+          }
         : null,
     selectionKey: row.feature_id,
     choiceKind: null,
@@ -183,19 +191,91 @@ function buildChoiceSpeciesFeature(row: SpeciesFeatureCsvRow): ResolvedFeatureOu
   return [buildBaseSpeciesFeature(row)];
 }
 
+function getResolvedSpeciesFeatureSelections(
+  draft: CharacterDraft,
+  feature: {
+    selectionKey: string | null;
+    featureId: string;
+    parentFeatureId: string | null;
+  }
+): string[] {
+  const featureSelections = (draft as DraftWithFeatureSelections).featureSelections ?? {};
+
+  const candidateKeys = Array.from(
+    new Set(
+      [
+        feature.selectionKey,
+        feature.featureId,
+        feature.parentFeatureId,
+      ].filter((value): value is string => typeof value === "string" && value.length > 0)
+    )
+  );
+
+  for (const key of candidateKeys) {
+    const direct = featureSelections[key];
+    if (Array.isArray(direct) && direct.length > 0) {
+      return direct;
+    }
+  }
+
+  const normalizedCandidates = new Set(
+    candidateKeys.map((key) => key.toLowerCase().replace(/[^a-z0-9]+/g, ""))
+  );
+
+  for (const [draftKey, value] of Object.entries(featureSelections)) {
+    if (!Array.isArray(value) || value.length === 0) {
+      continue;
+    }
+
+    const normalizedDraftKey = draftKey.toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (normalizedCandidates.has(normalizedDraftKey)) {
+      return value;
+    }
+  }
+
+  return [];
+}
+
 function applyDraftSelections(
   draft: CharacterDraft,
   features: ResolvedCharacterSheet["features"]
 ): ResolvedCharacterSheet["features"] {
-  const featureSelections = (draft as DraftWithFeatureSelections).featureSelections ?? {};
-
   return features.map((feature) => {
-    const selectionKey = (feature.selectionKey ?? feature.featureId) as string;
-    return {
-      ...feature,
-      selections: featureSelections[selectionKey] ?? feature.selections ?? [],
-    };
-  }) as ResolvedCharacterSheet["features"];
+    const selections = getResolvedSpeciesFeatureSelections(draft, {
+  selectionKey: feature.selectionKey,
+  featureId: feature.featureId,
+  parentFeatureId: feature.parentFeatureId,
+});
+
+const inferredDerived =
+  feature.choiceKind === "skill_proficiency"
+    ? { skillProficiencies: selections }
+    : feature.choiceKind === "tool_proficiency"
+    ? { toolProficiencies: selections }
+    : feature.choiceKind === "expertise"
+    ? { skillExpertise: selections }
+    : null;
+
+const inferredEffects =
+  feature.choiceKind === "skill_proficiency"
+    ? { skill_proficiencies: selections }
+    : feature.choiceKind === "tool_proficiency"
+    ? { tool_proficiencies: selections }
+    : feature.choiceKind === "expertise"
+    ? { skill_expertise: selections }
+    : null;
+
+return {
+  ...feature,
+  selections,
+  derivedEffects: inferredDerived
+    ? { ...(feature.derivedEffects ?? {}), ...inferredDerived }
+    : feature.derivedEffects,
+  effects: inferredEffects
+    ? { ...(feature.effects ?? {}), ...inferredEffects }
+    : feature.effects,
+};
+   }) as ResolvedCharacterSheet["features"];
 }
 
 export function getSpeciesFeatureDefinitions(): SpeciesFeatureCsvRow[] {

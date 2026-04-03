@@ -12,6 +12,11 @@ import {
 import { resolveSpeciesFeatureOutputs } from "./resolver/speciesFeatureResolver";
 import { getSubclasses } from "./data/loaders/subclassLoader";
 import { getDefaultAbilitiesForClass } from "./data/loaders/classAbilityPriorityLoader";
+import {
+  canUseShieldFromProficiencies,
+  getArmorOptionsForProficiencies,
+  getWeaponOptionsForProficiencies,
+} from "./data/loaders/gearLoader";
 
 const initialDraft: CharacterDraft = {
   characterName: "",
@@ -31,6 +36,11 @@ const initialDraft: CharacterDraft = {
   },
   featureSelections: {},
   featSelections: {},
+  languageSelections: [],
+  weaponIds: [],
+  armorId: null,
+  hasShield: false,
+  spellSelections: {},
   skillProficiencies: [],
   toolProficiencies: [],
   equipment: [],
@@ -71,6 +81,7 @@ type RightPaneSectionKey =
   | "features"
   | "classDcAndAttack"
   | "spellcasting"
+  | "equipment"
   | "proficiencies"
   | "abilities"
   | "combatBasics"
@@ -94,6 +105,7 @@ const initialRightPaneSections: Record<RightPaneSectionKey, boolean> = {
   features: false,
   classDcAndAttack: false,
   spellcasting: false,
+  equipment: false,
   proficiencies: false,
   abilities: false,
   combatBasics: false,
@@ -123,12 +135,49 @@ export default function App() {
     },
     featureSelections: draft.featureSelections ?? {},
     featSelections: (draft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {},
+    languageSelections: (draft as CharacterDraft & { languageSelections?: string[] }).languageSelections ?? [],
+    weaponIds: (draft as CharacterDraft & { weaponIds?: string[] }).weaponIds ?? [],
+    armorId: (draft as CharacterDraft & { armorId?: string | null }).armorId ?? null,
+    hasShield: (draft as CharacterDraft & { hasShield?: boolean }).hasShield ?? false,
+    spellSelections: (draft as CharacterDraft & { spellSelections?: Record<string, string[]> }).spellSelections ?? {},
     skillProficiencies: draft.skillProficiencies ?? [],
     toolProficiencies: draft.toolProficiencies ?? [],
     equipment: draft.equipment ?? [],
     knownSpells: draft.knownSpells ?? [],
     preparedSpells: draft.preparedSpells ?? [],
   };
+  function setWeaponSelection(index: number, weaponId: string | null) {
+    const nextWeaponIds = [...(safeDraft.weaponIds ?? [])];
+
+    while (nextWeaponIds.length <= index) {
+      nextWeaponIds.push("");
+    }
+
+    nextWeaponIds[index] = weaponId ?? "";
+
+    while (nextWeaponIds.length > 0 && !nextWeaponIds[nextWeaponIds.length - 1]) {
+      nextWeaponIds.pop();
+    }
+
+    setDraft({
+      ...draft,
+      weaponIds: nextWeaponIds.filter(Boolean),
+    } as CharacterDraft);
+  }
+
+  function setArmorSelection(armorId: string | null) {
+    setDraft({
+      ...draft,
+      armorId,
+    } as CharacterDraft);
+  }
+
+  function setShieldSelection(hasShield: boolean) {
+    setDraft({
+      ...draft,
+      hasShield,
+    } as CharacterDraft);
+  }
   const sheet = resolveCharacterSheet(safeDraft);
   const speciesResolvedFeatures = resolveSpeciesFeatureOutputs(safeDraft);
   const allResolvedFeatures = Array.from(
@@ -159,6 +208,9 @@ export default function App() {
 
   const displayPerceptionModifier =
     sheet.skills.perception?.totalModifier ?? null;
+  const availableWeaponOptions = getWeaponOptionsForProficiencies(sheet.proficiencies.weapons);
+  const availableArmorOptions = getArmorOptionsForProficiencies(sheet.proficiencies.armor);
+  const canUseShield = canUseShieldFromProficiencies(sheet.proficiencies.armor);
   const availableSubclasses = subclasses.filter((subclass) => subclass.classId === safeDraft.classId);
   const availableLineages = getLineageOptionsForSpecies(safeDraft.speciesId);
   const choiceFeatures = allResolvedFeatures.filter((feature) => {
@@ -691,12 +743,12 @@ const isSelected = selectedFeatId === entry.feat.id;
     });
   }
 
-  function renderRightPaneSection(
+  const renderRightPaneSection = (
     key: RightPaneSectionKey,
     title: string,
     content: ReactNode,
     options?: { marginBottom?: string; textTransform?: CSSProperties["textTransform"] }
-  ) {
+  ) => {
     const isOpen = openSections[key];
 
     return (
@@ -726,7 +778,7 @@ const isSelected = selectedFeatId === entry.feat.id;
         {isOpen ? <div style={{ paddingTop: "10px" }}>{content}</div> : null}
       </div>
     );
-  }
+  };
 
   return (
   <div
@@ -1247,6 +1299,56 @@ const isSelected = selectedFeatId === entry.feat.id;
               ))}
             </select>
           </div>
+
+          <div style={{ ...abilitySectionStyle, marginTop: "8px" }}>
+            <div style={{ fontSize: "12px", fontWeight: 700, marginBottom: "10px" }}>
+              Gear
+            </div>
+
+            {[0, 1, 2].map((index) => (
+              <div key={`weapon-${index}`} style={fieldRowStyle}>
+                <label style={fieldLabelStyle}>{`Weapon ${index + 1}`}</label>
+                <select
+                  style={{ width: "30%", minWidth: "140px" }}
+                  value={safeDraft.weaponIds[index] ?? ""}
+                  onChange={(e) => setWeaponSelection(index, e.target.value || null)}
+                >
+                  <option value="">--</option>
+                  {availableWeaponOptions.map((weapon) => (
+                    <option key={weapon.id} value={weapon.id}>
+                      {weapon.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>Armor</label>
+              <select
+                style={{ width: "30%", minWidth: "140px" }}
+                value={safeDraft.armorId ?? ""}
+                onChange={(e) => setArmorSelection(e.target.value || null)}
+              >
+                <option value="">--</option>
+                {availableArmorOptions.map((armor) => (
+                  <option key={armor.id} value={armor.id}>
+                    {armor.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={fieldRowStyle}>
+              <label style={fieldLabelStyle}>Shield</label>
+              <input
+                type="checkbox"
+                checked={safeDraft.hasShield}
+                disabled={!canUseShield}
+                onChange={(e) => setShieldSelection(e.target.checked)}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1554,6 +1656,61 @@ const isSelected = selectedFeatId === entry.feat.id;
             </div>
           )}
           {renderRightPaneSection(
+            "equipment",
+            "equipment",
+            <div style={{ paddingLeft: "12px", textAlign: "left" }}>
+              {sheet.equipment.items.length > 0 ? (
+                sheet.equipment.items.map((item, index) => {
+                  const typedItem = item as Record<string, unknown>;
+                  return (
+                    <div key={`${String(typedItem.id ?? index)}-${index}`} style={{ marginBottom: "10px" }}>
+                      <div>
+                        <span style={{ color: "#7a7a7a" }}>type: </span>
+                        <span>{String(typedItem.type ?? "")}</span>
+                      </div>
+                      <div>
+                        <span style={{ color: "#7a7a7a" }}>name: </span>
+                        <span>{String(typedItem.name ?? "")}</span>
+                      </div>
+                      {typedItem.category ? (
+                        <div>
+                          <span style={{ color: "#7a7a7a" }}>category: </span>
+                          <span>{String(typedItem.category)}</span>
+                        </div>
+                      ) : null}
+                      {typedItem.damageDice ? (
+                        <div>
+                          <span style={{ color: "#7a7a7a" }}>damage: </span>
+                          <span>{`${String(typedItem.damageDice)} ${String(typedItem.damageType ?? "")}`}</span>
+                        </div>
+                      ) : null}
+                      {typedItem.masteryTrait ? (
+                        <div>
+                          <span style={{ color: "#7a7a7a" }}>mastery: </span>
+                          <span>{String(typedItem.masteryTrait)}</span>
+                        </div>
+                      ) : null}
+                      {typedItem.baseAc ? (
+                        <div>
+                          <span style={{ color: "#7a7a7a" }}>baseAc: </span>
+                          <span>{String(typedItem.baseAc)}</span>
+                        </div>
+                      ) : null}
+                      {typedItem.acBonus ? (
+                        <div>
+                          <span style={{ color: "#7a7a7a" }}>acBonus: </span>
+                          <span>{String(typedItem.acBonus)}</span>
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })
+              ) : (
+                <div>—</div>
+              )}
+            </div>
+          )}
+          {renderRightPaneSection(
             "proficiencies",
             "proficiencies",
             <div style={{ paddingLeft: "12px", textAlign: "left" }}>
@@ -1636,6 +1793,14 @@ const isSelected = selectedFeatId === entry.feat.id;
                 <div style={{ paddingLeft: "12px" }}>
                   <div>die: {sheet.durability.hitDice.die || "null"}</div>
                   <div>total: {sheet.durability.hitDice.total ?? "null"}</div>
+                </div>
+              </div>
+              <div style={{ marginBottom: "6px" }}>
+                <div style={{ fontWeight: 600 }}>resistances</div>
+                <div style={{ paddingLeft: "12px" }}>
+                  {sheet.durability.defenses.resistances.length > 0
+                    ? sheet.durability.defenses.resistances.join(", ")
+                    : "—"}
                 </div>
               </div>
             </div>

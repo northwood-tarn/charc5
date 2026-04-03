@@ -53,6 +53,26 @@ function readNumericBonus(value: unknown): number {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }
 
+function getBackgroundAbilityChoiceBonus(
+  draft: CharacterDraft,
+  key: AbilityKey
+): number {
+  const selections = (draft as CharacterDraft & {
+    featureSelections?: Record<string, string[] | undefined>;
+  }).featureSelections;
+
+  const chosen = selections?.background_ability_score_choice;
+  if (!Array.isArray(chosen) || chosen.length === 0) {
+    return 0;
+  }
+
+  const normalizedKey = key.toLowerCase();
+
+  return chosen.reduce((total, entry) => {
+    return entry?.toLowerCase() === normalizedKey ? total + 1 : total;
+  }, 0);
+}
+
 function getBackgroundAbilityBonus(
   draft: CharacterDraft,
   key: AbilityKey
@@ -66,7 +86,8 @@ function getBackgroundAbilityBonus(
 
   return (
     readNumericBonus(maybeDraft.backgroundAbilityBonuses?.[key]) +
-    readNumericBonus(maybeDraft.abilityBonuses?.background?.[key])
+    readNumericBonus(maybeDraft.abilityBonuses?.background?.[key]) +
+    getBackgroundAbilityChoiceBonus(draft, key)
   );
 }
 
@@ -84,8 +105,9 @@ export function resolveAbilities(
 
   (Object.keys(draft.abilities) as AbilityKey[]).forEach((key) => {
     const baseScore = readAbilityScore(draft.abilities[key] as AbilityValue);
-    const score =
+    const uncappedScore =
       baseScore === null ? null : baseScore + getBackgroundAbilityBonus(draft, key);
+    const score = uncappedScore === null ? null : Math.min(uncappedScore, 20);
     const targetKey = abilityKeyMap[key];
 
     result[targetKey] = {

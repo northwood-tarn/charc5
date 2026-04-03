@@ -321,6 +321,164 @@ function mergeChoiceOptions(
   });
 }
 
+function getResolvedFeatureSelections(
+  draft: CharacterDraft,
+  feature: {
+    selectionKey: string | null;
+    featureId: string;
+    parentFeatureId: string | null;
+  }
+): string[] {
+  const candidateKeys = Array.from(
+    new Set(
+      [
+        feature.selectionKey,
+        feature.featureId,
+        feature.parentFeatureId,
+      ].filter((value): value is string => typeof value === "string" && value.length > 0)
+    )
+  );
+
+  for (const key of candidateKeys) {
+    const direct = draft.featureSelections[key];
+    if (Array.isArray(direct) && direct.length > 0) {
+      return direct;
+    }
+  }
+
+  // handle indexed selection keys like expertise_1, expertise_2
+  if (feature.selectionKey) {
+    const prefix = feature.selectionKey.toLowerCase();
+    for (const [draftKey, value] of Object.entries(draft.featureSelections)) {
+      if (
+        draftKey.toLowerCase().startsWith(prefix + "_") &&
+        Array.isArray(value) &&
+        value.length > 0
+      ) {
+        return value;
+      }
+    }
+  }
+
+  const normalizedCandidates = new Set(
+    candidateKeys.map((key) => key.toLowerCase().replace(/[^a-z0-9]+/g, ""))
+  );
+
+  for (const [draftKey, value] of Object.entries(draft.featureSelections)) {
+    if (!Array.isArray(value) || value.length === 0) {
+      continue;
+    }
+
+    const normalizedDraftKey = draftKey.toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (normalizedCandidates.has(normalizedDraftKey)) {
+      return value;
+    }
+  }
+
+  return [];
+}
+
+function resolveSelectedChoiceOptions(
+  choiceOptions: Array<{
+    id: string;
+    label: string;
+    derivedEffects: unknown;
+    effects: unknown;
+  }>,
+  selections: string[]
+): Array<{
+  id: string;
+  label: string;
+  derivedEffects: unknown;
+  effects: unknown;
+}> {
+  if (choiceOptions.length === 0 || selections.length === 0) {
+    return [];
+  }
+
+  const selectionSet = new Set(selections);
+  return choiceOptions.filter((option) => selectionSet.has(option.id));
+}
+
+function mergeEffectPayloads(
+  base: unknown,
+  additions: unknown[]
+): unknown {
+  const payloads = [base, ...additions].filter(
+    (value): value is Record<string, unknown> =>
+      !!value && typeof value === "object" && !Array.isArray(value)
+  );
+
+  if (payloads.length === 0) {
+    return base ?? null;
+  }
+
+  return payloads.reduce<Record<string, unknown>>((acc, payload) => {
+    return {
+      ...acc,
+      ...payload,
+    };
+  }, {});
+}
+
+function buildInferredDerivedEffects(
+  choiceKind: string | null,
+  selections: string[]
+): Record<string, unknown> | null {
+  if (selections.length === 0) {
+    return null;
+  }
+
+  if (choiceKind === "skill_proficiency") {
+    return {
+      skillProficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "tool_proficiency") {
+    return {
+      toolProficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "expertise" || choiceKind === "skill_expertise") {
+    return {
+      skillExpertise: selections,
+    };
+  }
+
+  return null;
+}
+
+function buildInferredEffects(
+  choiceKind: string | null,
+  selections: string[]
+): Record<string, unknown> | null {
+  if (selections.length === 0) {
+    return null;
+  }
+
+  if (choiceKind === "skill_proficiency") {
+    return {
+      skill_proficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "tool_proficiency") {
+    return {
+      tool_proficiencies: selections,
+    };
+  }
+
+  if (choiceKind === "expertise" || choiceKind === "skill_expertise") {
+    return {
+      skill_expertise: selections,
+    };
+  }
+
+  return null;
+}
+
 export function resolveFeatureOutputs(
   draft: CharacterDraft
 ): ResolvedCharacterSheet["features"] {
@@ -347,9 +505,23 @@ export function resolveFeatureOutputs(
       return feature.subclassId === (draft.subclassId ?? null);
     })
     .map((feature) => {
-      const selections = feature.selectionKey
-        ? draft.featureSelections[feature.selectionKey] ?? []
-        : [];
+      const selections = getResolvedFeatureSelections(draft, {
+        selectionKey: feature.selectionKey,
+        featureId: feature.featureId,
+        parentFeatureId: feature.parentFeatureId,
+      });
+
+      const choiceOptions = mergeChoiceOptions(feature.explicitChoiceOptions, feature.choicePool);
+      const selectedOptions = resolveSelectedChoiceOptions(choiceOptions, selections);
+
+      const inferredDerivedEffects = buildInferredDerivedEffects(
+        feature.choiceKind,
+        selections
+      );
+      const inferredEffects = buildInferredEffects(
+        feature.choiceKind,
+        selections
+      );
 
       return {
         featureId: feature.featureId,
@@ -359,13 +531,26 @@ export function resolveFeatureOutputs(
         sourceName: feature.sourceName,
         levelGained: feature.level,
         description: feature.description,
-        derivedEffects: feature.derivedEffects,
-        effects: feature.effects,
+        derivedEffects: mergeEffectPayloads(
+          feature.derivedEffects,
+          [
+            ...selectedOptions.map((option) => option.derivedEffects),
+            inferredDerivedEffects,
+          ]
+        ),
+        effects: mergeEffectPayloads(
+          feature.effects,
+          [
+            ...selectedOptions.map((option) => option.effects),
+            inferredEffects,
+          ]
+        ),
         selectionKey: feature.selectionKey,
         choiceKind: feature.choiceKind,
         choiceCount: feature.choiceCount,
         choicePool: feature.choicePool,
-        choiceOptions: mergeChoiceOptions(feature.explicitChoiceOptions, feature.choicePool),
+        choiceOptions,
+        selectedOptions,
         selections,
         featureStack: feature.featureStack,
         stackRole: feature.stackRole,
@@ -373,7 +558,44 @@ export function resolveFeatureOutputs(
       };
     });
 
-  return resolvedFeatures.map((feature) => {
+  // SYNTHETIC TOOL PROFICIENCY FEATURES (for standalone selections like thieves_tools_choice)
+  const syntheticToolFeatures = Object.entries(draft.featureSelections)
+    .filter(([key, value]) => {
+      return (
+        Array.isArray(value) &&
+        value.length > 0 &&
+        key.toLowerCase().includes("tool")
+      );
+    })
+    .map(([key, selections]) => ({
+      featureId: key,
+      featureName: "Tool Proficiency",
+      sourceType: "class" as const,
+      sourceId: draft.classId ?? "unknown",
+      sourceName: draft.classId ?? "unknown",
+      levelGained: draft.level ?? 1,
+      description: "Granted tool proficiency",
+      derivedEffects: {
+        toolProficiencies: selections,
+      },
+      effects: {
+        tool_proficiencies: selections,
+      },
+      selectionKey: key,
+      choiceKind: "tool_proficiency",
+      choiceCount: selections.length,
+      choicePool: null,
+      choiceOptions: [],
+      selectedOptions: [],
+      selections,
+      featureStack: null,
+      stackRole: null,
+      parentFeatureId: null,
+    }));
+
+  const allFeatures = [...resolvedFeatures, ...syntheticToolFeatures];
+
+  return allFeatures.map((feature) => {
     if (feature.stackRole !== "base" || !feature.featureStack) {
       return feature;
     }
@@ -404,10 +626,28 @@ export function resolveFeatureOutputs(
       ).values()
     );
 
+    const mergedSelectedOptions = Array.from(
+      new Map(
+        [
+          ...(feature.selectedOptions ?? []),
+          ...stackModifiers.flatMap((modifier) => modifier.selectedOptions ?? []),
+        ].map((option) => [option.id, option])
+      ).values()
+    );
+
     return {
       ...feature,
+      derivedEffects: mergeEffectPayloads(
+        feature.derivedEffects,
+        stackModifiers.map((modifier) => modifier.derivedEffects)
+      ),
+      effects: mergeEffectPayloads(
+        feature.effects,
+        stackModifiers.map((modifier) => modifier.effects)
+      ),
       selections: mergedSelections,
       choiceOptions: mergedChoiceOptions,
+      selectedOptions: mergedSelectedOptions,
     };
   }) as ResolvedCharacterSheet["features"];
 }

@@ -268,38 +268,53 @@ export function getSelectedOptionSpellGrantSources(
 export function getJsonFeatureSpellGrantSources(
   features: JsonFeatureLike[]
 ): SpellGrantSourceRecord[] {
-  return dedupeSpellGrantSources(features.flatMap((feature) => {
-    const directDerivedSpellIds = extractGrantedSpellIdsFromDerivedEffects(
-      feature.derivedEffects
-    );
+  const sourceTypes = new Set(
+    features.map((f) => String((f as { sourceType?: unknown }).sourceType ?? ""))
+  );
 
-    const directRecords: SpellGrantSourceRecord[] =
-      directDerivedSpellIds.length > 0
-        ? [
-            {
-              sourceType: "feature",
-              sourceId: feature.sourceId,
-              sourceName: feature.featureName,
-              grantedSpellIds: directDerivedSpellIds,
-              isAlwaysPrepared: true,
-              countsAgainstLimit: false,
-            },
-          ]
-        : [];
+  const speciesOnly = sourceTypes.size === 1 && sourceTypes.has("species");
 
-    const effectRecords = extractSpellGrantRecordsFromEffects(
-      feature.effects ?? feature.derivedEffects
-    ).map((record) => ({
-      sourceType: "feature" as const,
-      sourceId: feature.sourceId,
-      sourceName: feature.featureName,
-      grantedSpellIds: record.spellIds,
-      isAlwaysPrepared: record.isAlwaysPrepared,
-      countsAgainstLimit: record.countsAgainstLimit,
-    }));
+  const filteredFeatures = speciesOnly
+    ? features
+    : features.filter(
+        (feature) =>
+          String((feature as { sourceType?: unknown }).sourceType ?? "") !== "species"
+      );
 
-    return [...directRecords, ...effectRecords];
-  }));
+  return dedupeSpellGrantSources(
+    filteredFeatures.flatMap((feature) => {
+      const directDerivedSpellIds = extractGrantedSpellIdsFromDerivedEffects(
+        feature.derivedEffects
+      );
+
+      const directRecords: SpellGrantSourceRecord[] =
+        directDerivedSpellIds.length > 0
+          ? [
+              {
+                sourceType: "feature",
+                sourceId: feature.sourceId,
+                sourceName: feature.featureName,
+                grantedSpellIds: directDerivedSpellIds,
+                isAlwaysPrepared: true,
+                countsAgainstLimit: false,
+              },
+            ]
+          : [];
+
+      const effectRecords = extractSpellGrantRecordsFromEffects(
+        feature.effects ?? feature.derivedEffects
+      ).map((record) => ({
+        sourceType: "feature" as const,
+        sourceId: feature.sourceId,
+        sourceName: feature.featureName,
+        grantedSpellIds: record.spellIds,
+        isAlwaysPrepared: record.isAlwaysPrepared,
+        countsAgainstLimit: record.countsAgainstLimit,
+      }));
+
+      return [...directRecords, ...effectRecords];
+    })
+  );
 }
 
 export function resolveStructuredKnownSpells(
