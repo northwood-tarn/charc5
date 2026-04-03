@@ -34,8 +34,13 @@ function getCharismaScore(draft: CharacterDraft): number {
   return draft.abilities?.charisma ?? 10;
 }
 
+
 function getCharismaModifier(draft: CharacterDraft): number {
   return Math.floor((getCharismaScore(draft) - 10) / 2);
+}
+
+function getBardicInspirationUses(draft: CharacterDraft): number {
+  return Math.max(1, getCharismaModifier(draft));
 }
 
 function getRageUses(level: number): number {

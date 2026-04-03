@@ -680,22 +680,30 @@ export default function App() {
     const isOpen = openSections[key];
 
     return (
-      <div style={{ marginBottom: options?.marginBottom ?? "16px" }}>
+      <div style={{ marginBottom: options?.marginBottom ?? "16px", textAlign: "left" }}>
         <button
           type="button"
-          className="section-toggle"
           onClick={() =>
             setOpenSections((prev) => ({
               ...prev,
               [key]: !prev[key],
             }))
           }
-          style={{ textTransform: options?.textTransform }}
+          style={{
+            width: "100%",
+            background: "transparent",
+            border: "1px solid #d8d8d8",
+            padding: "6px 10px",
+            textAlign: "left",
+            fontWeight: 700,
+            cursor: "pointer",
+            textTransform: options?.textTransform,
+          }}
         >
           {isOpen ? "▾ " : "▸ "}
           {title}
         </button>
-        {isOpen ? <div className="section-content">{content}</div> : null}
+        {isOpen ? <div style={{ paddingTop: "10px" }}>{content}</div> : null}
       </div>
     );
   };
@@ -1250,67 +1258,88 @@ export default function App() {
     </div>
 
     {/* RIGHT */}
-    <div className="app-right">
-      <h2 className="app-section-title">
+    <div
+      style={{
+        width: "50%",
+        padding: "20px",
+        background: "#ffffff",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "auto",
+      }}
+    >
+      <h2 style={{ marginBottom: "16px", fontWeight: 500, textAlign: "left" }}>
         Resolved Sheet
       </h2>
-      <div className="right-grid">
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "20px",
+          alignItems: "start",
+          fontSize: "13px",
+          lineHeight: 1.6,
+          fontFamily: "Roboto, system-ui, sans-serif",
+          textAlign: "left",
+          alignSelf: "stretch",
+        }}
+      >
         <div>
           {renderRightPaneSection(
             "identity",
             "Identity",
             <div style={{ paddingLeft: "12px" }}>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">Character name: </span>
-                <span className="value-strong">{sheet.identity.characterName || ""}</span>
+                <span style={{ color: "#7a7a7a" }}>Character name: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.characterName || ""}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">classId: </span>
-                <span className="value-strong">{sheet.identity.classId ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>classId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.classId ?? "null"}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">className: </span>
-                <span className="value-strong">{sheet.identity.className || ""}</span>
+                <span style={{ color: "#7a7a7a" }}>className: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.className || ""}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">subclassId: </span>
-                <span className="value-strong">{sheet.identity.subclassId ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>subclassId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.subclassId ?? "null"}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">subclassName: </span>
-                <span className="value-strong">{sheet.identity.subclassName || ""}</span>
+                <span style={{ color: "#7a7a7a" }}>subclassName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.subclassName || ""}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">level: </span>
-                <span className="value-strong">{sheet.identity.level ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>level: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.level ?? "null"}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">speciesId: </span>
-                <span className="value-strong">{sheet.identity.speciesId ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>speciesId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.speciesId ?? "null"}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">speciesName: </span>
-                <span className="value-strong">{sheet.identity.speciesName || ""}</span>
+                <span style={{ color: "#7a7a7a" }}>speciesName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.speciesName || ""}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">lineageId: </span>
-                <span className="value-strong">{sheet.identity.lineageId ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>lineageId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.lineageId ?? "null"}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">lineageName: </span>
-                <span className="value-strong">{sheet.identity.lineageName || ""}</span>
+                <span style={{ color: "#7a7a7a" }}>lineageName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.lineageName || ""}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">backgroundId: </span>
-                <span className="value-strong">{sheet.identity.backgroundId ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>backgroundId: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.backgroundId ?? "null"}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">backgroundName: </span>
-                <span className="value-strong">{sheet.identity.backgroundName || ""}</span>
+                <span style={{ color: "#7a7a7a" }}>backgroundName: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{sheet.identity.backgroundName || ""}</span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">height: </span>
-                <span className="value-strong">{displayHeight ?? "null"}</span>
+                <span style={{ color: "#7a7a7a" }}>height: </span>
+                <span style={{ color: "#111", fontWeight: 500 }}>{displayHeight ?? "null"}</span>
               </div>
             </div>,
             { textTransform: "capitalize" }
@@ -1329,26 +1358,26 @@ export default function App() {
                 return (
                 <div key={f.featureId} style={{ marginBottom: "12px" }}>
                   <div>
-                    <span className="label-muted">Feature: </span>
-                    <span className="value-bold">
+                    <span style={{ color: "#7a7a7a" }}>Feature: </span>
+                    <span style={{ color: "#111", fontWeight: 600 }}>
                       {f.featureName}
                     </span>
                   </div>
                   <div>
-                    <span className="label-muted">Level gained: </span>
-                    <span className="value-strong">
+                    <span style={{ color: "#7a7a7a" }}>Level gained: </span>
+                    <span style={{ color: "#111", fontWeight: 500 }}>
                       {f.levelGained ?? "null"}
                     </span>
                   </div>
                   <div>
-                    <span className="label-muted">Description: </span>
+                    <span style={{ color: "#7a7a7a" }}>Description: </span>
                     <span style={{ color: "#111", fontWeight: 400 }}>
                       {f.description}
                     </span>
                   </div>
                   {displayedSelections.length > 0 && (
                     <div>
-                      <span className="label-muted">Selections: </span>
+                      <span style={{ color: "#7a7a7a" }}>Selections: </span>
                       <span style={{ color: "#111", fontWeight: 400 }}>
                         {displayedSelections
                           .map((selectionId) => {
@@ -1540,40 +1569,40 @@ export default function App() {
                   return (
                     <div key={`${String(typedItem.id ?? index)}-${index}`} style={{ marginBottom: "10px" }}>
                       <div>
-                        <span className="label-muted">type: </span>
+                        <span style={{ color: "#7a7a7a" }}>type: </span>
                         <span>{String(typedItem.type ?? "")}</span>
                       </div>
                       <div>
-                        <span className="label-muted">name: </span>
+                        <span style={{ color: "#7a7a7a" }}>name: </span>
                         <span>{String(typedItem.name ?? "")}</span>
                       </div>
                       {typedItem.category ? (
                         <div>
-                          <span className="label-muted">category: </span>
+                          <span style={{ color: "#7a7a7a" }}>category: </span>
                           <span>{String(typedItem.category)}</span>
                         </div>
                       ) : null}
                       {typedItem.damageDice ? (
                         <div>
-                          <span className="label-muted">damage: </span>
+                          <span style={{ color: "#7a7a7a" }}>damage: </span>
                           <span>{`${String(typedItem.damageDice)} ${String(typedItem.damageType ?? "")}`}</span>
                         </div>
                       ) : null}
                       {typedItem.masteryTrait ? (
                         <div>
-                          <span className="label-muted">mastery: </span>
+                          <span style={{ color: "#7a7a7a" }}>mastery: </span>
                           <span>{String(typedItem.masteryTrait)}</span>
                         </div>
                       ) : null}
                       {typedItem.baseAc ? (
                         <div>
-                          <span className="label-muted">baseAc: </span>
+                          <span style={{ color: "#7a7a7a" }}>baseAc: </span>
                           <span>{String(typedItem.baseAc)}</span>
                         </div>
                       ) : null}
                       {typedItem.acBonus ? (
                         <div>
-                          <span className="label-muted">acBonus: </span>
+                          <span style={{ color: "#7a7a7a" }}>acBonus: </span>
                           <span>{String(typedItem.acBonus)}</span>
                         </div>
                       ) : null}
@@ -1590,7 +1619,7 @@ export default function App() {
             "proficiencies",
             <div style={{ paddingLeft: "12px", textAlign: "left" }}>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">armor: </span>
+                <span style={{ color: "#7a7a7a" }}>armor: </span>
                 <span style={{ color: "#111", fontWeight: 400 }}>
                   {sheet.proficiencies.armor.length > 0
                     ? sheet.proficiencies.armor.join(", ")
@@ -1598,7 +1627,7 @@ export default function App() {
                 </span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">weapons: </span>
+                <span style={{ color: "#7a7a7a" }}>weapons: </span>
                 <span style={{ color: "#111", fontWeight: 400 }}>
                   {sheet.proficiencies.weapons.length > 0
                     ? sheet.proficiencies.weapons.join(", ")
@@ -1606,7 +1635,7 @@ export default function App() {
                 </span>
               </div>
               <div style={{ marginBottom: "6px" }}>
-                <span className="label-muted">tools: </span>
+                <span style={{ color: "#7a7a7a" }}>tools: </span>
                 <span style={{ color: "#111", fontWeight: 400 }}>
                   {sheet.proficiencies.tools.length > 0
                     ? sheet.proficiencies.tools.join(", ")
@@ -1614,7 +1643,7 @@ export default function App() {
                 </span>
               </div>
               <div>
-                <span className="label-muted">skills: </span>
+                <span style={{ color: "#7a7a7a" }}>skills: </span>
                 <span style={{ color: "#111", fontWeight: 400 }}>
                   {sheet.proficiencies.skills.length > 0
                     ? sheet.proficiencies.skills.join(", ")
@@ -1714,7 +1743,25 @@ export default function App() {
         </div>
       </div>
     </div>
-    {hoverDescription ? <div className="hover-panel">{hoverDescription}</div> : null}
+    {hoverDescription ? (
+      <div
+        style={{
+          position: "fixed",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          padding: "10px 16px",
+          background: "rgba(20,20,20,0.95)",
+          color: "#fff",
+          fontSize: "13px",
+          lineHeight: 1.4,
+          borderTop: "1px solid rgba(255,255,255,0.14)",
+          zIndex: 100,
+        }}
+      >
+        {hoverDescription}
+      </div>
+    ) : null}
   </div>
 );
 }

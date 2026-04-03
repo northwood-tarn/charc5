@@ -1,184 +1,232 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+/* ===== App Shell ===== */
+.app-root {
+  display: flex;
+  height: 100vh;
+  font-family: Roboto, system-ui, sans-serif;
+  background: #efefef;
+  color: #111;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+/* ===== Left / Right Panels ===== */
+.app-left {
+  width: 50%;
+  padding: 20px;
+  padding-bottom: 48px;
+  border-right: 2px solid #000;
+  background: #fafafa;
+  overflow: auto;
 }
 
-#center {
+.app-right {
+  width: 50%;
+  padding: 20px;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  overflow: auto;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
+/* ===== Section Headings ===== */
+.app-section-title {
+  margin-bottom: 16px;
+  font-weight: 500;
   text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+/* ===== Grid Layout ===== */
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
+.app-column {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+/* ===== Field Rows ===== */
+.field-row {
   display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  align-items: center;
+  gap: 10px;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.field-row-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
 }
 
-.ticks {
+/* ===== Labels ===== */
+.field-label {
+  width: 90px;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ===== Inputs ===== */
+.field-input,
+.field-select {
+  width: 30%;
+  min-width: 140px;
+}
+
+/* ===== Ability Section ===== */
+.ability-section {
+  border: 1px solid #cfcfcf;
+  padding: 12px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  background: #fdfdfd;
+}
+
+.section-title-small {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ===== Spell Sections ===== */
+.section-subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.section-subtitle-tight {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.section-helper {
+  font-size: 12px;
+  color: #7a7a7a;
+}
+
+/* ===== Choice Box ===== */
+.choice-box {
+  width: 30%;
+  min-width: 220px;
+  max-height: 160px;
+  overflow-y: auto;
+  border: 1px solid #cfcfcf;
+  padding: 8px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ===== Dropdown ===== */
+.dropdown-container {
   position: relative;
+  width: 30%;
+  min-width: 220px;
+}
+
+.dropdown-button {
   width: 100%;
+  min-width: 220px;
+  text-align: left;
+  padding: 4px 8px;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  cursor: pointer;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  z-index: 20;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.dropdown-item {
+  padding: 6px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.dropdown-item.selected {
+  background: #f1f1f1;
+}
+
+.dropdown-divider {
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  background: #f5f5f5;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+}
+
+/* ===== Right Pane Grid ===== */
+.right-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: Roboto, system-ui, sans-serif;
+  text-align: left;
+  align-self: stretch;
+}
+
+/* ===== Expandable Sections ===== */
+.section-toggle {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #d8d8d8;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.section-content {
+  padding-top: 10px;
+}
+
+/* ===== Text Styles ===== */
+.label-muted {
+  color: #7a7a7a;
+}
+
+.value-strong {
+  color: #111;
+  font-weight: 500;
+}
+
+.value-bold {
+  color: #111;
+  font-weight: 600;
+}
+
+/* ===== Bottom Hover Panel ===== */
+.hover-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 16px;
+  background: rgba(20, 20, 20, 0.95);
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.4;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  z-index: 100;
 }
