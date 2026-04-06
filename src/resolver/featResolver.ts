@@ -158,6 +158,7 @@ function titleCaseAbility(ability: string): string {
   return map[upper] ?? upper;
 }
 
+
 function toChoiceOptions(options: string[] | undefined): Array<{ id: string; label: string }> {
   if (!options || options.length === 0) {
     return [];
@@ -169,15 +170,41 @@ function toChoiceOptions(options: string[] | undefined): Array<{ id: string; lab
   }));
 }
 
+function normalizePoolKey(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[-\s]+/g, "_");
+}
+
 function getToolPoolOptions(pool: string): ChoiceOption[] {
-  if (pool === "tools") {
+  const normalizedPool = normalizePoolKey(pool);
+
+  if (normalizedPool === "tools") {
     return toolRows.map((tool) => ({
       id: tool.tool_id,
       label: tool.tool_name,
     }));
   }
 
-  if (pool === "musical_instruments") {
+  if (
+    normalizedPool === "artisan_tools" ||
+    normalizedPool === "artisans_tools"
+  ) {
+    return toolRows
+      .filter((tool) => tool.tool_type === "tool")
+      .map((tool) => ({
+        id: tool.tool_id,
+        label: tool.tool_name,
+      }));
+  }
+
+  if (
+    normalizedPool === "musical_instruments" ||
+    normalizedPool === "musical_instrument" ||
+    normalizedPool === "instruments"
+  ) {
     return toolRows
       .filter((tool) => tool.tool_type === "instrument")
       .map((tool) => ({
@@ -199,19 +226,41 @@ function resolveChoiceOptionsForPools(config: FeatChoiceConfig | undefined): Cho
   const results: ChoiceOption[] = [];
 
   for (const pool of rawPools) {
-    const normalizedPool = pool === "weapons" ? "simple_or_martial_weapon_kinds" : pool;
+    const normalizedPoolKey = normalizePoolKey(pool);
+    const normalizedPool =
+      normalizedPoolKey === "weapons" ||
+      normalizedPoolKey === "weapon_kinds" ||
+      normalizedPoolKey === "simple_or_martial_weapon_kinds"
+        ? "simple_or_martial_weapon_kinds"
+        : pool;
 
     const resolved =
-      pool === "tools" || pool === "musical_instruments"
+      getToolPoolOptions(pool).length > 0
         ? getToolPoolOptions(pool)
-        : resolveChoiceOptionsFromPool(normalizedPool, {
-            weapons: weaponRows,
-            skills: skillRows,
-            tools: toolRows,
-          }).map((option) => ({
-            id: option.id,
-            label: option.label,
-          }));
+        : normalizedPool === "simple_or_martial_weapon_kinds"
+          ? [
+              ...resolveChoiceOptionsFromPool("simple_weapon_kinds", {
+                weapons: weaponRows,
+                skills: skillRows,
+                tools: toolRows,
+              }),
+              ...resolveChoiceOptionsFromPool("martial_weapon_kinds", {
+                weapons: weaponRows,
+                skills: skillRows,
+                tools: toolRows,
+              }),
+            ].map((option) => ({
+              id: option.id,
+              label: option.label,
+            }))
+          : resolveChoiceOptionsFromPool(normalizedPool, {
+              weapons: weaponRows,
+              skills: skillRows,
+              tools: toolRows,
+            }).map((option) => ({
+              id: option.id,
+              label: option.label,
+            }));
 
     for (const option of resolved) {
       if (seen.has(option.id)) {
@@ -309,8 +358,29 @@ function normalizePoolNames(config: FeatChoiceConfig | undefined): string[] | nu
   }
 
   return rawPools.map((pool) => {
-    if (pool === "weapons") {
+    const normalizedPoolKey = normalizePoolKey(pool);
+
+    if (
+      normalizedPoolKey === "weapons" ||
+      normalizedPoolKey === "weapon_kinds" ||
+      normalizedPoolKey === "simple_or_martial_weapon_kinds"
+    ) {
       return "simple_or_martial_weapon_kinds";
+    }
+
+    if (
+      normalizedPoolKey === "artisan_tools" ||
+      normalizedPoolKey === "artisans_tools"
+    ) {
+      return "artisan_tools";
+    }
+
+    if (
+      normalizedPoolKey === "musical_instruments" ||
+      normalizedPoolKey === "musical_instrument" ||
+      normalizedPoolKey === "instruments"
+    ) {
+      return "musical_instruments";
     }
 
     return pool;

@@ -6,6 +6,7 @@ import type {
   NormalizedGrantedSpellcasting,
 } from "../engine/contracts/dataContracts";
 import spellsCsv from "../data/csv/spells.csv?raw";
+import { parseCsv, splitCsvLine } from "../data/loaders/csvParser";
 
 import { getBackgrounds } from "../data/loaders/backgroundsLoader";
 import { getLineageById, getSpeciesById } from "../data/loaders/speciesLoader";
@@ -46,37 +47,6 @@ const subclasses = getSubclasses();
 const backgrounds = getBackgrounds();
 const classFeatures = getClassFeatures();
 
-function parseCsvLine(line: string): string[] {
-  const values: string[] = [];
-  let current = "";
-  let inQuotes = false;
-
-  for (let index = 0; index < line.length; index += 1) {
-    const char = line[index];
-    const nextChar = line[index + 1];
-
-    if (char === '"') {
-      if (inQuotes && nextChar === '"') {
-        current += '"';
-        index += 1;
-      } else {
-        inQuotes = !inQuotes;
-      }
-      continue;
-    }
-
-    if (char === "," && !inQuotes) {
-      values.push(current.trim());
-      current = "";
-      continue;
-    }
-
-    current += char;
-  }
-
-  values.push(current.trim());
-  return values;
-}
 
 function buildSpellNameMap(raw: string): Record<string, string> {
   const lines = raw
@@ -88,7 +58,7 @@ function buildSpellNameMap(raw: string): Record<string, string> {
     return {};
   }
 
-  const headers = parseCsvLine(lines[0]);
+  const headers = splitCsvLine(lines[0]);
   const idIndex = headers.findIndex((header) => header === "spell_id");
   const nameIndex = headers.findIndex((header) => header === "name");
 
@@ -97,7 +67,7 @@ function buildSpellNameMap(raw: string): Record<string, string> {
   }
 
   return lines.slice(1).reduce<Record<string, string>>((map, line) => {
-    const values = parseCsvLine(line);
+    const values = splitCsvLine(line);
     const spellId = values[idIndex] ?? "";
     const spellName = values[nameIndex] ?? "";
 

@@ -27,6 +27,14 @@ export interface ToolRow {
   tool_type?: string;
 }
 
+function normalizePoolKey(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[-\s]+/g, "_");
+}
+
 // --- POOL RESOLVER ---
 // Takes a pool id + raw data tables and produces UI-ready options
 export function resolveChoiceOptionsFromPool(
@@ -39,11 +47,13 @@ export function resolveChoiceOptionsFromPool(
 ): ChoiceOptionOutput[] {
   if (!pool) return [];
 
+  const normalizedPool = normalizePoolKey(pool);
+
   // --- WEAPON POOLS ---
   if (context.weapons) {
     const weapons = context.weapons;
 
-    if (pool === "simple_weapon_kinds") {
+    if (normalizedPool === "simple_weapon_kinds") {
       return weapons
         .filter((w) => w.category === "simple")
         .map((w) => ({
@@ -53,7 +63,7 @@ export function resolveChoiceOptionsFromPool(
         }));
     }
 
-    if (pool === "martial_weapon_kinds") {
+    if (normalizedPool === "martial_weapon_kinds") {
       return weapons
         .filter((w) => w.category === "martial")
         .map((w) => ({
@@ -63,7 +73,7 @@ export function resolveChoiceOptionsFromPool(
         }));
     }
 
-    if (pool === "simple_melee_weapon_kinds") {
+    if (normalizedPool === "simple_melee_weapon_kinds") {
       return weapons
         .filter((w) => w.category === "simple" && w.weapon_type === "melee")
         .map((w) => ({
@@ -73,7 +83,7 @@ export function resolveChoiceOptionsFromPool(
         }));
     }
 
-    if (pool === "martial_melee_weapon_kinds") {
+    if (normalizedPool === "martial_melee_weapon_kinds") {
       return weapons
         .filter((w) => w.category === "martial" && w.weapon_type === "melee")
         .map((w) => ({
@@ -83,12 +93,28 @@ export function resolveChoiceOptionsFromPool(
         }));
     }
 
-    if (pool === "simple_or_martial_melee_weapon_kinds") {
+    if (normalizedPool === "simple_or_martial_melee_weapon_kinds") {
       return weapons
         .filter(
           (w) =>
             (w.category === "simple" || w.category === "martial") &&
             w.weapon_type === "melee"
+        )
+        .map((w) => ({
+          id: w.weapon_id,
+          label: w.weapon_name,
+          derivedEffects: null,
+        }));
+    }
+
+    if (
+      normalizedPool === "weapons" ||
+      normalizedPool === "weapon_kinds" ||
+      normalizedPool === "simple_or_martial_weapon_kinds"
+    ) {
+      return weapons
+        .filter(
+          (w) => w.category === "simple" || w.category === "martial"
         )
         .map((w) => ({
           id: w.weapon_id,
@@ -102,7 +128,7 @@ export function resolveChoiceOptionsFromPool(
   if (context.skills) {
     const skills = context.skills;
 
-    if (pool === "skills") {
+    if (normalizedPool === "skills") {
       return skills.map((s) => ({
         id: s.skill_id,
         label: s.skill_name,
@@ -110,7 +136,7 @@ export function resolveChoiceOptionsFromPool(
       }));
     }
 
-    if (pool === "barbarian_skills") {
+    if (normalizedPool === "barbarian_skills") {
       const barbarianSkillIds = [
         "animal_handling",
         "athletics",
@@ -134,9 +160,41 @@ export function resolveChoiceOptionsFromPool(
   if (context.tools) {
     const tools = context.tools;
 
-    if (pool === "artisan_tools") {
+    if (
+      normalizedPool === "tools" ||
+      normalizedPool === "tool_proficiencies"
+    ) {
+      return tools.map((tool) => ({
+        id: tool.tool_id,
+        label: tool.tool_name,
+        derivedEffects: null,
+      }));
+    }
+
+    if (
+      normalizedPool === "artisan_tools" ||
+      normalizedPool === "artisans_tools"
+    ) {
       return tools
-        .filter((tool) => tool.tool_type === "artisans_tools")
+        .filter(
+          (tool) =>
+            tool.tool_type === "tool" ||
+            tool.tool_type === "artisans_tools"
+        )
+        .map((tool) => ({
+          id: tool.tool_id,
+          label: tool.tool_name,
+          derivedEffects: null,
+        }));
+    }
+
+    if (
+      normalizedPool === "musical_instruments" ||
+      normalizedPool === "musical_instrument" ||
+      normalizedPool === "instruments"
+    ) {
+      return tools
+        .filter((tool) => tool.tool_type === "instrument")
         .map((tool) => ({
           id: tool.tool_id,
           label: tool.tool_name,

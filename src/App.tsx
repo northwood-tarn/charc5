@@ -194,13 +194,15 @@ export default function App() {
   const availableSubclasses = subclasses.filter((subclass) => subclass.classId === safeDraft.classId);
   const availableLineages = getLineageOptionsForSpecies(safeDraft.speciesId);
   const choiceFeatures = allResolvedFeatures.filter((feature) => {
-    const hasChoices = (feature.choiceOptions?.length ?? 0) > 0 && (feature.choiceCount ?? 0) > 0;
+    const hasChoiceCount = (feature.choiceCount ?? 0) > 0;
+    const hasChoiceOptions = (feature.choiceOptions?.length ?? 0) > 0;
+    const hasChoicePool = typeof feature.choicePool === "string" && feature.choicePool.length > 0;
     const isSubclassChoice =
       feature.choiceKind === "subclass" ||
       feature.featureId === "subclass" ||
       feature.featureName.toLowerCase() === "subclass";
 
-    return hasChoices && !isSubclassChoice;
+    return hasChoiceCount && (hasChoiceOptions || hasChoicePool) && !isSubclassChoice;
   });
   const featSlots = resolveFeatSlots(safeDraft);
   const nonFeatChoiceFeatures = choiceFeatures.filter((feature) => feature.sourceType !== "feat");
@@ -478,10 +480,26 @@ export default function App() {
         .map(([skillId]) => skillId)
     );
 
-    let options = (feature.choiceOptions ?? []).map((opt) => ({
+    const options = (feature.choiceOptions ?? []).map((opt) => ({
       id: opt.id,
       label: opt.label,
     }));
+
+    if (options.length === 0 && feature.choicePool) {
+      return (
+        <div key={feature.featureId} className="field-row-top">
+          <label className="field-label">{feature.featureName}</label>
+          <div className="app-column">
+            <div className="section-helper">
+              Choose {feature.choiceCount ?? 0}
+            </div>
+            <div className="section-helper">
+              No resolved options for pool: {feature.choicePool}
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     if (feature.choiceKind === "proficiency_choice") {
       options = options.filter((option) => {
@@ -813,11 +831,13 @@ export default function App() {
             });
 
             const selectedFeatChoiceFeatures = selectedFeatId
-              ? featChoiceFeatures.filter(
-                  (feature) =>
-                    feature.parentFeatureId === selectedFeatId &&
-                    feature.sourceId === selectedFeatId
-                )
+              ? featChoiceFeatures.filter((feature) => {
+                  const matchesParent = feature.parentFeatureId === selectedFeatId;
+                  const matchesSource = feature.sourceId === selectedFeatId;
+                  const matchesFeature = feature.featureId === selectedFeatId;
+
+                  return matchesParent || matchesSource || matchesFeature;
+                })
               : [];
 
             return (
