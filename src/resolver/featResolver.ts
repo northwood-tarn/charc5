@@ -193,7 +193,11 @@ function getToolPoolOptions(pool: string): ChoiceOption[] {
     normalizedPool === "artisans_tools"
   ) {
     return toolRows
-      .filter((tool) => tool.tool_type === "tool")
+      .filter(
+        (tool) =>
+          tool.tool_type === "tool" ||
+          tool.tool_type === "artisans_tools"
+      )
       .map((tool) => ({
         id: tool.tool_id,
         label: tool.tool_name,
@@ -766,6 +770,19 @@ function buildChoiceOutput(
   explicitOptions?: Array<{ id: string; label: string }>
 ): ResolvedFeatureOutput {
   const baseOptions = explicitOptions ?? resolveChoiceOptionsForPools(config);
+  if (
+    import.meta.env?.DEV &&
+    ["musician", "crafter", "skilled", "magic_initiate"].includes(getFeatId(feat))
+  ) {
+    console.log("[buildChoiceOutput]", {
+      featId: getFeatId(feat),
+      suffix,
+      choiceKind,
+      baseOptionCount: baseOptions.length,
+      poolValue: config.pool ?? null,
+      pools: config.pools ?? [],
+    });
+  }
   const featureId = `${slot.slotId}__${getFeatId(feat)}__${suffix}`;
   const currentSelections =
     ((draft as DraftWithFeatureSelections).featureSelections ?? {})[featureId] ?? [];
@@ -988,6 +1005,14 @@ function buildFeatChoiceOutputs(
 
   const toolChoices = getEffectChoiceConfig(effects, "toolChoices", "tool_choices");
   if (toolChoices) {
+    if (import.meta.env?.DEV && getFeatId(feat) === "musician") {
+      console.log("[toolChoices config]", {
+        featId: getFeatId(feat),
+        count: toolChoices.count,
+        pool: (toolChoices as any).pool,
+        pools: (toolChoices as any).pools,
+      });
+    }
     outputs.push(
       buildChoiceOutput(
         feat,
@@ -1595,6 +1620,23 @@ export function resolveFeatOutputs(
     }) as ResolvedCharacterSheet["features"];
 
     resolved = applyDraftSelectionsToFeatOutputs(draft, resolved);
+  }
+
+  if (import.meta.env?.DEV) {
+    const debugBackgroundFeatIds = new Set(["crafter", "musician", "skilled", "magic_initiate"]);
+    resolved
+      .filter((feature) => feature.sourceId && debugBackgroundFeatIds.has(feature.sourceId))
+      .forEach((feature) => {
+        console.log("[FeatResolver]", {
+          slotId: feature.selectionKey,
+          featureId: feature.featureId,
+          sourceId: feature.sourceId,
+          choiceKind: feature.choiceKind,
+          choiceCount: feature.choiceCount,
+          choiceOptions: feature.choiceOptions?.map((option) => option.id) ?? [],
+          choicePool: feature.choicePool,
+        });
+      });
   }
 
   const synthetic = buildSyntheticFeatOutputsFromDraft(draft);

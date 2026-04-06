@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { CharacterDraft } from "./types/draft";
 import { resolveCharacterSheet } from "./resolver/resolveCharacterSheet";
 import { resolveFeatSlots } from "./resolver/featSlotResolver";
-import { getAvailableFeatsForSlot } from "./resolver/featResolver";
+import { getAvailableFeatsForSlot, getFeatDefinitions, resolveFeatOutputsFromIds } from "./resolver/featResolver";
 import { getBackgrounds } from "./data/loaders/backgroundsLoader";
 import { getClasses } from "./data/loaders/classLoader";
 import {
@@ -16,7 +16,11 @@ import {
   canUseShieldFromProficiencies,
   getArmorOptionsForProficiencies,
   getWeaponOptionsForProficiencies,
+  getWeapons,
 } from "./data/loaders/gearLoader";
+import { resolveChoiceOptionsFromPool } from "./data/loaders/choiceOptionLoader";
+import { parseToolsCsv } from "./ui/app/parseToolsCsv";
+import toolsCsv from "./data/csv/tools.csv?raw";
 
 import "./App.css";
 
@@ -51,6 +55,37 @@ const initialDraft: CharacterDraft = {
 };
 
 const abilityScoreOptions = [15, 14, 13, 12, 10, 8] as const;
+
+const featDefinitions = getFeatDefinitions();
+const featDefinitionsById = new Map(featDefinitions.map((feat) => [feat.id, feat] as const));
+if (import.meta.env?.DEV) {
+  const musicianDef = featDefinitionsById.get("musician");
+  if (musicianDef) {
+    console.log("[Musician Feat Definition]", musicianDef.effects?.toolChoices);
+  }
+}
+const featNameOrIdToId = new Map<string, string>();
+const limitedBackgroundFeatIds = new Set(["crafter", "musician", "skilled", "magic_initiate"]);
+const parsedTools = parseToolsCsv(toolsCsv);
+const weaponCatalog = getWeapons();
+
+featDefinitions.forEach((feat) => {
+  featNameOrIdToId.set(feat.id.toLowerCase(), feat.id);
+  featNameOrIdToId.set(feat.name.toLowerCase(), feat.id);
+});
+
+function resolveFeatIdFromLabel(value: string | null | undefined): string | null {
+  if (!value) {
+    return null;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  if (!normalized) {
+    return null;
+  }
+
+  return featNameOrIdToId.get(normalized) ?? null;
+}
 
 
 type AbilityKey = keyof CharacterDraft["abilities"];
@@ -126,6 +161,16 @@ export default function App() {
     knownSpells: draft.knownSpells ?? [],
     preparedSpells: draft.preparedSpells ?? [],
   };
+  const selectedBackground =
+    backgrounds.find((entry) => entry.id === safeDraft.backgroundId) ?? null;
+  const backgroundFeatId = resolveFeatIdFromLabel(selectedBackground?.feat ?? null);
+  const backgroundFeatDisplayName =
+    backgroundFeatId
+      ? featDefinitionsById.get(backgroundFeatId)?.name ?? selectedBackground?.feat ?? ""
+      : selectedBackground?.feat ?? "";
+  const shouldShowBackgroundFeatSlot =
+    !!backgroundFeatId && limitedBackgroundFeatIds.has(backgroundFeatId);
+  const backgroundFeatDefinition = backgroundFeatId ? featDefinitionsById.get(backgroundFeatId) ?? null : null;
   function setWeaponSelection(index: number, weaponId: string | null) {
     const nextWeaponIds = [...(safeDraft.weaponIds ?? [])];
 
@@ -159,6 +204,21 @@ export default function App() {
     } as CharacterDraft);
   }
   const sheet = resolveCharacterSheet(safeDraft);
+  if (import.meta.env?.DEV) {
+    sheet.features
+      .filter((feature) => feature.sourceId === "musician")
+      .forEach((feature) => {
+        console.log("[SheetFeature]", {
+          featureId: feature.featureId,
+          sourceId: feature.sourceId,
+          selectionKey: feature.selectionKey,
+          choiceKind: feature.choiceKind,
+          choiceCount: feature.choiceCount,
+          choiceOptionsLength: feature.choiceOptions?.length ?? 0,
+          choicePool: feature.choicePool,
+        });
+      });
+  }
   const speciesResolvedFeatures = resolveSpeciesFeatureOutputs(safeDraft);
   const allResolvedFeatures = Array.from(
     new Map(
@@ -194,16 +254,43 @@ export default function App() {
   const availableSubclasses = subclasses.filter((subclass) => subclass.classId === safeDraft.classId);
   const availableLineages = getLineageOptionsForSpecies(safeDraft.speciesId);
   const choiceFeatures = allResolvedFeatures.filter((feature) => {
-    const hasChoiceCount = (feature.choiceCount ?? 0) > 0;
+    const isLimitedBackgroundFeat =
+      feature.sourceType === "feat" &&
+      feature.sourceId &&
+      limitedBackgroundFeatIds.has(feature.sourceId);
+    const hasChoiceCount = (feature.choiceCount ?? 0) > 0 || isLimitedBackgroundFeat;
     const hasChoiceOptions = (feature.choiceOptions?.length ?? 0) > 0;
-    const hasChoicePool = typeof feature.choicePool === "string" && feature.choicePool.length > 0;
+    const hasChoicePool =
+      typeof feature.choicePool === "string"
+        ? feature.choicePool.length > 0
+        : Array.isArray(feature.choicePool) && feature.choicePool.length > 0;
     const isSubclassChoice =
       feature.choiceKind === "subclass" ||
       feature.featureId === "subclass" ||
       feature.featureName.toLowerCase() === "subclass";
 
-    return hasChoiceCount && (hasChoiceOptions || hasChoicePool) && !isSubclassChoice;
+    const isBackgroundFeatWithMissingOptions =
+      feature.sourceType === "feat" &&
+      feature.sourceId &&
+      limitedBackgroundFeatIds.has(feature.sourceId);
+
+    return hasChoiceCount && (hasChoiceOptions || hasChoicePool || isBackgroundFeatWithMissingOptions) && !isSubclassChoice;
   });
+
+  if (import.meta.env?.DEV) {
+    const debugBackgroundFeatIds = new Set(["crafter", "musician", "skilled", "magic_initiate"]);
+    choiceFeatures
+      .filter((feature) => debugBackgroundFeatIds.has(feature.sourceId ?? ""))
+      .forEach((feature) => {
+        console.log("[ChoiceFeatures]", {
+          featureId: feature.featureId,
+          sourceId: feature.sourceId,
+          choiceKind: feature.choiceKind,
+          choiceCount: feature.choiceCount,
+          selectionKey: feature.selectionKey,
+        });
+      });
+  }
   const featSlots = resolveFeatSlots(safeDraft);
   const nonFeatChoiceFeatures = choiceFeatures.filter((feature) => feature.sourceType !== "feat");
   const featChoiceFeatures = choiceFeatures.filter((feature) => feature.sourceType === "feat");
@@ -351,12 +438,24 @@ export default function App() {
       bonuses[plusOne] = (bonuses[plusOne] ?? 0) + 1;
     }
 
+    const currentFeatSelections =
+      (safeDraft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {};
+    const nextFeatSelections = { ...currentFeatSelections };
+    const backgroundFeatSelection = resolveFeatIdFromLabel(background?.feat ?? null);
+
+    if (backgroundFeatSelection) {
+      nextFeatSelections.background_origin_feat = backgroundFeatSelection;
+    } else {
+      delete nextFeatSelections.background_origin_feat;
+    }
+
     setDraft({
       ...draft,
       backgroundId: nextBackgroundId,
       skillProficiencies: background ? [...background.skillProficiencies] : [],
       toolProficiencies: background && background.toolProficiency ? [background.toolProficiency] : [],
       backgroundAbilityBonuses: bonuses,
+      featSelections: nextFeatSelections,
     } as CharacterDraft);
   }
 
@@ -480,25 +579,79 @@ export default function App() {
         .map(([skillId]) => skillId)
     );
 
-    const options = (feature.choiceOptions ?? []).map((opt) => ({
+    let options = (feature.choiceOptions ?? []).map((opt) => ({
       id: opt.id,
       label: opt.label,
     }));
 
-    if (options.length === 0 && feature.choicePool) {
-      return (
-        <div key={feature.featureId} className="field-row-top">
-          <label className="field-label">{feature.featureName}</label>
-          <div className="app-column">
-            <div className="section-helper">
-              Choose {feature.choiceCount ?? 0}
-            </div>
-            <div className="section-helper">
-              No resolved options for pool: {feature.choicePool}
+    if (options.length === 0) {
+      const candidatePools = new Set<string>();
+      const registerPool = (pool: unknown) => {
+        if (typeof pool === "string" && pool.trim().length > 0) {
+          candidatePools.add(pool);
+        }
+      };
+
+      if (typeof feature.choicePool === "string") {
+        registerPool(feature.choicePool);
+      } else if (Array.isArray(feature.choicePool)) {
+        feature.choicePool.forEach((pool: unknown) => registerPool(pool));
+      }
+
+      if (feature.sourceType === "feat") {
+        const featDefinition = featDefinitionsById.get(feature.sourceId);
+        const effects = featDefinition?.effects;
+        registerPool(effects?.toolChoices?.pool);
+        registerPool(effects?.weaponMasteryChoices?.pool);
+        (effects?.proficiencyChoices?.pools ?? []).forEach(registerPool);
+      }
+
+      if (candidatePools.size > 0) {
+        const skillRows = Object.keys(sheet.skills).map((skillId) => ({
+          skill_id: skillId,
+          skill_name: formatSkillLabel(skillId),
+        }));
+
+        const derivedOptions = Array.from(candidatePools).flatMap((pool) => {
+          const resolved = resolveChoiceOptionsFromPool(pool, {
+            weapons: weaponCatalog.map((weapon) => ({
+              weapon_id: weapon.id,
+              weapon_name: weapon.name,
+              category: weapon.category,
+              weapon_type: weapon.weaponType,
+              mastery_trait: weapon.masteryTrait ?? undefined,
+              master_details: weapon.masteryDetails ?? undefined,
+            })),
+            skills: skillRows,
+            tools: parsedTools,
+          });
+
+          return resolved.map((option) => ({
+            id: option.id,
+            label: option.label,
+          }));
+        });
+
+        if (derivedOptions.length > 0) {
+          options = Array.from(new Map(derivedOptions.map((option) => [option.id, option])).values());
+        }
+      }
+
+      if (options.length === 0 && candidatePools.size > 0) {
+        return (
+          <div key={feature.featureId} className="field-row-top">
+            <label className="field-label">{feature.featureName}</label>
+            <div className="app-column">
+              <div className="section-helper">
+                Choose {feature.choiceCount ?? 0}
+              </div>
+              <div className="section-helper">
+                No resolved options for pool: {Array.from(candidatePools).join(", ")}
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
 
     if (feature.choiceKind === "proficiency_choice") {
@@ -543,9 +696,24 @@ export default function App() {
       });
     });
 
-    const count = feature.choiceCount ?? 0;
+    const limitedFeatFallbackCount =
+      feature.sourceId && limitedBackgroundFeatIds.has(feature.sourceId)
+        ? featDefinitionsById.get(feature.sourceId)?.effects?.toolChoices?.count ??
+          featDefinitionsById.get(feature.sourceId)?.effects?.proficiencyChoices?.count ??
+          featDefinitionsById.get(feature.sourceId)?.effects?.expertiseChoices?.count ??
+          null
+        : null;
+    const count = feature.choiceCount ?? limitedFeatFallbackCount ?? 0;
     const isSingleChoice = count === 1;
     const isWeaponMasteryChoice = feature.choiceKind === "weapon_mastery";
+    const isMusicianToolChoice =
+      feature.sourceId === "musician" &&
+      (feature.choiceKind === "tool_proficiency" ||
+        (feature.featureName ?? "").toLowerCase().includes("tool"));
+    const isCrafterToolChoice =
+      feature.sourceId === "crafter" &&
+      (feature.choiceKind === "tool_proficiency" ||
+        (feature.featureName ?? "").toLowerCase().includes("tool"));
     const useCompactChoiceBox = isWeaponMasteryChoice || options.length > 6;
     const otherWeaponMasterySelections = isWeaponMasteryChoice
       ? Array.from(
@@ -563,6 +731,183 @@ export default function App() {
           )
         )
       : [];
+
+    if (isMusicianToolChoice || isCrafterToolChoice) {
+      const slotCount = count > 0 ? count : 3;
+      const slotAssignmentsKey = `${selectionKey}__slot_assignments`;
+
+      const assignedSlots =
+        (safeDraft.featureSelections[slotAssignmentsKey] as string[] | undefined) ??
+        [...selections];
+
+      const paddedAssignments = [...assignedSlots];
+
+      while (paddedAssignments.length < slotCount) {
+        paddedAssignments.push("");
+      }
+
+      const musicianOptions = parsedTools
+        .filter((tool) => tool.tool_type === "instrument")
+        .map((tool) => ({
+          id: tool.tool_id,
+          label: tool.tool_name,
+        }));
+
+      const crafterOptions = parsedTools
+        .filter((tool) => {
+          const normalized = (tool.tool_type ?? "").toLowerCase();
+          return (
+            normalized === "tool" ||
+            normalized === "artisan_tools" ||
+            normalized === "artisans_tools" ||
+            normalized === "artisan's_tools" ||
+            normalized === "artisan" ||
+            normalized === "kit" ||
+            normalized === "crafting"
+          );
+        })
+        .map((tool) => ({
+          id: tool.tool_id,
+          label: tool.tool_name,
+        }));
+
+      const defaultOptions = options.map((option) => ({
+        id: option.id,
+        label: option.label,
+      }));
+
+      const availableOptions = isMusicianToolChoice
+        ? musicianOptions.length > 0
+          ? musicianOptions
+          : defaultOptions
+        : crafterOptions.length > 0
+          ? crafterOptions
+          : defaultOptions;
+
+      const slotLabel = isMusicianToolChoice ? "Instrument" : "Tool";
+
+      function updateMusicianSelection(slotIndex: number, nextValue: string) {
+        setDraft((currentDraft) => {
+          const previousSelections =
+            (currentDraft as CharacterDraft & { featureSelections?: Record<string, string[] | undefined> })
+              .featureSelections ?? {};
+
+          const currentAssignments = [...((previousSelections[slotAssignmentsKey] as string[] | undefined) ?? [])];
+          while (currentAssignments.length < slotCount) {
+            currentAssignments.push("");
+          }
+
+          currentAssignments[slotIndex] = nextValue;
+
+          const deduped = currentAssignments.map((value, index) => {
+            if (!value) {
+              return "";
+            }
+
+            const firstIndex = currentAssignments.findIndex((entry) => entry === value);
+            return firstIndex === index ? value : "";
+          });
+
+          const finalAssignments = deduped.slice(0, slotCount);
+          const finalSelections = finalAssignments.filter(Boolean);
+
+          return {
+            ...currentDraft,
+            featureSelections: {
+              ...previousSelections,
+              [selectionKey]: finalSelections,
+              [slotAssignmentsKey]: finalAssignments,
+            },
+          } as CharacterDraft;
+        });
+      }
+
+      return (
+        <div key={feature.featureId} className="field-row-top">
+          <label className="field-label">{feature.featureName}</label>
+          <div className="app-column">
+            <div className="section-helper">Choose {slotCount}</div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                gap: "12px",
+                width: "100%",
+              }}
+            >
+              {Array.from({ length: slotCount }).map((_, slotIndex) => (
+                <div key={`${feature.featureId}:slot:${slotIndex}`} className="field-column">
+                  <div className="section-helper" style={{ fontSize: "12px", marginBottom: "4px" }}>
+                    {slotLabel} {slotIndex + 1}
+                  </div>
+                  <select
+                    className="field-select"
+                    value={paddedAssignments[slotIndex] ?? ""}
+                    onChange={(e) => updateMusicianSelection(slotIndex, e.target.value)}
+                  >
+                    <option value="">--</option>
+                    {availableOptions.map((option) => {
+                      const alreadyChosenIndex = paddedAssignments.findIndex((entry) => entry === option.id);
+                      const isTakenByOtherSlot =
+                        alreadyChosenIndex !== -1 && alreadyChosenIndex !== slotIndex;
+
+                      return (
+                        <option key={option.id} value={option.id} disabled={isTakenByOtherSlot}>
+                          {option.label}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (isWeaponMasteryChoice && feature.sourceId === "weapon_master") {
+      const sortedWeapons = [...weaponCatalog].sort((a, b) => a.name.localeCompare(b.name));
+      const currentSelection = selections[0] ?? "";
+
+      return (
+        <div key={feature.featureId} className="field-row-top">
+          <label className="field-label">{feature.featureName}</label>
+          <div className="app-column">
+            <div className="section-helper">Choose 1 weapon for mastery</div>
+            <select
+              className="field-select"
+              value={currentSelection}
+              onChange={(e) => {
+                const nextValue = e.target.value;
+                setDraft((currentDraft) => {
+                  const previousSelections =
+                    (currentDraft as CharacterDraft & {
+                      featureSelections?: Record<string, string[] | undefined>;
+                    }).featureSelections ?? {};
+
+                  return {
+                    ...currentDraft,
+                    featureSelections: {
+                      ...previousSelections,
+                      [selectionKey]: nextValue ? [nextValue] : [],
+                    },
+                  } as CharacterDraft;
+                });
+              }}
+            >
+              <option value="">--</option>
+              {sortedWeapons.map((weapon) => (
+                <option key={weapon.id} value={weapon.id}>
+                  {weapon.name}
+                  {weapon.masteryTrait ? ` — ${weapon.masteryTrait}` : ""}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div key={feature.featureId} className="field-row-top">
@@ -589,20 +934,29 @@ export default function App() {
                       checked={isChecked}
                       disabled={disableUnchecked}
                       onChange={(e) => {
-                        const nextSelections = isSingleChoice
-                          ? e.target.checked
-                            ? [option.id]
-                            : []
-                          : e.target.checked
+                        const nextSelections = (() => {
+                          if (isSingleChoice) {
+                            return e.target.checked ? [option.id] : [];
+                          }
+
+                          return e.target.checked
                             ? [...selections, option.id]
                             : selections.filter((selectedId) => selectedId !== option.id);
+                        })();
 
-                        setDraft({
-                          ...draft,
-                          featureSelections: {
-                            ...draft.featureSelections,
-                            [selectionKey]: nextSelections,
-                          },
+                        setDraft((currentDraft) => {
+                          const previousSelections =
+                            (currentDraft as CharacterDraft & {
+                              featureSelections?: Record<string, string[] | undefined>;
+                            }).featureSelections ?? {};
+
+                          return {
+                            ...currentDraft,
+                            featureSelections: {
+                              ...previousSelections,
+                              [selectionKey]: nextSelections,
+                            },
+                          } as CharacterDraft;
                         });
                       }}
                     />{" "}
@@ -614,41 +968,54 @@ export default function App() {
               })}
             </div>
           ) : (
-            options.map((option) => (
-              <label key={option.id}>
-                <input
-                  type={isSingleChoice ? "radio" : "checkbox"}
-                  name={selectionKey}
-                  checked={selections.includes(option.id)}
-                  disabled={
-                    (isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id)) ||
-                    (!isSingleChoice &&
-                      !selections.includes(option.id) &&
-                      selections.length >= count)
-                  }
-                  onChange={(e) => {
-                    const nextSelections = isSingleChoice
-                      ? e.target.checked
-                        ? [option.id]
-                        : []
-                      : e.target.checked
-                        ? [...selections, option.id]
-                        : selections.filter((w) => w !== option.id);
+            options.map((option) => {
+              const isChecked = selections.includes(option.id);
+              const isTakenByOtherWeaponMastery =
+                isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id);
+              const disableUnchecked =
+                isTakenByOtherWeaponMastery ||
+                (!isSingleChoice && !selections.includes(option.id) && selections.length >= count);
 
-                    setDraft({
-                      ...draft,
-                      featureSelections: {
-                        ...draft.featureSelections,
-                        [selectionKey]: nextSelections,
-                      },
-                    });
-                  }}
-                />{" "}
-                {isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id)
-                  ? `✓ ${option.label}`
-                  : option.label}
-              </label>
-            ))
+              return (
+                <label key={option.id}>
+                  <input
+                    type={isSingleChoice ? "radio" : "checkbox"}
+                    name={selectionKey}
+                    checked={isChecked}
+                    disabled={disableUnchecked}
+                    onChange={(e) => {
+                      const nextSelections = (() => {
+                        if (isSingleChoice) {
+                          return e.target.checked ? [option.id] : [];
+                        }
+
+                        return e.target.checked
+                          ? [...selections, option.id]
+                          : selections.filter((w) => w !== option.id);
+                      })();
+
+                      setDraft((currentDraft) => {
+                        const previousSelections =
+                          (currentDraft as CharacterDraft & {
+                            featureSelections?: Record<string, string[] | undefined>;
+                          }).featureSelections ?? {};
+
+                        return {
+                          ...currentDraft,
+                          featureSelections: {
+                            ...previousSelections,
+                            [selectionKey]: nextSelections,
+                          },
+                        } as CharacterDraft;
+                      });
+                    }}
+                  />{" "}
+                  {isWeaponMasteryChoice && otherWeaponMasterySelections.includes(option.id)
+                    ? `✓ ${option.label}`
+                    : option.label}
+                </label>
+              );
+            })
           )}
         </div>
       </div>
@@ -789,19 +1156,172 @@ export default function App() {
 
           {/* FEAT SLOTS */}
           {featSlots.map((slot) => {
-            if (slot.slotId === "background_origin_feat") {
-              return null;
-            }
-
-            const featOptions = getAvailableFeatsForSlot(safeDraft, slot.slotId);
+            let featOptions = getAvailableFeatsForSlot(safeDraft, slot.slotId);
             const featSelections =
               (safeDraft as CharacterDraft & { featSelections?: Record<string, string | null> }).featSelections ?? {};
-            const selectedFeatId = featSelections[slot.slotId] ?? "";
+            let selectedFeatId = featSelections[slot.slotId] ?? "";
             const takenFeatIds = new Set(
               Object.entries(featSelections)
                 .filter(([otherSlotId, featId]) => otherSlotId !== slot.slotId && typeof featId === "string" && featId)
                 .map(([, featId]) => featId as string)
             );
+            const isBackgroundSlot = slot.slotId === "background_origin_feat";
+            if (isBackgroundSlot && !selectedFeatId && backgroundFeatId) {
+              selectedFeatId = backgroundFeatId;
+            }
+            let selectedFeatChoiceFeatures = selectedFeatId
+              ? featChoiceFeatures.filter((feature) => {
+                  const matchesParent = feature.parentFeatureId === selectedFeatId;
+                  const matchesSource = feature.sourceId === selectedFeatId;
+                  const matchesFeature = feature.featureId === selectedFeatId;
+
+                  const isChoiceFeature =
+                    feature.selectionKey !== slot.slotId && feature.choiceKind && (feature.choiceCount ?? 0) >= 0;
+
+                  return (matchesParent || matchesSource || matchesFeature) && isChoiceFeature;
+                })
+              : [];
+
+            if (
+              isBackgroundSlot &&
+              selectedFeatChoiceFeatures.length === 0 &&
+              selectedFeatId &&
+              limitedBackgroundFeatIds.has(selectedFeatId)
+            ) {
+              const fallbackFeatures = resolveFeatOutputsFromIds([selectedFeatId], safeDraft).filter((feature) => {
+                const hasChoiceCount = (feature.choiceCount ?? 0) > 0;
+                const hasChoiceOptions = (feature.choiceOptions?.length ?? 0) > 0;
+                const hasChoicePool =
+                  typeof feature.choicePool === "string"
+                    ? feature.choicePool.length > 0
+                    : Array.isArray(feature.choicePool) && feature.choicePool.length > 0;
+
+                return feature.sourceType === "feat" && hasChoiceCount && (hasChoiceOptions || hasChoicePool);
+              });
+
+              if (import.meta.env?.DEV) {
+                console.log("[BackgroundFeatSlot] fallback features", {
+                  slotId: slot.slotId,
+                  selectedFeatId,
+                  fallbackCount: fallbackFeatures.length,
+                  fallbackIds: fallbackFeatures.map((feature) => feature.featureId),
+                });
+              }
+
+              selectedFeatChoiceFeatures = fallbackFeatures.map((feature) => {
+                const remap = (value: string | null) => {
+                  if (!value) {
+                    return value;
+                  }
+
+                  return value.replace(/^legacy_feat_\d+/i, slot.slotId);
+                };
+
+                const nextFeatureId = remap(feature.featureId) ?? feature.featureId;
+                const nextSelectionKey = remap(feature.selectionKey) ?? feature.selectionKey;
+                const nextParentFeatureId = remap(feature.parentFeatureId);
+
+                return {
+                  ...feature,
+                  featureId: nextFeatureId,
+                  selectionKey: nextSelectionKey,
+                  parentFeatureId: nextParentFeatureId,
+                };
+              });
+            }
+
+            if (
+              selectedFeatId === "weapon_master" &&
+              !selectedFeatChoiceFeatures.some((feature) => feature.choiceKind === "weapon_mastery")
+            ) {
+              const fallbackFeatures = resolveFeatOutputsFromIds([selectedFeatId], safeDraft).filter(
+                (feature) => feature.choiceKind === "weapon_mastery"
+              );
+
+              if (fallbackFeatures.length > 0) {
+                const remap = (value: string | null) => {
+                  if (!value) {
+                    return value;
+                  }
+
+                  return value.replace(/^legacy_feat_\d+/i, slot.slotId);
+                };
+
+                const remapped = fallbackFeatures.map((feature) => {
+                  const nextFeatureId = remap(feature.featureId) ?? feature.featureId;
+                  const nextSelectionKey = remap(feature.selectionKey) ?? feature.selectionKey;
+                  const nextParentFeatureId = remap(feature.parentFeatureId);
+
+                  return {
+                    ...feature,
+                    featureId: nextFeatureId,
+                    selectionKey: nextSelectionKey,
+                    parentFeatureId: nextParentFeatureId,
+                  };
+                });
+
+                selectedFeatChoiceFeatures = [...selectedFeatChoiceFeatures, ...remapped];
+              }
+            }
+
+            if (selectedFeatChoiceFeatures.length > 1) {
+              const deduped = new Map<string, (typeof selectedFeatChoiceFeatures)[number]>();
+              selectedFeatChoiceFeatures.forEach((feature) => {
+                const key = feature.selectionKey ?? feature.featureId;
+                if (!deduped.has(key)) {
+                  deduped.set(key, feature);
+                }
+              });
+              selectedFeatChoiceFeatures = Array.from(deduped.values());
+            }
+
+            if (
+              selectedFeatChoiceFeatures.length === 0 &&
+              selectedFeatId &&
+              limitedBackgroundFeatIds.has(selectedFeatId)
+            ) {
+              console.log("[BackgroundFeatSlot] Missing choice features after filtering", {
+                slotId: slot.slotId,
+                selectedFeatId,
+              });
+            }
+
+            if (isBackgroundSlot && import.meta.env?.DEV) {
+              console.log("[BackgroundFeatSlot]", {
+                slotId: slot.slotId,
+                backgroundFeatId,
+                selectedFeatId,
+                choiceFeatureCount: selectedFeatChoiceFeatures.length,
+                choiceFeatureIds: selectedFeatChoiceFeatures.map((feature) => feature.featureId),
+              });
+            }
+
+            if (isBackgroundSlot) {
+              if (!shouldShowBackgroundFeatSlot) {
+                return null;
+              }
+
+              const backgroundFeatControls =
+                selectedFeatChoiceFeatures.length > 0 ? (
+                  <div className="app-column">
+                    {selectedFeatChoiceFeatures.map((feature) => renderChoiceFeature(feature))}
+                  </div>
+                ) : null;
+
+              return (
+                <div key={slot.slotId} className="app-column">
+                  <div className="field-row">
+                    <label className="field-label">
+                      {slot.label} (Background)
+                    </label>
+                    <div className="dropdown-button disabled">
+                      {backgroundFeatDisplayName || "--"}
+                    </div>
+                  </div>
+                  {backgroundFeatControls}
+                </div>
+              );
+            }
 
             const groupedFeatOptions = ["Origin", "General", "Epic Boon"].flatMap((featType) => {
               const normalizedTargetType = featType.toLowerCase();
@@ -809,41 +1329,33 @@ export default function App() {
                 .filter((feat) => (feat.type ?? "").toLowerCase() === normalizedTargetType)
                 .sort((a, b) => a.name.localeCompare(b.name));
 
-              if (matchingFeats.length === 0) {
-                return [] as Array<
-                  | { kind: "divider"; label: string }
-                  | { kind: "feat"; feat: (typeof featOptions)[number] }
-                >;
-              }
+                  if (matchingFeats.length === 0) {
+                    return [] as Array<
+                      | { kind: "divider"; label: string }
+                      | { kind: "feat"; feat: (typeof featOptions)[number] }
+                    >;
+                  }
 
-              return [
-                {
-                  kind: "divider" as const,
-                  label:
-                    featType === "Origin"
-                      ? "--Origin Feats--"
-                      : featType === "General"
-                        ? "--General Feats--"
-                        : "--Epic Boon Feats--",
-                },
-                ...matchingFeats.map((feat) => ({ kind: "feat" as const, feat })),
-              ];
-            });
-
-            const selectedFeatChoiceFeatures = selectedFeatId
-              ? featChoiceFeatures.filter((feature) => {
-                  const matchesParent = feature.parentFeatureId === selectedFeatId;
-                  const matchesSource = feature.sourceId === selectedFeatId;
-                  const matchesFeature = feature.featureId === selectedFeatId;
-
-                  return matchesParent || matchesSource || matchesFeature;
-                })
-              : [];
+                  return [
+                    {
+                      kind: "divider" as const,
+                      label:
+                        featType === "Origin"
+                          ? "--Origin Feats--"
+                          : featType === "General"
+                            ? "--General Feats--"
+                            : "--Epic Boon Feats--",
+                    },
+                    ...matchingFeats.map((feat) => ({ kind: "feat" as const, feat })),
+                  ];
+                });
 
             return (
               <div key={slot.slotId} className="app-column">
                 <div className="field-row">
-                  <label className="field-label">{slot.label}</label>
+                  <label className="field-label">
+                    {slot.label}
+                  </label>
                   {renderGroupedFeatDropdown(
                     slot.slotId,
                     groupedFeatOptions.map((entry) =>
@@ -862,7 +1374,6 @@ export default function App() {
                     featOptions
                   )}
                 </div>
-
                 {selectedFeatChoiceFeatures.length > 0 && (
                   <div className="app-column">
                     {selectedFeatChoiceFeatures.map((feature) => renderChoiceFeature(feature))}

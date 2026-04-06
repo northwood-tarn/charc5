@@ -15,6 +15,7 @@ import { species } from "../data/species";
 import { getClasses } from "../data/loaders/classLoader";
 import { getSubclasses } from "../data/loaders/subclassLoader";
 import { getClassFeatures } from "../data/loaders/classFeaturesLoader";
+import { getTools } from "../data/loaders/toolsLoader";
 import { resolveFeatureOutputs } from "./featureResolver";
 import { resolveFeatOutputs } from "./featResolver";
 import { resolveSpeciesFeatureOutputs } from "./speciesFeatureResolver";
@@ -46,6 +47,10 @@ const classes = getClasses();
 const subclasses = getSubclasses();
 const backgrounds = getBackgrounds();
 const classFeatures = getClassFeatures();
+const tools = getTools();
+const toolNameById = new Map(
+  tools.map((tool) => [tool.id.trim().toLowerCase(), tool.name] as const)
+);
 
 
 function buildSpellNameMap(raw: string): Record<string, string> {
@@ -204,6 +209,11 @@ function normalizeStringArray(value: unknown): string[] {
   }
 
   return [];
+}
+
+function toToolDisplayName(value: string): string {
+  const normalized = value.trim().toLowerCase();
+  return toolNameById.get(normalized) ?? value;
 }
 
 function applyClassProficienciesToSheet(sheet: ResolvedCharacterSheet, draft: CharacterDraft) {
@@ -1617,6 +1627,8 @@ export function resolveCharacterSheet(
   applyInitiativeToSheet(sheet);
   applyPassivePerceptionToSheet(sheet);
   applyPrimarySpeedToSheet(sheet);
+
+  sheet.proficiencies.tools = sheet.proficiencies.tools.map(toToolDisplayName);
 
   return sheet;
 }

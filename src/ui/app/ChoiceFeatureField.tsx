@@ -17,6 +17,37 @@ type Props = {
   setHoverDescription: (value: string) => void;
 };
 
+export function updateFeatureSelections({
+  previousSelections,
+  isSingleChoice,
+  nextValue,
+  count,
+}: {
+  previousSelections: string[];
+  isSingleChoice: boolean;
+  nextValue: string | null;
+  count: number;
+}): string[] {
+  if (isSingleChoice) {
+    return nextValue ? [nextValue] : [];
+  }
+
+  if (!nextValue) {
+    return previousSelections;
+  }
+
+  if (previousSelections.includes(nextValue)) {
+    return previousSelections.filter((value) => value !== nextValue);
+  }
+
+  const nextSelections = [...previousSelections, nextValue];
+  if (count > 0) {
+    return nextSelections.slice(0, count);
+  }
+
+  return nextSelections;
+}
+
 export default function ChoiceFeatureField({
   feature,
   draft,
